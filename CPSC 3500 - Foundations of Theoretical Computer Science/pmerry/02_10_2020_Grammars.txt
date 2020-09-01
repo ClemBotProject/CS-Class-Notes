@@ -1,0 +1,52 @@
+02_10_2020
+	
+Context-Free Grammars
+	example rules
+		S-> 0S11
+		S -> epsilon
+
+	These are called replacement rules - follow them in any order you like 
+	you start with S
+		use the first rule to get the string 0S11 (you could use it again to get 00S1111)
+			when S becomes the empty string
+				S = 001111
+
+	
+	There are certain strings you can and cannot produce from the example rules above
+		the major question is what langauge does the grammar produce 
+		
+	The above rules make it such that you have some number of 0s followed by double that number of 1s
+		thus the rules would be written as
+
+			(0^n)(1^2n)
+
+
+	Big Idea - dont sweat the edge cases too much, so whether or not the n runs from 0-infinity or 1-infinity isnt pertinent
+
+	
+
+	Some definitions 
+		For the grammars
+
+		Variable - some substitutive quantity that can be written by a variable name, cannot exist in the final string
+		Terminals - these are analagous to the alphabet
+		productions/rules - these are the cases to follow on construction
+		Langauge of the Grammar - all strings of terminals the grammar may produce from the start variable
+		
+
+
+	Example
+
+	S-> 0T | 1S | (epsilon)
+
+	T -> 1T | 0S
+
+	with start variable S
+
+	Rather than putting a whole list for a productions, you can or them together with a single pipe
+		(IE the expansion for T's productions would be 
+			T -> 1T
+			T -> 0S
+		are both separate productions)
+
+				

@@ -1,0 +1,45 @@
+CPSC 1020 1/11/2019
+
+Textbook C++ Early Objects 
+	E Text Rental - $35
+	Book Is required
+	
+	T. Gaddis, J. Walters, and G. Muganda, C++ Early Objects, 9th edition, Pearson,
+	 available in various formats, including a $35 etext rental for 180 days.
+	Print ISBN: 9780134400242, 0134400240
+	eText ISBN: 9780134379371, 0134379373
+
+	Access code may not be required (buy used)
+
+
+Do all Programming assignments on the TITAN servers
+	Graded on the test/run performance on those servers
+
+Class and Labs will use Mimir
+
+
+Areas of Memory, and Types of Variables and Scope
+
+
+
+C has
+	Built-in data types (char, int, float, double)
+	automatic coercion of built-in data types (it forces to data type AFTER calculation)
+	bitwise logic and shift operations (& | ~ ^ >> <<)
+	single and multi-dimensional arrays 0-origin indexing
+	strings formed by array of characters null byte (0) as termination
+	dynamically allocated memory provided by library functions (e.g., malloc())
+
+	simpler scope than earlier languages
+		no non-local data since function definitions cannot be nested 
+		functions can be in separate source files, but can share global variables
+
+	Read the rest on Canvas
+
+ we use compiler
+
+g++ instead of gcc
+	-Wall works the same
+
+
+	

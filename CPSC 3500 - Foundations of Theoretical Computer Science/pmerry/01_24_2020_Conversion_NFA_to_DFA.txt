@@ -1,0 +1,22 @@
+01_24_2020
+
+Kleene's Theorem
+	Recall
+		All languages have a
+			DFA	- deterministic finite automaton
+			NFA	- nondeterministic finite automaton
+ 			and an RE
+
+
+Convertingt NFA to DFA
+	in simulation of NFA, we need only remember the set of states it could be in
+
+	The finite automaton uses their state as memory
+		therefore you build a finite automoton that remembers a set of states
+
+	
+	You build the table in the handout
+		then any states in the DFA that could possibly end 
+		up in your NFA's accept states will be an accept state
+
+ 	

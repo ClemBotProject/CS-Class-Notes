@@ -1,0 +1,47 @@
+02_03_2020
+
+Recall: Distinguishability
+	Strings x & y are distinguishable with respect to language L if 
+		there exists a string z such that exactly one of xz, yz are in L.
+
+	Otherwise the strings x and y are indistinguishable
+
+	
+
+
+	Example: L is set of all binary strings with exactly 2 0's 
+		
+
+	Any deterministic FA for a langauge L has to have at least four states 
+		Note this is "any DFA must have n states" is dependent on the criteria of the langauge described by the DA 
+
+
+
+Example: Give 3 distinguishable and 3 indistinguishable for 
+	1) odd 0s and odd 1s
+		Dist:
+			empty string
+			0
+			1
+		InDist: (simply write down a string and pick others that behave the same)
+			empty string
+			0011
+			11
+	2) palindromes
+		Dist:
+			empty string
+			0
+			1
+		Indist:
+			Every pair of strings are distinguishable (may be false)
+	3) ends in a 0 
+		Dist:
+			0
+			1
+			
+		Indist:
+			00
+			000
+			0000
+
+

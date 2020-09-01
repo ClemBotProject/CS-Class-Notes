@@ -1,0 +1,98 @@
+Motivation for threads 
+	Oprating systems need to be able to handle multiple things at the same time
+		IE process execution, interrupts, background tasks, maintenance 
+
+	Threads are an abstraction to run processes simultaneously
+
+	Using multiple threads increases CPU throughput but also makes it more complex 
+
+	A thread is a single execution sequence that represents a sepearately schedulable task
+		Single execution sequence: familiar programming model - IE processes
+		Seperately schedulable: OS can run or suspend a thread at any time
+
+	Protection is an orthogonal concept
+		can have one or many threads per protection domain
+
+	Treads are lightweight than processes - it uses less of a specific resourse (IE memory 
+		a process consists of 1+ threads
+		threads in a process share heap, text, and global data
+		threads in a process can have their own stacks 
+
+
+	In parrallel programming involving shared objects, threads are more efficient that processes
+		cheaper to create and destroy
+		faster to switch between threads
+		communicate through shared memory in a single process
+
+
+
+	RECALL: when you schedule a process you must save
+		program counter
+		stack pointer 
+		
+	When you multithread, it takes less time to switch threads because these things like PC or SP are already in memory
+
+
+	Thread abstraction
+		infinite number of processors
+		Threads execute with variable speed
+			progs must be designed to work with any schedule
+			otherwise false assumptions can lead to incorrect results 
+
+	The reason there used to be single core CPU
+		they were able to emulate multithreading by running programs while others are waiting
+
+
+	The RISC condition
+		
+
+	Possible Exections
+	1	-----
+	2	-----
+	3	-----
+	OR
+	1	-----
+	2	     -----
+	3		  -----
+	OR
+	1	- - - - -
+	2	-  ----
+	3	-----
+
+	Thread operations
+		Thread_create(thread, func, args)
+			creates a new thread to run func(args)
+			func is a function pointer
+			for more than one arg, you may need to use a struct 
+		thread_yeild()
+			relinquish processor voluntarily
+		thread_join(thread)
+			in parent, wait for forked thread to exit, then return
+		thread_exit(return_value)
+			quit a thread and clean up, wake up joiner if any
+
+
+	Thread context switch
+
+	Voluntary
+		thread_yeild()
+		thread_join() - if child is not done yet
+
+	Involuntary (preemption)
+		interrupt or exception
+		some other thread holds higher priority
+
+
+
+	Procedure call/return
+		the path of execution may go main -> called function -> main
+		single path of execution
+		caller resumes execution on return
+
+	Thread fork/join
+		the main and the called function will execute concurrently
+		parrallel execution
+		exit is immediate
+		join will wait for exit if necessary 
+	
+	

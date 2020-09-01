@@ -1,0 +1,36 @@
+CPSC 1020 - Feb 20, 2019
+
+Classes - Basis of object oriented code
+	- Idea that different objects get instantiated from a template
+	- Classes allow the creation of interfaces 
+		- Can have constructors and destructors (does what it sounds like they do)
+
+	- ABSTRACT DATA TYPE - a data type that specifies the values a data type can hold and operations that can be performed, without specifying how the data type is implemented 
+	- Object - member data/attributes (state) or member functions/methods/operations (behavior) 
+	- Public - data can be accessy by anything
+	- Private - only fxns in the class can manipulate these 
+	
+	- CLASS - a "blueprint" for object creation (DEFINING != instantiating)
+
+~~~~~~~~~~~~~~~~~~~CLASS SYNTAX~~~~~~~~~~~~~~~~~~~~~~
+~						    ~
+~		class className			    ~		
+~		{				    ~
+~			declaration;		    ~
+~			declaration;		    ~
+~		}; <- NOTE THE SEMICOLON	    ~
+~						    ~
+~						    ~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+	INVARIANT - A condition that will be true for the lifetime of the object
+			(IE not allowing a value to go negative, value stays between 0-10, etc)
+
+			In the "Rectangle" class example from the book (program 7-3)
+				the invariant is that length and width are greater than or equal to 0
+
+
+	INFORMATION HIDING - reveal as little as possible about the modules implementation. Hiding the decisions most likely to change will limit the impact of those changes
+		- Big reason to ap 

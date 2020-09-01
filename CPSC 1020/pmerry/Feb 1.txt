@@ -1,0 +1,30 @@
+CPSC 1020 2/1/2019
+
+KNOW FUNCTION POINTERS
+
+SAVE VERSIONS OF THE CODE YOU EDIT
+
+Valgrind - Use it to check for memory leaks
+ 		THE WEBSITE HAS A HANDBOOK
+	
+
+Program Development.PDF
+	- Look at it to see command line program preparation tools
+		- gui toolkits like GTK+ and Qt
+	
+	- beautifiers like indent
+	- Portability advice is given through "lint"
+	- Makefiles keep versions updated and easy to compile
+
+Version Control - Gives ability to roll back to a previous versions
+	- prevents people from editing code simultaneously
+	- Sometimes requires a changelog
+
+Variable names are important
+	- Be descriptive and dont abbreviate
+	- Dont "camel case"
+		NotThisItIsWrong - That is camel case/pascal case
+		This_Is_Right	 - This is correct
+
+	- constants start with lowercase K
+	

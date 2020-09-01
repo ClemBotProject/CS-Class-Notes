@@ -1,0 +1,305 @@
+CPSC 4620 Notes
+
+
+
+
+Chpt 3 pt 1
+
+Entity Relationship 
+
+EER - Enhanced entity relationship
+
+UML class diagrams are common but not applicable
+
+Entities Vs Attributes
+    An entity is the basic concept for a thing. IE an  employee is an entitu
+
+    An Attribute is something to describe an entity - like a SSN or address
+
+All attributes have a value set/data type associated with it
+    IE int, string, data, enumerated
+
+Types of attributes
+    Simple - one per entity
+    Composie - composed of several components
+        Address, apt#, house, street, etc
+
+    Multi Valued - Can you assign multiple values to one entity at the same time? 
+    Multiple allowable values for an attribute. IE color of a car or prevdegrees of a 
+		student. You may have a BS in comp sci and eng, but also a masters in Medicine
+
+	"nested composite values" - IE where a value has sub-values that themselves 
+		You have a policy
+			the policy has the policy number and dependents
+				these dependents have a name, address, DoB, etc
+
+
+In gen, composite or multi value attributes can be nested arbitrarily to any number of levels
+	but tis rare
+
+IE prevdegrees of a student is a composite, multi valued attribute denoted by
+	{PreviousDegrees (college, year, degree, field)}
+
+	At a certain level of nesting, it may be necessary to have a PreviousDegrees Entity, not attribute
+
+
+
+EX of composite attribute
+
+		     Address
+			|
+		+-------+-------+-------+-------+
+		|		|	|	|
+	     Street	      City     State	ZIP
+		addr
+		|
+		+-------+-------+
+		|	|	|
+	    Number    Street   APT_number
+
+
+
+Attributes of an entity can be derived 
+	Attributes that we may want to know, but may not have to store. It is easily calculated
+		How to identify?
+			Does it frequently change?
+				Yes - Make it a calculated/derived attribute and calculate it on access to that data
+				No  - Calculate it once and store it
+
+			IE Age -
+				We may already store DOB, and the current date is an arbitrary thing to find. We will just do a little math, Curr_Date - DOB = age
+
+			What if age isnt a calculated attribute
+				Every day at midnight, the database must look for all employees with the birthday of today, and then update their age. For a large DB, this gets time consuming and may not be that useful
+
+	Notation - derived attributes have an oval with a dotted line around it
+
+
+Entity Types
+	Entities with the same basic attributes are grouped or typed into an entity type
+		IE the entity type employee and Project
+
+
+	Key Attribute
+		An attribute of an entity type for which each entity must have a unqie value
+		No 2 employees may share a SSN
+		You can ALWAYS add a unique ID for an entity to serve as a key
+
+	Composite Key attributes
+		You may have a Vehicle Tag (license plate)
+			- The Tag may look like {Tag(Number, State)}
+				The number between any 2 License plates may be shared, as can the state.
+				No Tag entity will share the same number and state though
+
+		You may also have multiple key attributes 
+			IE you have the TAG (mentioned above)
+				and you have a VIN number (vehicle identification number... {number?})
+
+	UNDERLINE THE KEY ATTRIBUTES
+
+
+	Keys can get complicated,
+		may need many attributes that arent really a composte attribute
+			IE name, DoB, and address may combine to form a key attribute
+
+		You can assign arbitrary numbers as a key attribute
+			very common, takes slightly more memory (like 1 byte, dont sweat it)
+
+Entity Set
+	Each type will have a collection of entities stored in the DB
+		Called entity set or entity collection
+
+	EAch simple attribute is associated with a value set 
+		Lastname has a value which is a character string of up to 15 chars
+		Date has a calue consisting of MMDDYYYY where MM, DD, and YYYY are all integers
+
+	Value set
+		specifies the set of vals associated with an attribute
+
+
+ER DIAGRAMS
+	in an ER diagram
+		An entity type is displayed in a rectangle box
+		Attributes branch from an entity, and are in ovals
+		Components of composite attributes are connected to oval representing the composite attribute
+		Each Key attribute is underlined
+		Multivalue Attributes get double ovals
+
+		SLide For full Entity Relationship diagram Notation - SLIDE 3-19
+
+
+CHPT 3 PART 2
+	REfine initial design by intoducing relationships
+		
+	Relationship
+		Relates 2 or more distinct entites with a specific meaning
+		Relationships of the same type are grouped/typed into a relationship type. 
+			EX an EMPLOYEE WORKS ON a PROJECT
+		The degree oif relationship type is the number of participating entity types
+			Both Manages and Works_On are binary relationship
+
+	EG.
+		Entity 1 	WORKS_FOR    	Department 1
+		Employee 2 	MANAGES		Employee 1
+		Entity	 	Relationship 	Entity
+
+	Relationship type
+		is the schema description of a relationship
+		IDentifgies the relationshops and participating entites
+		Also idxentifies certain relationship constraints
+	
+		A diamond shaped box is used to show a relationship
+
+		A relationship type is not shown with an arrow, the name should be readable from left to right and top to bottom
+
+		2 of the same entity can be related to each other, such as an employee and manager relatinship
+
+		Relationship type naming
+			Make it MEANINGFUL
+			make it useful
+			Make it descriptive of the two entities being related
+				IE WORKS_FOR seems to imply a person working for a project, business, or supervisor. We can glean some meaning just from the relationship
+				To make this easier, think of ENTITY - VERBS - ENTITY
+
+		Slide 3 - 33 shows a ER diagram with relationships shown
+
+		You can have 2 entities, say entity 1 and 2 have multiple relationships. IE 1 may WORK FOR 2, but 1 can also MANAGE 2
+			 every employee MUST work for some department (denote with a double line between employee = RELATION = department) 
+			not every employee must MANAGE a department (denote an "optional" relationship with a single line, EMPLOYEE - MANAGES = Department)
+			
+
+		
+RELATIONSHIP CONSTRIANTS
+	Cardinality ratio 
+		defines MAX PARTICIPATION
+			one to one - only one employee can be manager of a (at most) one dept AND one department may be managed by only ONE employee (MUST GO BOTH WAYS)
+			one to many/many to one - an employee belongs to only one department, a department can have many employees belonging to ONLY that department .
+			Many To Many - An employee may be on M projects, and a project can have N employees 
+
+	Existence dependency constraint 
+		specifies MINIMUM participation  
+			zero - optional paricipation, not existence dependent
+				Every entity in the type may not have the relationship - MANAGES is an optional relationship  - (denote a must have with a single line)
+			one or more - mandatory participation, existence dependent
+				Every Department MUST have a manager, so that side of the relationship is mandatory. (denote with a double line) 
+					
+
+					employee = WORKS FOR = department   -> every employee must have a department, for a department to exist you MUST have an employee (MANDATORY PARTICIPATION)
+					Department = MANAGED_By - Employee  -> every department has a manager, not every employee is a manager though. (OPTIONAL PARTICIPATION)
+
+		How do we denote 1:1, 1:N, N:1, or M:N?
+			shown by placing appropriate numbers on the edges of relationship diagram
+
+			IE ( this was a write up by me, not directly from the notes)
+					   A*			B*
+				ENTITY	 -------- VERBS on ------- ENTITY
+					A* = How many of these entities are DOING the relationship to the other SPECIFIC entity?
+						This is different than "how many employees are managers", this is "How many employees manage X department
+					B* = How many of these entities are having the relationship DONE TO IT by a single entity?
+						Not "how many employees work on multiple projects" but "how many projects does any single employee work on"
+				
+
+					    1		   	1	
+				Employee  ------- MANAGES  ======= Department
+					    N			M
+				Employees ------- WORKS_ON ======= Projects
+					   N			1
+				Employees ======= WORKS_FOR ====== Department
+					   1			N
+				Company   ======= EMPLOYS ========= Employee
+
+	
+	Recursiuve Relationship Type
+		Relatying two entities of the same type IN DISTINCT ROLES
+			IE a supervisor and an employee's relationship - both are employees, one just has an extra relationship to OTHER employees
+				IE the related entity is the same as the one forming the relationship
+					an employee SUPERVISES an employee
+
+		Both participations are same entity in different roles 
+ 
+		In  a recurisve relationship, you may denote the Relating (IE the supervisor) entity with a 1, and the related entity (supervisee) with a 2
+			in order to distinguish the nature of a relationship (this is not a commonly used practice)
+
+
+Weak Entity Types
+	An entity WITHOUT a key attribute which is identification dependent on another entity type
+		EG we may have multiple indistinct dependents, to tell them apart we look at the key attribute of the entity it is related to. 
+			DEPENDENT is a "weak entity" type
+	A weak entity MUST participate in an identifying relationship type with an owner or identifyting entity type.
+		 
+	Entities are identified by the combination of
+		a partial key of the weak entity type
+			 - EG the name of the dependent
+			 - The partial key gets a dashed underline
+		The particular entity they are related to in the identifying relationship type
+
+	Weak entities get a double rectange.
+	Weak entites relationship has a double diamond
+
+	Weak entities are a PAIN
+		get around it by adding and ID field - this is more common as memory is cheap
+		PLIS RECCOMENDS THIS
+
+	 
+Attributes OF a relationship type
+	A relationship can have attributes
+		IE hours per week may be an attribute of WORKS_ON
+	The value for each relationship instance describes the number of houes worked per week that an employee works on a project
+		The value of 'HoursPerWeek' is dependent on the particular employee and project combo we are viewing
+	Most relationship attributes are used with M:N relationships
+		Think about a 1:N relationship - you can transfer the relationship entity to the N side of the relationship
+
+Alt min/max notation for relationship structural constraints
+	Slide 3-50 (Im not going to record it all, its a lot) 
+	Slide 3-53
+	
+
+	
+Relationships of a Higher Degree
+	2nd degree relationship = binary
+	3rd = teranary
+	In general, an N-ary relation is NOT equivalent to n binary realtionships
+		a ternary relationship requires all 3 entites in order to exist
+	Constraints get harder to specify for higher degree relationships (n>2) than for binary relationships 
+
+	EX ternary relationship 
+		Slide 3-57 (timestamp 37:20 -  40:45, CHPT 3 PArt 2)
+
+	IF a particular bin relationship can be derived from a higher degree relationship AT ALL TIMES
+		then it is redundant
+
+		EG TAUGHT during bin relationship can be derived from teh ternary relationship OFFERS
+			this is based on definition of relationship
+		Timestamp 40:50-42:20, slide 3-60 CHPT3 PT 2
+
+	Youll still use 1,M,N notation on higher degree relationships 
+
+		
+
+Question - Should All entities have at least 1 key attribute? What if we have 2 customers who 
+	coincedentally share a name, birthday, and live together. How would we distinguish them
+	if we did NOT have a key attribute for each of them? 
+
+Answer - YES, all entities should attempt to have a key attribute. There are weak entities, but they are an exception
+
+
+
+Question - Is a 'user requirements' listing appropriate to accompany a ER diagram?
+		IE I may list things such as
+			As an ENTITY, I may not RELATIONSHIP a ENTITY temporarily. This allows me EXCEPTION TO RELATIONSHIP
+			
+		EG
+			As an employee, I may not work for a department temporarily. This allows me to go on a vacation. 
+
+Question - Are relationships two way accessible?
+		IE (assuming the employee has a dependent) could I always query for an employees dependents?
+		Conversely, can I always query for a dependents related employee?
+	
+Question - When we are doing an many to many relationship, and our ER diagram has many mant-to-many relationships
+		is it clearer to denote these with a distinct letter? Is there a standard/common practice?
+		EG
+			Employee (1) works on (N) projects
+			Department (1) employs (M) employees
+			
+			Here, I would use N and M to denote these are abstract values AND are not necessarily going to be the
+			same, whereas if I had used N in both cases, I may expect that both are identical. 

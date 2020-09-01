@@ -1,0 +1,438 @@
+Databases Chpt 10
+
+External program interfacing w db
+
+Database applications
+	Have a 'Host Language'
+		Java, C/C++/C#, COBOL, or others
+	Data Sublang
+		SQL
+
+	SQL Standards
+		continuously evolving
+		DBMS vendors may deviate from standards
+
+Interactive interface
+	SQL commands typed into a monitor
+
+	Application level progs or database applications 
+		used as caned transactions by the end users access to the DB
+		May have a web interface
+
+Embedding DB commands in a general purpose programmign lang
+	DB statements identified by a specific prefix
+	Precompiler/preprocessor scans the source program code
+		Identify database statements and extract them for processing by DBMS
+	Called embedded SQL
+		the sql is in the same file as the DB application code
+
+Use a library of DB functions
+	Lib of funcs available to the host prog lang
+	Application programming interface
+
+
+Impedance mismatch
+	DB model and Programming model are different
+	BINDING for each host prog lang specifies for each attr type the compatible programming lang types
+
+Typical seq of interaction in DB programming
+	Open a connection to DB server
+	Interact w DB by submitting queries, updates and other DB commands
+	Terminate or close connection to DB
+
+EmbeddedsQL 
+	C language
+SQLj
+	Java version of embedded sql
+
+Retrieving single tuples w embedded SQL
+	EXEC SQL
+		Prefix
+		Preprocessor separates embedded SQL from the host lang
+		Terminated by a matching END-EXEC
+			or a semicolon
+		Shared variables
+			Used in both the C prog and embedded SQL statements
+		Prefixed by a colon in SQL statement
+
+Slide 10-11 has examples of embedded sql 
+
+
+Connecting to a DB in embedded SQL
+	CONNECT TO <server name> AS  <connection name>
+	AUTHORIZATION <user account name and password>;
+	
+Change connection
+	SET CONNECTION <connection name>;
+Terminate connection
+	DISCONNECT <connection name>;
+
+SQLCODE and SQLSTATE communication variables
+	used by DBMS to communicate exception or error conditions
+SQLCODE variable
+	0 = statement executed successfully
+	100 = no more data available in query result
+	less than 0 = some error occured 
+
+SQLSTATE 
+	string of 5 characters
+	'00000' = no error or exception
+	Other values indicate errors or exceptions
+	For EX, '02000' means no more data when using SQLSTATE (Like 100 in SQLCODE)
+
+
+Slide 10-15 has some example C code and ebedded sql
+	Important to note on this example is 
+		line 5, shared variables, INTO command
+		line 3-8, embedded sql commands
+	Slide 10-17 has some useful examples as well
+		Pay attention to line 2 
+			SELECT 	Dnumber INTO :dnumber
+			FROM 	DEPARTMENT 
+			WHERE 	Dname = dname
+		Note the same sql structure, but the into statement naming the C variable we wish to place into, :dnumber
+		
+Retrieving multiple rows with embedded SQL with Cursors
+	Cursor
+		A cursor simply points to a sinlge tuple from the result of a query
+	OPEN CURSOR command
+		Fetches the query result AND sets cursor to a position before first row in the result
+		Becomes the current row for cursor
+	FETCH commands
+		Moves cursor to next row in result of a query 
+
+	FOR UPDATE OF 
+		List names of any attr that will be updated by the prog
+	FETCH orientation 
+		Added using value NEXT, PRIOR, FIRST, LAST, ABSOLUTE i, and RELATIVE i
+			Absolute I believe is a strict indexing of the tuples
+			Relative I believe is indexing with the consideration of current cursor position of 0
+
+Dynamic SQL
+	execute a different SQL query or updates dynamically at runtime
+	Dynamic update
+	Dynamic query
+
+	Example usage slide 10-20
+		NOTE THE NOTE he provides on the following slide
+
+SQLJ
+	Standards adopted by several vendors for embedding SQL in java
+	Import several class libraries
+	Default context
+	Use exceptions for error handling
+		SQLException is used to return errors or exception conditions 
+
+	You have to import a LOT
+		import java.sql.*;
+		import java.io.*
+		import sqlj.runtime.*
+		import sqlj.runtime.ref.*
+		import oracle.sqlj.runtime.*
+		
+	Instead of the C level commands CONNECT TO
+		DefaultContext cntxt = oracle.getConnection("<url name>", "<user name>", "<password>", true);
+		DefaultContext.setDefaultContext(cntxt) 
+
+	Slide 10-24 shows the use of java exceptions w
+		Try{...}catch (SQLException se){...}
+
+	Shared variables in SQLJ
+		same as C, use a colon on them
+			IE 
+				...
+				FROM EMPLOYEE Where SSN = :ssn
+	Retrieving multiple tuples in SQLJ using iterators
+		Iterator
+			object associated w a collection (set or multiset) of records in a query result
+		Named Iterator
+			Associated w a query result by lsiting attr names and types in a query result
+		Positional Iterator
+			Lists only arrt types in query result
+
+Embedded SQL is more common in C
+	C is not OOP, so we cant make classes to work w the db
+	Can make a library file with available functions though
+	
+	Java is OOP
+	So we can use the Object oriented paradigms to create a library specifically for accessing DBs
+		Already done for us with JDBC	(java data base connection)
+		Available for other langs as ODBC (open data base connection)
+
+
+
+
+JDBC: SQL func calls for java programming 
+	JDBC
+		JAva function libraries
+	Single java prog can connect to several different DBs
+	
+
+	Connection Object
+	Statement object
+		has 2 subclassses
+			PreparedStatement 
+			CallableStatement
+	Question Mark symbol
+		represents a statement parameter
+		Determined at runtime
+	ResultSet object
+		Hold the result of a query
+
+	Using JDBC
+		- Import java.sql.* among other libs
+		- Load your driver
+		- Create a conncetcion
+		- Run your queries
+			= Prepare your statement
+			= Bind your variables
+			= Execute Query
+			= Parse ResultSet
+				+ Load into objects
+				+ Handle Nulls
+		- Close your connection 
+
+
+
+Step - Loading your Driver
+	JDBC can work with any SQL DBMS impl
+		Needs to know what implementation to use	
+		you need to tell driver what to load, based on the DBMS you use
+		Each DBMS provides its own JDBS driver
+	Oracle
+		Class.forNname("oracle.jdbc.driver.OracleDriver")
+	MySQL
+		Class.forName("com.mysql.jdbc.Driver")
+
+
+	Done in a try catch in case the driver cannot be found
+	after this, it doesnt matter which DBMS you use, they all use the same interface
+
+
+Step - Creating your connection
+	JDBC libraries provide a Connection Class that handles your connection to your database
+		Declare an object of type connection
+			Connection conn;
+			Common to make it private and static for security
+
+	We dont call a connection constructor
+		Dependent on the DBMS being used
+		We call 
+			DriverManager.getConnection(String db, String user, String pw); //note pw = password
+			This replaces the constructor call
+	
+		Conn = DriverManager.getConnection(db, user, pw);
+			DB - database address
+				format
+					jdbc:mysql://<machine>:<port>/database_name>
+						<machine> 	= mysql1.cs.clemson.edu
+						<port>		= 3306
+							default mysql port, often changed for security though
+						<database_name> = name given when created 
+					User - your username
+					Password - password set for the DB, not for mysql in general
+
+Step - Run Query
+	Statement interface provided in the JDBC library
+		statements are the queries we want to run
+		we create a string with our SQL aquery and wrap it in our statement object
+	Two extension PreparedStatement and CallableStatement
+		PreparedStatements use parameter binding, which is more secure than creating a query string ourselves
+			creates a separation between query and the data
+		CallableStatements are for running Stored Procedures, not queries
+	Statements no instantiated trhough a constructor
+		Must be created through the Connection Object
+
+	Slide 8-36, runqueries statements example
+
+		
+	
+	PreparedStatements
+		PreparedStatements create the statement with the query and without the data, then bind the data to the query
+		Use '?' to show places in the query where data will be placed
+		Use clearParameters() to remove any data from the PreparedStatement
+			Done for safety and sanity
+			Safety bc we know what data comes from a user
+			Use it to make sure you never are preserving junk data
+		Use setString(in pos, String data) to replace your ? with data
+			Pos says which ? to replace the data?
+			indexes from 1
+
+
+		Prepared statement slide on 8-38
+
+	Once statements are ready, you can run the query using executeQuery();
+		returns object of type REsultSet
+	If using Statement
+		Need to pass in the string w the quert as a parm
+		ResultSet rset = stmt.executeQuery(Query);
+	If using PreparedStatementt
+	Preparedstatement already has the query and data so no parms are necessary
+		ResultSet rSet = stmt.executeQuery();
+
+	ResultSet
+		is another class provided by JDBC library to help us handle the impedance mismatch
+			Java representation of a table that a SQL statement returns
+			Each row is a tuple
+			Each col is an attribute 
+
+	Boolean ResultSet.next() gets the next tuple
+		Initially points to BEFORE the first result, takes one call to get to the first row
+
+		Even if there is only one tuple in ResultSet you need to call it to get the first result
+		Returns false when there are no more tuples in the result
+			Can use in a while statement to loop through the result set
+
+	Get values from REsultSet
+		How can you get individual attr vals
+		String ResultSet.getString(int columnIdx)
+			gets value in column columnIdx
+			Indexes from 1 again
+
+	String REsultSet.getString(String fieldname)
+		gets value in col with the attribute name matching the passed string 
+
+	there is also 
+		getInt(), getDouble(), etc
+	Why not just 
+		Integer.parseInt(rset.getString(1));?
+			cannot handle a null value	
+			rset.getInt(1) can handle a null 
+
+	Handling null Values
+		we need to handle NULL values in a way that is meaningful
+
+		boolean ResultSet.wasNull();
+		Returns true if the last value returned in a get call was a NULL value 
+
+	
+Step - Closing Your connection
+	Closing the connection is easy
+		conn.close();
+	Why not leave it open for other Queries?
+		security - someone could hijack the connection
+		You dont want to assume a connection is open
+			if its not, youll get an exception
+			save that for network connection errors
+	Best practice 
+		for each specific task i nteh DB open the connection at the beginning and close as soon as youre done w the db
+		
+	Just as you open the connection in the catch block
+		close in the catch block as well - IN EVERY CATCH BLOCK
+
+	
+
+Non Queries
+	Inserts and updates
+	you query string just needs to be an insert or update command
+	and you can call executeUpdate() isntead of executeQuery() 
+	everything else works the same
+	
+
+
+BEST PRACTICES
+	Remember seperations of concerns
+		we hae one utility calss that interacts with the DB
+			easier to adapt to change
+			easier to enforce security protocols
+	MAke its methods static
+		methods return data in the objects your prog uses
+	Other classes call the utility class methods
+		Method signatures wont change 
+
+
+JDBC and ODBC is similar
+	going between isnt hard
+	
+Database Stored Procedures And SQL/PSM
+	Stored PRocedures
+		Prog modules stored by DBMS at the DB server
+		can be functions or procedures
+	SQL/PSM (Persistent stored modules)
+		extensiosn to SQL
+		In general purpose programming constructs in SQL
+
+
+	PSM 
+		stored by DBMS itself
+	Useful
+		when database program is needed by several applications
+		reduces data transfer and communication cost between the client and server in certain situations
+		to enhance modeling power provided by views 
+	
+	Syntax to declare a stored procedure on slide 10-39
+		
+	Each parameter has a parm type
+		Parameter type - One of the SQL data types
+		Parameter mode - IN, OUT, or INOUT
+
+	Calling a stored procedure 
+		CALL <procedure or fxn name> (<arg list>);
+
+
+
+Conditional Branching Statement
+	IF <condition> THEN <statement list> 
+	ELSEIF <condition> THEN <statement list>
+	...
+	ELSEIF <condition> THEN <statement list>
+	ELSE <statment list> 
+	END IF;
+
+
+
+Constructs for looping
+	WHILE <condition> DO
+		<statement list>
+	END WHILE;
+	
+	REPEAT			//think of a do... while loop
+		<statement list>
+	UNTIL <condition>
+	END REPEAT;
+
+	FOR <loopname> AS <cursor name> CURSOR FOR <query> DO <statement list> 
+	END FOR;
+
+
+Callable Statements
+	The CallableStatements Interface extends the preparedStatements interface
+		made specifcially to call stored procedures directly
+		Uses parameter binding
+	Instantiated with Connection.prepareCall(String call)
+		call format "{call <procedurename>(?,?, ..., ?
+	Uses setString(int pos, String data) for parameter binding
+	run with CallableStatement.execute();
+
+	With output
+		Just like how you used setString to bind the inpue, you uyse registerOutParameter(int pos, <datatype>) to bind our output
+	Datatypes exist in java.sql.types
+	Then we have to our getString(int pos) methods to get the output value
+
+	
+Web programming and Databases
+	What about connecting to databases via a web interface
+		lots of technologies
+		changes frequently
+	Most have either embedded SQL or a library to make database calls
+	
+	Where is the code running
+		on a client machine (javascript)
+			the client can see your SQL statements
+		On a server
+			can be a reg OOP lang that is called by websited
+				Using JDBC or ODBC
+
+
+	Comparing the two approaches
+		Embedded SQL 
+			Query text checked for syntax errors and validated against DB at compile time
+		For complex apps where queries have to be generated at runtime
+			Function call approach suits this more
+
+		Library of fxn calls
+			More flexibility
+			more complex programming
+			No checking of syntax at compile time 
+
+		

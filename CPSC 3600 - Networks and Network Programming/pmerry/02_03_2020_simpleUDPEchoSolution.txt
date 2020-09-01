@@ -1,0 +1,51 @@
+02_03_2020
+
+Office Hours - Remember theyre on thursday
+Test on Monday 2/10 ( a week from today )
+	Review files online
+
+He starts class showing us an example about how 'getaddrinfo" on google will produce multiple IPv4 addresses
+	This is because google has multiple servers it can use
+		How do you decide which to use?
+			simpleUDPEcho would pick the first produced
+
+	
+Host/dig -> similar to 'getaddrinfo'
+	IE 
+		host -t any <domain name>
+
+	
+
+getaddrinfo - a fairly new call, youll be likely to see the older version
+	"gethostbyname" -> This is tied to IPv4, does not produce IPv6 addresses
+		the reason we use getaddrinfo now is because of the interoperability between v4 or v6
+
+	
+One way delay time
+	Send the "send time" with the datagram
+	when recieving, subtract the send time from the time recieved
+	
+
+From the simpleUDPEchoSolution
+	The hardest part has to do with placing the sequence number and timestamp into the message
+	
+	From the POV of the client
+		Malloc 2 buffers (suppos 1k bytes)
+			Tx Buffer
+			Rx Buffer
+		while( loopflag ) 
+		{
+			obtain time stamp one( ts1 = gettimestampD())	//use high precision timestamps, IE use CLOCK_MONOTONIC_RAW
+			messagetime = getcurTime(myTimeVal)		//the mytimeval struct will be of type "timespec" -> which has a seconds and nanoseconds field
+			Update the header
+				this makes sure the first field is written to Tx buffer followed by the second field immediately after
+				Now the time stamp of sending is in the header of the packet
+			-sendto(addr, txbuff, messagesize)
+			-recvfrom(addr, rxbuff, messagesize)
+			obtain time stamp 2  (ts2 = gettimestampD())	//use high precision timestamps
+			RTTSample  = ts2 - ts1;
+		}
+
+	There are two values
+		txintptr = points to the top of txBuff
+			this allows us to treat the first few positions in the buffer as positions in an int array

@@ -1,0 +1,26 @@
+CPSC 1020 March 8 2019
+
+Initialization 
+
+int length = 12; //this works
+
+int length(12); //this works but looks like a fxn call
+
+int length{12}; //this works and is unambiguous
+
+
+Range based for loops
+	- DOES NOT GIVE ACCESS TO THE SUBSCRIPTS
+	
+	-to "pull out" the index, must use the classic for loop
+
+
+
+Array comparison
+	the == operator DOES NOT WORK
+		The variable names decay to ptrs, so the ptrs arent the same 
+
+Loop conditions are evaluated from LEFT TO RIGHT
+	In an AND statement - the loop stops at the first false
+	in an OR  statement - the loop stops at the first true
+

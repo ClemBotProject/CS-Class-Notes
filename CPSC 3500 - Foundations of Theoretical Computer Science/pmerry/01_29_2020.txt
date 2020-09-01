@@ -1,0 +1,46 @@
+CPSC 3500 
+1_29_2020
+
+Algorithmic Questions
+	Consider an algorithm with the input being a regular langauge R, some string W. 
+		By regular language we mean a language describable by a FA
+
+	Is W in R?
+		There does exist an algorithm
+		No matter how youre given the regular language, you must first convert it to a DFA
+			if you have an RE, go RE->NFA->DFA
+		then simulate/run the DFA on W
+
+	
+
+	Now suppose your input is a regular language R, and wish to output properties about the language
+		suppose the property we wish to answer is: Is the language empty?
+		
+		is the accept state reachable?
+			for NFA, check if any accept state is reachable from the start state
+				in 2120 terminology, this would be a breadth first/depth first search
+
+	
+	input: regular Language R, s
+	output: R = S
+		So it turns out to be true that the langauge will accept strings up to a certain length
+			you need only check strings up to that certain lenght
+
+		
+		Product Construction:
+			Input: two DFA's 
+			goal: run both DFA's simultaneously
+			task: build a new DFA that accepts their intersection of both languages
+				the DFA will then have each state remember a state from the first and a state from the second 
+
+				IE suppose the following DFA
+				M:
+					A -0-> B
+				N:
+					C -0-> D
+				-----------------
+				Product:
+					AC -0->BD
+
+			Therefore you can then create an accept state in the product DFA IFF all states in "product" state are accept states 
+	

@@ -1,0 +1,83 @@
+CPSC 1020 2/11/2019
+
+Study guide on canvas for test
+TEST ON 2/18
+
+REVIEW SESSION ON FRIDAY
+
+Vocab sections - matching section - code segment - short answer
+
+
+Enumerated data types - Data type created by programmer
+	IE in the following data type
+		enum Fruit {apple, grape, orange}
+			starts with 0-origin indexing
+			saves values as INTEGERS indexing by one from the origin
+	
+	May be able to perform normal integer operations
+	
+	very convenient in switch statements
+
+	Cant be used with input statements, such as cin
+
+	
+
+c - call by reference
+=================================
+void swap(int *a, int *b){
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+Normal swap statement with call by reference
+
+
+
+
+
+c++ - call by reference
+====================================
+void swap(int &a, int &b){
+	int temp = a;
+	a = b; 
+	b = temp;
+}
+
+-the ampersand notes these as REFERENCE VARIABLES
+	a reference variable is automatically dereferenced
+
+use void functions when you have an object you wish to change but not pass back
+
+
+
+
+Using files for data storage
+	By creating a file to write data to, it can be saved between runs of programs
+	Text File - contains test with letters, digits, and punctuation. Can be viewed w/ notepad
+
+	Binary file- contains 0 or one and not encoded as text. Cant be viewed with a text editor
+
+
+	Sequential access goes in order of the file
+	Random (direct) access will retrieve any data directly.
+
+
+	ifsteam -> means input file stream
+		inFile.open("inventory.dat"); <- makes it easy using the open member function
+	
+	same with
+		outFile.open("file.txt.");
+
+
+
+
+	Read/Write with the insertion/extraction operators
+
+	CLOSE YOUR FILES - can create memory leaks - kinda like memory allocation
+
+	when the stream extraction fails, this can be used to evaluate false on an EOF controlled loop
+
+	File handle - true when open successfully, false otherwise
+	
+	

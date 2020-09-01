@@ -1,0 +1,212 @@
+1_16_2020
+
+HW1 will be posted & due on Jan 21
+
+Reading:
+	XV6 Chpt 2
+	OSPP: 3.5-3.6
+	CPL 5.1-5.6 & 6.4
+
+Slack Channel
+	Material will be on there as well
+
+Setup the xv6 tools environment
+	Venue 1: Use one of the SOC computers (reccomended)
+		TA will set up the environment
+		Link to set up environment by oneself 
+		www.palmetto.clemson.edu/sw/cpsc3200/index.html
+
+	V2: install the tools on a VM
+	V3: Use the cssc3200-riscv (link on slides)
+
+
+
+
+
+
+Process
+	A program in execution with limited privilege 
+		Thread: an execution seq within process
+		Address space: memory region
+		Allocated Resource: physical mem, files, network connections 
+			the process can access
+
+	How is a process different from a program?
+		- a prog may have multiple processes
+		- A program requires storage resources whereas a process is the 
+			execution of a program
+		- Process has a state and progress over time
+		
+	A process has multiple parts
+		Text section containing the prog code
+		Current state: incl program counter (PC) and processor registers
+		Stack with temporary data
+			function parms, etc
+		Data section containing global variables
+
+	The OS creates, executes, terminates, schedules, and etc processes
+		Thus the OS needs lots of info to do all of this
+
+
+OS information about processes
+	Some commands for CLI
+		ps axu 		# all system processes
+		ps axjf 	# see a process tree
+		ps elf -u root 	#see threads of root user
+
+	use the manual page (>man ps)
+
+	use the /proc virtual file ssystem
+		a process info pseudo file system, no real files but has runtime system info
+
+		the directory/proc/PID contains all state info for a process
+
+		cat /proc/PId/maps	#mem layout of process
+		ls /proc/PID/fd		# file descriptors
+		cat /proc/21044/mounts	# file systems mounted
+
+
+	//we did an in class example to view user processes
+		using 
+			cd proc
+			ps aux | grep rge
+			//select the -bash process
+			//call the directory with the PID as the name
+			//you can then use map to see the address space
+				//it will include info about where stack is etc
+
+
+
+Back to processes
+	Fork: creates a child process
+		Consider the OS itself as a process that creates sub-processes
+	 exec: 	replacess current process image with new process image
+	 wait:	wait for child process to change state
+	_exit: 	terminate the CALLING process
+	 kill: 	send signal to a process or process group	
+	signal:	set a signal handler for a signal (later lecture)
+
+
+
+Process creation - fork()
+					Child process pid = 0	|
+	pid = fork()		|	pid = fork();		|	main()
+	if (pid == 0)		|	if(pid == 0)		|	{
+		exec(...)	|---->		exec(...)	|	...
+	else			|	else			|	}
+		wait(pid)	|		wait(pid)	|
+	------------------------+
+	|
+	|
+	|	//check this block against the slides
+	|	  parent process pid > 0	
+	->	|	pid = fork()		|
+		|	if(pid > 0)		|
+		|				|---> wait (blocks parent)
+		|				|	
+
+
+
+pid_t fork(void);
+	creates a new process by duplicating the calling process
+	
+	the new proces, referred to as the child, is an exact duplicateof the 
+		calling process, referred to as the parent, except the child
+		has its own unique PID
+
+	return value
+		on success: childs PID in the parent and 0 in the child
+
+		on failure: -1 to parent...
+		
+	child has:
+		unique/different PID
+		childs parent process id (PPID) is PID of parent
+		child doesnt inherit the memory locks, semaphore adjustments. resource utilizations, etc.
+	Child will NOT know its PID
+		the parent does know the childs PID
+
+Implementing UNIX fork (REMEMBER)
+	1 - create and initialize the process control block (PCB) in the kernel
+		I - PCB: data structure OS uses to contain info for process scheduling
+			Whats in PCB?
+				
+	2 - Create new address space
+	3- initialize address space with copy of ENTIRE contents of the address space of parent (IMPORTANT - EXACT COPY)
+		- Linux implements fork() using copy-on-write pages to reduce the 
+			penalty incurred by memory copy
+			Copy-on-write: dont immediately copy, copy when you need the information
+				IE data, instructions, 
+	4 - inherit the execution contect of the parent (any open files)
+		execution context: part of this is the program counter (PC)
+					additionaly, stack pointer
+			^ this is so if you wish to switch between kernel/normal, you may do so
+	5 - inform schedulerthat the new proceess is ready to run
+
+
+
+PCB (process control block)
+	The process scheduling state
+	process structuring info
+	interprocess communincation info
+	... (see the rest on the slides)
+
+
+
+Why does the fork() return twice?
+	once for child PID to parent
+	once for the child 
+	
+why does return value differ for parent and child?
+	it helps dilineate parent/child
+	the parent and child have their own address space
+
+could the fork() system call fail? if yes, for what reason?
+	Yes, because if any of the 5 steps above (header Implementing UNIX fork) fail, it would cause a fork fail.
+		Example: you run out of memory to store proccess informaiton
+			more answers on slides
+
+
+The exec() system call
+	the exec call replaces the calling processes mem with a new mem image loaded from file stored in file system. 
+
+	Differs from fork because
+		Fork duplicates
+		exec overrides current process
+
+	the file must have a particular format, which specifies the part of file holding instr, and start point
+	when exec succeeds, it doesnt return to the calling process
+
+
+Implementing exec()
+	1 - load the prog into current address space
+	2 - copy arguments into memory
+	3 - init hardware context to start execution at start 
+
+Questions
+	Does exec create a new process?
+		No, it doesnt create a new child process, it uses the current processes "space" to run itself
+	Does the executable file have to be a binary file
+		not necessarily, for example a shell script would not be binary
+
+	Does exec return to calling process?
+		no, after the process finishes, the process terminates
+		if exec fails, the process will make a call to exit()
+
+	what can cause exec to fail?
+		loading invalid file type
+		Invalid arguments/invalid copy to memory
+		insufficient privileges
+		num bytes in environment and arg list too large
+		cant access file
+		VERY many listed on slides and probably in book
+
+Wait system call
+	wait causes teh parent to wait for state changes in its child
+	(view the slides)
+
+	What happens if parent does not call wait()
+		the child becomes a zombie process: a  dead process whos PID isnt removed from mem immediately
+		there is a finite number of process the OS can run
+			by leaving zombie processes, you fill them up 
+				(i think its analagous to a memory leak)

@@ -1,0 +1,88 @@
+01_15_2020
+
+Git and GitHub intro
+	
+	Very helpful for version control. 
+
+	Short list of git commands
+		
+		git clone repo (a url)
+		git pull //updates your locac repository
+		git status //see what changed
+		git diff // find differences
+		git log  // showw commit history
+		to undo things
+			git undo
+			git revert
+		theres a lot more too
+
+
+	commands to save local work but need latest repo updates
+		git stash
+		git stash list //tp see stash
+		git pull
+		git stash pop
+
+
+Introduction to Distributed Systems
+	Distributed system - a collection of independent computers that appears to its users as a single coherent system
+
+	
+	Concept			|	Ex
+	Centralized Services	|	A single server for all users
+	Centralized data	| 	a single online telephone book
+	centralized algs	| 	doing routine computing on data
+
+
+	Machine A	|	Machine B	|	Machine C
+	-----------------Distributed Applications---------------------------
+	-------------------MiddleWare Services------------------------------
+	Local OS	|	Local OS	| 	Local OS
+		^		^			 ^
+		|		|			 |
+	--------|---------------|------------------------|--------------------------------NETWORK
+
+
+
+	Distributed computing is computing performed in a distributed system
+		Dist programmign is either middleware software or the application software
+
+	Network programming is a building block of a dist sys
+
+
+	Message Passing
+		A process sends a message representing a request or an event indication. The reciever processes the request and sends a message in response
+		A broker recieves messages and then passes it to interested parties (it looks a little bit like the callback method pattern)
+
+	Client-Server
+		Involves asymmetric roles between two collaborating processes. One process, the server, is a service provider. 
+		The client issues a request and waits for a response
+
+	Peer-to-Peer
+		involves equal roles between multiple processes. Each peer has equivalent capabilities and responsibilities 
+
+		If its difficult to designate a "server" device, we allow the network of devices to pass around server roles	
+			The information could then be distributed across a number of different nodes 
+				HE gave the exaple of bit-Torrent and their p2p 
+					it made it possible avoid the large datacenter
+					it made it impossible to track who was storing all the data
+	Communication Facilities:
+		must hide the low level message passing through the network from the upper layers
+			the layers refer to the stack model from prev lecture.
+
+	Naming: 
+		Must provide a global, scalable name discovery and identification mechanism
+
+	Synchronization: 
+		Must provide services to allow participating entities to synchronize clocks and data access
+
+	Consistency and Replication:
+		replication is required for performance and reliability. A DS must ensure distributed data is consistent throughout the system
+
+	Fault tolerance:
+		Future of DS's will be self managing and self healing (autonomous computing)
+	
+	Security:
+		Essential to any DS
+
+

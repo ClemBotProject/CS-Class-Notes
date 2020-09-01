@@ -1,0 +1,78 @@
+03_30_2020
+
+Memory Heirarchy
+	
+	Two l1 caches - one for instr and one for daya
+
+	As level of cache increases, size increases while speed decreases
+		l1 is only around 32-64 KB
+			will be accessed freq because of locality
+
+HDD Storage
+	nonvolatile
+	HAve cylinder of concentric disks, concentric tracks on a disk, and a sector making up some arc of a track
+
+
+	Sectors have sector ID
+		data - 512 bytes. 4096 bytes(adv form)
+
+		Error correcting code
+			USe to hide defects and record errors
+
+	
+	Access to sector involves
+		queue delay if other accesses pending
+		seek to move the read/write head
+		rotational latency
+		Data Transfer
+		Controller Overhead
+
+	Disk granularity is a sector
+
+
+Locality on hdd
+
+	memory heirarchy
+
+	Store everything on disk
+
+	copy recently accessed mem items from disk to smaller dram mem
+		main mem
+
+	copy more recently accessed items from dram to smaller sram
+		cacher mem attached to CPU core (Avoids the BUS)
+
+
+
+
+Memory Heirarcy levels
+
+	Block
+		unit of copying, may be multiple (usually multiple) words
+
+	If accessedf data is present in upper level
+		hit - access satisfied by upper level
+		hit ratio - hit/accesses
+
+	If access is absent
+		miss - block copied from lower level
+`		time taken: miss penalty
+		miss ratio: miss/accesses
+
+	Stride size of 64 bytes, new block gets transferred every time (cache miss every time)
+
+
+How to tell if data is available in mem
+	need to map memory to cache
+	each loc in mem correspondes to a loc in cache with a hash map sort of sructure
+
+	use smaller cache to index larger memory segement
+	have lowest three bits wit a block cache and use the lower three bits to address the corresponding block AND cache
+
+
+	BLOCK ADDRESS IS SYNONTMOUS WITH WORD ADDRESS 
+
+	all cache map tables have a valid bit
+		0 = invalid
+		1 = valid
+	

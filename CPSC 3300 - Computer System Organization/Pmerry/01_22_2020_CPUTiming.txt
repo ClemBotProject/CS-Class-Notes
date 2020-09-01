@@ -1,0 +1,115 @@
+1_22_2020 
+
+Benchmarking
+	CPU performance improved by
+		reducing number of clock cycles
+		increasing clock rate
+		Hardware designer must often trade off clock rate against cycle count
+
+	
+
+	Study what CPU time is 
+
+	clock cycles: instr count * cyclers per instruction
+
+	CPU time: instr count * CPI * clock cycle time
+
+		= instructuon count * CPI / clock rate
+
+	instr count for a program
+		Determined bt program, ISA, and compiler
+	
+	Average cycles per instr
+		determined by CPU hardware
+		if diff instrs have different CPI
+			CPI = cycles per instruction
+
+	RISC vs CISC 
+		reduced instruction set computing (more cycles per instr)
+		complex instruction set computing (more instructions to use)
+
+CPU performance Equation
+
+cpu time = (instr/prog) * (cycles/instr)*(seconds/cycle) = seconds/program
+-----------------|---------------|--------------|-------------------------
+		IC		CPI	  1/clockrate
+
+infl by	    |ISA/Compiler  |Org / ISA   | Hardware / organization
+------------+--------------+------------+-------------------------
+quantitative|compiler and  | <-same	| timing estimators 
+tool	    |sw tools      |		|
+			   ^
+			   |
+		+----------+------------+
+		|	   | 	      	|
+	simulator    instrumentation    Hardware counters
+
+EX
+	computer A: cycle time = 250 pS, avg CPI = 2.0
+	Computer B: Cycle time = 500 pS, avg CPI = 1.2
+
+	Assume: same isntruction set architecture THEREFORE same instruction count
+
+	which is faster, and by how much
+
+	Comp A = I * 2 * 250 = 500I ps/instr
+	Comp B = I * 1.2 * 500 = 600I ps/instr
+	
+	600I/500I = comp A is 1.2 times faster 
+			^ this is the "speedup factor"
+
+
+CPI in more detial
+	if diff instruction classes take different numbers of cycles
+		CPI of each class of instr is specific and constant (determined by hardware)
+		
+	instruction count of each class of instr in the prog cna be obtained with the certain tools 
+		clock cycles = [sigma](CPI*Instruction Count)
+
+	Weighted avg CPI
+		CPI = [sigma](CPI*InstrCounti/InstrCount)
+				  ^ note the instrcountI is the number of instructions in a count 
+
+
+Make the common case fast (90/10 rule)
+	most effective approach for improvement
+
+	each change will not effect the entire task, but just a subset of the task
+	
+Amdahls Law
+	The law of diminishing returns
+	
+	each change will make successively smaller impacts in improvements
+
+	Execution of any code has 2 parts
+		p1 - not effected by enhancement
+		p2 - effected by enhancement
+
+	execution time_old = executiontime_p1 + executiontime_p2
+	
+
+Speedup
+	Achieved performance improvement over the original
+		
+	speedup = n = performance_new/performance_old = executiontime_old/executiontime_new
+
+		speedup of less than one = decrease in performance
+
+		we can also name an "alpha" value, which is the percent of code that will run that will benefit from enhancement
+
+	execution_time_new = (1- alpha) executiontime_old + (alpha)execution_time_old / n
+		n = speedup factor for enhancement (from previous equation)
+
+
+
+Example
+	Enhancement: vector mode
+	Portions of code containing computations run 20x faster in vector mode
+
+	What % of original code must be vectorizable to achieve speedup of 2 
+
+	2 = 1/ (1 - a) + (a/20) -> a = alpha
+	a = 0.5262 about
+
+
+Also you can use MIPS - million instructions per second (MIPS)

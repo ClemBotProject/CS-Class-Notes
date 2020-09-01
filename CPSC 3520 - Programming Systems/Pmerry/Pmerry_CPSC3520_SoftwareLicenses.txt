@@ -1,0 +1,70 @@
+Software Licenses
+
+Legal system conveys rights to the holder of property
+	
+Intellectual Property
+	IP may be thought of as the rights or ownership attached to the product of the mind or the intellect
+	This includes software
+
+	The intellectual property is NOT the source code/etc
+		these are the RIGHTS attached to the software/copyrighted object
+
+	Exclusive means that the holder can control some aspects of the use of the property
+		usually this excludes certain practices involving property
+
+	IE allow prog for personal use, not for selling or distributing
+
+
+The potential holder of IP rights usually has responsibility for aquiring these rights under laws of the jursidiciton
+
+The burden of enforcement falls on the holder
+
+Copyright: applies to creative and artistic works. A CR holder has exclusive right to control
+	reproduction or adaptation of these works after a period of time. 
+
+Patent: granted for a new, useful, and non-obvious invention. A patent gives the holder an exclusive right to 
+	commercially exploit the invention for a certian period of time. Software patents are controversial
+
+
+Trademark: A distinctive sign which is used to distioguish the products or services of a business
+
+Trade secret: A confidential/secret, non public information concerning the commercial practices or proprietary 
+	knowledge of a business
+
+
+How to file for copyright protection
+	- Copyright is secured automatically at work creation
+	- No publication or registration or other action in the CopyRight office is required to secure copyright under US law
+	- in addition, any software written is automatically covered by copyright
+
+	Copyright notices is not required but its a benefecial means to inform others of the copyright
+		The notice also shows year of first publication
+
+	
+THE GPL
+	The GNU public license applies to a program which contains a notice placed by the copyright holder saying
+	it may be distributed under GPL terms
+
+	the GPL applies to a program or 'a work based on the program'
+
+	applies to the program or ANY WORK BASED ON THE PROGRAM
+
+	IE if you enhance a GNU licensed program, your only claim is to your enhancement
+
+	GPL Terms/Rights
+		you may copy and distribute tyhe program (or a work based on it AKA derivative work) provided you do the following
+			accompany it with complete corresponding machine readable source code
+
+			Agree to provide source code
+
+			Accompany it with information received ass to the offer to distribute corresponding sopurce code
+
+			Derivative works are covered by the GNU license
+
+	Additionaly when copyrighting
+		provide ability to contact you
+
+	if the prog is interactive, provide a startup copyright statement (like w prolog)
+
+	It can also be helpful to list this info under the help/about menu
+	

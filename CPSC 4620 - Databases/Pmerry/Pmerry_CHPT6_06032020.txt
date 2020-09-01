@@ -1,0 +1,79 @@
+Chapter 6 - SQL
+
+SQL language
+	Considered one of the reasons for commercial success of relational DB
+	SQL is the relational predicate calculus called tuple calculus
+	SQL = Structured query language
+
+
+	Terminology
+		Table - refers to a relation
+		row - tuple
+		column - attribute (& each tuples data for that col)
+
+
+	SQL schema
+		identified by a schema name
+		Includes an authorization identifier and descriptors for each element
+	
+	Each statement in SQL ends w a semicolon
+
+	
+
+
+
+Create schema statement
+
+
+	> CREATE SCHEMA COMPANY AUTHORIZATION 'Jsmith'
+
+Create table command
+	Specifies a new relation
+	specify attributes, their types, and init constraints 
+
+	> CREATE TABLE COMPANY.EMPLOYEE
+
+		or
+	> CREATE TABLE EMPLOYEE
+
+Base tables/BAse relations
+	relation and its tuples are actually created and stored as a file by the DBMS 
+
+Create table basic syntax (not case sensitive)
+	slide 6-13
+
+	CREATE TABLE <name>
+	(<attr1>,
+	<attr2>,
+	PRIMARY KEY(<attr_name>)
+	FOREIGN KEY(<attr_name>) REFERENCES <table>(<attribute>)]
+	[<table options>]
+	);
+
+
+Creating an attribute - ie what goes in the <attr#> fields
+
+	<Attribute_name> <Data_Type> [constriants] 
+
+
+
+Attribute data types and domains in SQL
+	basic data types (exact data types depends on dbms)
+
+	Numeric data types
+		Integer numbers: INTEGER, INT, SMALLINT
+		FP Nums: FLOAT, REAL, DOUBLE, DECIMAL (m, d) {m is num digits, d is num digits after dec}
+
+	Character string datatypes
+		Fixed length: CHAR(n), CHARACTER(n) [NOT USED OFTEN, MUST FILL ALL SPACES]
+		Varying len: VARCHAR(n), CHAR VARYING (n)
+
+Stopped taking these notes around 14:21 - this is all things that should be copied from slides 
+
+Important note about foreign key checks
+	you can set it to 0 to get around circular dependencies
+	remember to set it back to 1
+
+Referential integrity
+	slide 6-25
+

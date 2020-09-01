@@ -1,0 +1,76 @@
+Cache concepts
+	Cache a copy of data or computation that can be accessed faster than original
+
+	Cache underlies techniques to make computer fast
+
+
+	Key measure
+		avg access = (hit rate * hit time) + (Miss rate * miss time)
+
+	Cache needs
+		cost of cache hit must be lower than cost of miss
+		likelihood of hit must eb high
+
+
+
+	Cache mem is on the processor Die
+
+		l1 cache - 1 ns
+		l2 - 3 ns
+		l3 - more than 3 
+
+
+	Types of cache miss
+		compulsory - cold start, you can get the first one bc you must load the cache
+		Capacity - cannot contain all block access in prog
+
+		conflict - collision, multiple mem locs map to the same 
+		coherence
+
+
+Zipf model
+	freq of words in text
+		applies also to cache behavior 
+
+
+
+Where does a block go in cache
+		direct - block number maps to one specific spot
+		set associative - it can go anywhere in the set
+		fully associateive - block can go anywhere
+
+
+Block replacement policy
+	direct mapped cache
+		one possibility
+	Set associative/full associative
+		random (choose any block to replace)
+		FIFO - replace block there longest
+		MIN - replace hte block used farthest in future
+		Least recently used
+
+
+Hardware does not track which pages are least/most freq used
+	too expensive to track all load/stores
+
+	The system call can keep track of which blocks are used
+		the use bit 
+			processor keeps a use bit of each page table entry, OS clears bit when PTE is init and sets when brought to TLB
+
+	Clock algorithm
+		after so long, scan core map of mem pages and record the use bit for the page, then clear use bit
+		if the use bit was already unused, then remove from memory
+		stops when it removes certain num of pages
+
+		Advance clock head to the next page ONLY on page fault
+			check pasges not used recently
+				mark pages as not used recently
+					one way to view clock alg is partition pages into young/old groups
+
+	the Kth chance version of the clock alg 
+		give page K chances by keeping counter per page in OS
+			on page faultm OS check bits are in use
+				1 - clear use bit
+				0 - increment counter
+		why pick large k
+			better approc to Least Recently used 

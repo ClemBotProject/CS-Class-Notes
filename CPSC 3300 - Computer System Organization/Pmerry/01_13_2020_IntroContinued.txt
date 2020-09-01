@@ -1,0 +1,83 @@
+Computer Organization Systems
+01-13-2020
+
+Application software 
+	Written in HLL
+
+System Software
+	Compiler: translates HLL code to machine code
+
+	Operating System: service code
+		handling IO
+		managing mem and storage
+		scheduling tasks/resources
+------------------------------------------------------
+Hardware
+	Processor, memory, I/O controllers
+
+Software includes
+	Applications
+	OS
+	Compiler
+	Assembler
+
+<dividing line is considered the instruction set architecture>
+
+Hardware includes
+	Processor | Memory | IO system
+		Datapath Control
+		digital design (essentially a collection of circuit design)
+		circuit design
+		transistors (works like switch)
+
+
+Individual syntax elements are called tokens
+
+						   _This Class Covers here onward_
+HLL -|compiler|-> Assembly Language -|Assembler|-> Machine Language Program (MIPS) -|machine interpretation|->
+ 	Hardware Architecture description -|Machine Interpretation|-> Control Signal Specification
+
+
+
+Performance
+	Algorithm
+		Performance determines the number of ops used
+
+	Programming language, compiler, architecture
+		determine number of machine instructions executed per operation
+
+	Processor and memory system
+		determine how fast instructions are executed
+
+	IO system (Including OS)
+		determines how fast IO operations are executed
+
+
+Machine structures from programmer view
+	What programmer writes
+	how it is converted to something the computer understands
+	how the computer interprets the program
+	what makes programs slow
+
+
+Programming optimization methods
+	Design for moores law
+	use abstraction to simplify design
+	make the common case fast
+	performance via parallelism, pipelining, and prediction
+		parallelism - use multiple parts in parallel to complete tasks faster
+		pipelining  - steps are broken into substeps to be solved in sequence
+				once the first substep in an operation is finished, begin the next operation (overlapping operation execution)
+		prediction  - predicting what to load next in branching code (ifs, fors, whiles)
+	Heirarchy of memories
+		faster & smaller
+		slower & larger
+	Dependability via redundancy
+		multiple components to handle failure, etc
+		IE RAID disk storage
+
+
+Moore's Law
+	2x transistors per chip every 1.5 years
+
+	

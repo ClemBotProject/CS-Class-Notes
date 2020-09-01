@@ -1,0 +1,59 @@
+ Grammars part 3
+
+Derivation Tree/Parse tree
+ Has characteristics
+	- the root of the tree T is the starting symbol S (within nonterminals)
+	- leaf nodes of T are terminals (within terminals)
+	- Interior (not root or leaf nodes) nodes are non terminals
+	- the children of a non leaf node represent the right hand side oof some production P 
+	- the parent of a node represents the corresponding LHS of the production 
+	
+	Derivation trees are important to catalog the production of a string
+		since they show the structure of the string independently of the possible sequences
+
+	To have trees that are structurally distinct and produce the same string is to have an ambiguous grammar
+
+	
+	Recall the productions in an earlier grammar (from lecture/slide set 2) (slide 4)
+
+
+	With a derivation tree, it is not necessary to  consider order
+
+
+	(hanging ref to derivation trees from end of lecture)
+		from bottom up -> this is a parse tree
+		from top down  -> this is a derivation tree
+
+
+	
+Grammatical/Syntactice ambiguity
+	A grammar is ambiguous if any string in L(G) has two or more distinct derivation trees
+	
+	A string can have multiple derivations - that much is fine
+	if a string has two distinct (IE structurally different) derivation trees - a problem arises
+		This is the concept of gramatical ambiguity
+	
+		Imagine if the compiler read your code and discerned multiple possible structures 
+	
+	The classic  ambiguity example 
+		a = b + c * a;
+
+		do we mean a times the quantity b + c?
+		do we mean b plus the quantity a * c?
+
+		(here mathematic precedence is used to get rid of ambiguity)
+
+		
+	The if/then nesting example
+		many langauges use some sort of disambiguation rule 
+		other langs straight disallow the nesting of if/then/else
+
+	confusion bewtween fxn call and array use
+		for ex - how could you interpret a(2)? is it fxn a with parm 2? is it array a with index 2?
+			
+		do not design a grammar to be ambiguous 
+
+	It is hard to spot ambiguity
+		from a constructive point of view - you must find two structurally different derivation trees
+		parsing tools will look at grammar to determine
+			

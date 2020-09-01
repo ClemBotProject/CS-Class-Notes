@@ -1,0 +1,63 @@
+Programming language - a notable system intended primarily to facilitate human/machine interaction
+
+A lang/prog lang has a SYNTAX and language elements have Semantics 
+
+A program is something produced by a prog lang. A program is a structured entity with semantics
+
+Why study prog lang concepts 
+	to be aware of lang features or capabilities which can speed dev process
+	to be able to intelligently choose an appropriate language
+	to understand underlying implementation issues
+	to be able to modify/design new languages
+	
+
+A formal and quantitative characterization of a prog lang is based on a formal lang which is based on a formal grammar
+	Denote the grammar as G
+	this allows you to alternately and quantitatively define a prog as a sentence or a string produced by G. and a prog langauge is the set of all strings (programs) producable by G
+
+Possible point of view
+	software, not hardware is holding back advances in computing
+
+Prog langs by paradigm
+	IE 
+		prcedural or imperitive - java
+		functional (or applicative)
+		declarative
+		object oriented
+		rule based
+		event driven
+		parallel or concurrent
+		agent oriented
+
+Prog lang syntax defines the allowable arrangement of symbols in a prog, especially prog fragments
+	IE the syntax may constrain fragments to have matching parens
+
+	
+	syntax also catalogs the basic elements of the langauge, most importantly the STRUCTURE of a language
+	Syntax is usually indicated by metalangage (a lang used to describe another lang)
+
+The concept/use of an API
+		'Real' programming means writing code/developing software with interfaces to a substantial amount of existing code
+		The existing code was designed for this interface through an API or Application Program Interface
+		
+		API - a set of routines (usually functions) and accompanying protocols for using these functions which provice building blocks for some software development
+		
+	 
+
+Important tools
+	Syntax highlighting
+	support lang features (ie paren matching)
+	diff
+	indent
+
+	gprof - a code profiler
+	cdecl - deciphering complex type declarations in c source
+	RCS and CVS - tools for management of multi programmer projects and keeping track of source code revisions
+	strace (linux) and API spy (windows): facilitate checking on OS calls and may be used to check/debug an executable
+	gctags and ctags - help find declarations and definitions; produce output compatible with regex search facility in vi
+	hexedit - examining object code and exploring bin data
+
+
+Tools used in class
+	Prolog - Tracing (CLI and GUI)
+	ocaml - tracing, profiling, documentation, compilation

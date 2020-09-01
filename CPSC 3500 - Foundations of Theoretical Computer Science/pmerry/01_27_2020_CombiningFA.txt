@@ -1,0 +1,62 @@
+1_27_2020
+
+Subset Construction:
+	we are converting this:
+	     0    0,1
+	-> A -> B -> |C|
+	   ^
+	   0,1
+
+	to a DFA
+
+	To construct, do the table discussed in class on 1/24
+			And then construct the DFA
+	   |1
+	   V  0    0
+	-> A -> AB -> ABC
+	   ^	|1
+	  1| <- AC
+	Where any C - Containing state is an accept state
+
+
+NOT COVERING
+	FA to RE
+
+
+Fast note:
+	Epsilon transitions consume no input
+
+Conversion from RE to FA (a Non-Deterministic FA)
+	This uses recursion
+	
+	Everything is the start of a regular sub-expression, the 'or' clause of a RE, or concatenated with a RE
+
+	At the high level you parse a FA into 3 cases (considering R1 and R2)
+		- R1 + R2
+		- R1R2
+		- R1*
+
+	IE suppose you have R1 and R2, and you want an FA for the UNION of the two languages
+		Make a new start state
+		Feed it into the start states of R1 and R2
+		Use an epsilon transition from new start state to the start state of R1 and R2
+
+
+	Suppose you have R1 and R2 and you want to concatenate R1 and R2, in which 
+		r1 and r2 both have start and accept states
+		
+		Suppose you want to concatenate R1R2
+			Start at R1's start state
+			Remove R1's accept state
+			Lead R1's (now no longer an accept) accept state to R2's start state with an epsilon transition
+
+	Finally, suppose you are trying to formulate r1*
+		Loop the accept state back to the start state with an epsilon transition
+		Add a new start state that is an accept state, and have it have one epsilon transition into the original accept state
+
+
+
+
+	
+			
+					

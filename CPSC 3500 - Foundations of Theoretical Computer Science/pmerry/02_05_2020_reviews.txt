@@ -1,0 +1,16 @@
+02_05_2020
+
+Theorem:
+	If there is an infinite distinguishable string, then the langauge is not regular 
+
+	
+Theorem restated:
+	Each distinguishable string needs a different state in the DFA
+
+
+
+"Spirit of the class algorithm"
+	You need to do a recursive algorithm where you start on the "outside" of the
+	RE and then peel away the outside until you have nothing remaining
+
+

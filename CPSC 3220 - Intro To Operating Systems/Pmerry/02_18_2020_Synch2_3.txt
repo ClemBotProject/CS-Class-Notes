@@ -1,0 +1,262 @@
+02_18_2020
+
+	Note on question 5 from the homework
+		the child process gets caught in the loop to read
+		the parent process closes the pipe file desctiptor pfd[1] when the process should end
+		when the pipe is closed, the read call causes the loo p to exit and the code to return 
+
+	these concepts will be helpful for task A in proj 2
+
+
+
+	Task A suggestions
+		Passing the parent pipe and recursively creating processes with a new set of pipes
+		
+		IE if youre creating a new process, you have left and right pipes and on the parent and child processes
+			Therefore you have 4 pipes
+
+		remember to call the pipelines as well (this will prevent zombie processes)
+		
+		Do you pass the pipe as a parameter for the recursive call?
+			some can pass, some make it global
+			professor suggested NOT passing, but redirecting to standard in. 
+
+		When trying to create a number of processes, be sure to create the right number
+			easy to create too many, just be dilligent about creating the correct number
+			For each "right child", you create a single process
+				maybe use a variable to count
+
+	Task B
+		doesnt consider commands with more than one pipe - task A handled multipipe
+		
+		use tsh0 as the testbed, but tsh will be used to grade
+
+		Pay attention to exiting from processes as well 
+
+		remember that the testshell script exists
+
+		remember git status to see if youre synced,
+			if there is a difference, git should automatically merge the files
+			there are cases where it cant, in which case youll have a a 3< ... 3> block in the merged files 
+
+	
+
+Synchronization (ppt 2/ Lecture 10)
+	Locks on a uniprocessor - enabling or disabling interrupts (keeps control in one certain path)
+	
+	Introduced a queuing lock for uniprocessors as well
+		those only work for computers with one processor/one core
+		
+	How would you do a queuing lock for a multiprocessor?
+
+	
+
+	Atomic instr on a Multiprocessor
+		disabling interrupts is not sufficient to make a code sequence atomic
+
+	Moern arch provides several atomic instrs
+		Atomic read - modify - write
+			read from mem
+			operate on it 
+			write back
+			* hardware prevents interleaving with other instrs
+
+		Atomic test_and_set
+			read value from mem to register
+			write 1 to the memory location
+
+		Atomic compare and swap
+			read value from memory
+			if the value equal to the expected
+			...
+			
+	Mutliprocessor Spinlocks (easiest to implement)
+		A spinlock is a lock where the processor waits in a loop for the lock to become free
+			Assumes lock will be held for a short time 
+			used to protect the CPU scheduler and to implement locks 
+			
+			when would you break from the lock?
+
+			Class Spinlock{ //this isnt good except in cases where it will only run for a short time
+				private:
+					int value = 0; 0 == free, 1 == busy
+
+				public: 
+					void aquire()
+					{
+						while(test_and_set(&value) == BUSY); //spin
+					}
+					
+					void release()
+					{
+						value = FREE;
+						memory_barrier(); 
+					}
+			}
+
+	
+	Multiprocessor Queueing Lock
+		Uses a spinlock to make processor wait for a short period of time 
+		
+		Class Lock{
+			private: 
+				int value = FREE;
+				Spinlock spinLock
+				Queue waiting;
+			public:
+				void acquire();
+				void release(); 
+		}
+
+
+		EX:
+		Lock::acquire(){
+			spinlock.acquire();
+			
+			if(value != FREE){	//if its not free, then we must wait for it to be free
+				waiting.add(runningthread); 
+				scheduler.suspend(&spinlock);
+			}else{
+				value = BUSY; 
+				spinlock.release();
+			}
+		}
+
+		Lock::release(){
+			TCB* next;
+			spinlock.acquire();
+			
+			if(waiting.notEmpty()){ //if anything is waiting, do not set to free just yet. 
+				next = waiting.remove();
+				scheduler.makeReady(next)
+			}else{
+				value = FREE; //if there are no waiting threads we just set the state to free
+			}
+			spinlock.release(); 
+		}
+
+		class Scheduler{
+			private: 
+				Queue readyList;
+				Spinlock schedulerSpinLock;
+			public:
+				void suspend(SpinLock *lock);
+				void makeReady(Thread *thread);
+		}
+		
+		//makeready
+			//disable interrupts
+			//acquire spinlock
+			//add thread to waiting queue
+			// make the thread's state ready
+			// release lock
+			// interrupts again
+
+		//suspend
+			// disble interrupts
+			// acquire scheduler spinlock
+			// release lock for queuing
+			// set running thread state to waiting
+			// get the next thread from the ready list
+			// switch to the running thread (using thread_switch())
+			// set the running thread state to ready
+			// release scheduler spinlock
+			//re enable interrupts 
+
+
+
+
+	Condition varliables
+		on the suspend operation
+			you need to give up the processor resources
+
+		on the signal operation
+			if any are waiting
+				thread = waiting.remove();	
+				scheduler.makeready(thread);
+		
+		whereas broadcast operation
+			while any are waiting
+				thread = waiting.remove();	
+				scheduler.makeready(thread);
+
+	Mutex is a type of lock
+		simply for edification of how the atomicity worjs
+	
+			lock decl(%eax) //atomic decrement the pointed to value
+			jns 1f 		//jump if unsigned
+			
+			call slowpath_aquire //this is essentially a function call 
+
+
+
+
+Semaphore
+	type of synchronization variable
+	DO NOT USE THEM	
+	better to use lock or synchronization/condition variables
+
+	Complex to use
+
+	they have 2 methods
+		P() - waits until state > 0, then decrements state by 1 and returns
+		V() - increments state by one, signal one waiting thread so that calls to P() succeed.
+	
+	No other ops are allowed ... 
+
+
+	How does CV correspond to Semaphore
+		CV is stateless, while the Semaphore has a state 
+
+
+Synchronization III
+	Quick bits about threads
+		How to sync
+			use locks, synch vars, condition variables
+	
+	When you use a lock to protect a critical section
+		the code inside the critical section will run sequentially because MUTUAL EXCLUSION PREVENTS ANY OTHER THREADS FROM "TAKING" THE INSTRUCTIONS
+
+	Deadlock - when all threads are waiting and dependent upon one another to continue
+		deadlock stops all processing, no correct output
+
+	
+
+	Consider the cost of a lock
+		when running through 1000 counters, each protected by a seperate spinlock array small enough to fit in cache
+
+		run on:
+			one thread, one array - 51 cycles
+			2 threads, two arrays - 52 cycles 
+			2 threads, one array - 197 cycles (from contention)
+			2 threads, odd/even -  127 (from false sharing)
+
+		Showing how multithreading wrong can lessen performance?
+
+	Well:
+		
+	Locking:
+		only one thread can hold a lock at a given time -this makes the code sequential instead of multithreaded
+		fix - when youre using locks, make sure the threads on different data 
+			you want sparse locks as well
+	
+	communication of shared data: 
+		sharing data across cores requires moving data between caches on diff cores
+	
+	False sharing
+		when a single cache line holds 2 or more independent data, 
+		the cache coherency mechs force the whole line being reloaded
+		 when one item is changed but other items stay unchanged
+
+	Load imbalance ( threads are loaded unevenly)
+	overhead due to creating and managing threads 
+
+Lock Design patterns (read this slide)
+	Fine Grained locking
+		partition an objs state into diff  subsets with each subset protected by a diff lock
+	Per processor data structures
+		partition an objects state so that all or most accessed are performed by threads running on the same processor
+	Ownership design pattern
+		removed a shared object from a shared container so that only a single thread can read or modify the object
+	Staged Architecture
+		divide a system into multiple stages, so that only those threads at each stage can access the stages shared data

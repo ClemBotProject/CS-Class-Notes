@@ -1,0 +1,96 @@
+01_29_2020 - Signals, intro to IP addr, and code example simpleUDPecho
+
+
+IP Addresses
+	there are 2 versions of TCP/IP
+		IPv4 and IPv6
+		IPv4 is more common
+		IPv6 addressed the problem of address space limitations with IPv4
+			this is in reference to the struct "in_addr"
+				contains a uint32_t (unsigned 32 bit entity)
+				thus there are 4billion IPv4 addresses, but they are all assigned
+					to get around this, IPv6 uses
+						uint8_t -> which is 128 bits
+
+				
+	coding problem, the structs for IPv4 and IPv6 are different
+		there are 2 approaches to take
+			first -> program will be IPv4 ONLY 
+				OR decide to support v4 and v6 to handle the two cases
+				OR write code to operate seamlessly over v4 and v6 
+
+
+	Dual Stack TCP-IP implementation
+		the network interface (wired/wireless) will have 1+ IPv4 and 1+ IPv6 addresses assigned to it.
+
+		The dual stack converts a v4 into a v6 address internally 
+
+	Why not always use IPv6
+		when IPv6 came available there was also "network address translation" - solves the IPv4 address shortage problem
+			devices are using private IP addresses
+				when it communicates with the world, the NAT function of the router swaps the internal addresses from its internal address
+					this allows all devices to work off the routers public IP
+		As such, best approach is to build for either
+
+
+Quick overview of signals
+	Signal = notification to a process that an event has occurred
+	AKA a software interrupt
+	Handled asynchronously - the code would have to register a handler for that signal
+	
+	Common Signals
+		SIGALRM - expiration of alarm timer
+		SIGCHLD - child process exits
+		SIGINT  - interrupt (control + c)
+			the defualt disposition for SIGINT is to terminate 
+			the program will reigster at invokation for the SIGINT handler
+		SIGIO   - socket ready for IO
+		SIGTERM - terminate a process
+		SIGKILL - terminate a process
+			SIGTERM and SIGKILL - invoked by the kill program, but can send any signal to any process
+			as a standard user, you can only kill processes that you own
+	
+
+	Signals 
+		Each has a disposition/action 
+			- catch the signal
+			- ignore the signal
+			- set to the default disposition (usually terminate or ignore)
+
+		two ways to set the disposition
+			signal(SIGINT, clientCNTCCode)
+			sigaction function - has 2 system calls 
+
+
+		example of how to set a timeout alarm
+		alarm(<number in seconds>); //set alarm for number of seconds 
+		rc = recv();
+		if(rc == -1)
+			if(errno == EINTR)
+				timeouts++;
+		alarm(0); //turn off the alarm
+
+
+Big picture on network hosts
+	Host identifiers
+		Name: identifies what the object is
+			can be a human readable domain name or IP address
+		Address: identifies where it is
+		Route: how to get there
+
+
+	Original IPv4 classgul addressing scheme
+		original scheme was classful:
+			EX: 130.127.48.4
+			Bin: some concatenation of octets
+			hex 0x827F3004
+			Unsigned int: 2,189,373,444
+			class? binary format... first 3 bits '100' encode whether it is class A, B, or C
+				Class A - network ID is one octet (with 3 octets for hosts)
+				Class B - network ID is 2 octets  (with 2 octets for hosts)
+				Class C - follows the pattern, 3 for network, 1 for hosts
+
+	Note all 1s means broadcast
+	     all 0s does as well
+
+

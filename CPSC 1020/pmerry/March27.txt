@@ -1,0 +1,65 @@
+CPSC 1020 - March 27 2019
+
+Double Ended Queue
+	- Upcoming project, lots of included methods
+	
+	These are arrays that can hold so many values
+
+	&&variable
+		- this is a right hand reference varibale
+
+	Will need to overload the = operator
+	
+	Use Steve McConnel error codes
+		A parameter returns info about performance
+
+
+
+
+
+
+
+
+
+Copy Constructors
+	Shallow Vs Deep Copy
+
+
+	
+
+With dynaically allocated class variables and Pointer variables in the class
+	every instantiation should have its own memory allocation to prevent dangling pointers
+	
+	
+
+NumberArray.cpp
+	- pages 726-728
+	
+	Remember- when you dont create a constructor, everything is zero, strings are empty
+	In c++98, pointers are initialized to 0 (used for null)
+	in c++11, pointers are 
+
+
+
+Copy constructor should be passed a reference variable of the same class type
+
+Constructors can call other methods, and private methods 
+
+
+
+
+
+
+The following lines are a copy constructor by overloading "="
+
+	NumberArray& operator=(const NumberArray &right); //This is the prototype
+	
+
+	//The parameters are on the right hand side of the ooperator, and chooses based on what data types are there
+
+	So in 
+	x = y
+	x calls the operator
+	y is the parameter for the operator
+	
+

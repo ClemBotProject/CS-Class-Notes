@@ -1,0 +1,30 @@
+1/25/2019 CPSC 1020 
+
+Linked Lists
+
+	Example of code that will create a linked list
+
+	//TYPEDEF STRUCT
+		
+		typedef struct node_s{
+			int data;
+			struct node_s *forward_link;
+		} Node; 
+		
+	//Declare an array of the struct (not accounting for edge conditions)
+		
+		Node* LList = (node_s*) malloc (size);
+		for...{
+			LList[i].forward_link = & LList[i+1]
+		}
+
+	
+		
+
+		LOOK at lecture notes 5.pdf for the size functions
+
+		
+
+		
+
+Invariant**

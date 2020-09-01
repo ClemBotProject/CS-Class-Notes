@@ -1,0 +1,85 @@
+1_24_2020 
+
+Preparing For Exam 1
+	Look out for some example exams 
+	Questions will come from Homework and Excercises
+
+Ping 
+	A standard internet construct
+
+	Example Use
+		ping -c 4 ada8.computing.clemson.edu
+			parms:
+				-c = count
+				4  = number of count iterations
+				ada8... = the host to ping to 
+
+		Actions:
+			does a send, recieve, sleep, repeat
+				a send corresponds to a send over a socket	
+					causes stack to make a datagram
+						it sends the data at T0
+			there is a reciever (server), who recieves the datagram
+				it recieves the datagram at T1
+
+			then there is a sleep - this is a parameter that you can specify the sleep
+				default = 1 second 
+
+			THUS: the ping time is the T1 value minus the T2 value
+				will typically be on order of milliseconds
+				represents the RTT (Round Trip Time) RTT = T1 - T0
+				and will tell the average RTT
+				and will tell the average Loss Rate over the session
+
+
+			Dealing with packet loss
+				Packet loss is implied always
+
+				Alarm - an OS provided service
+					A process registers saying I want to catch alarm by passing pointer to alarm handler
+				
+	
+	
+	conceptually simple - 
+
+
+
+Unix 101
+	Unix has 2 timers 
+		Real Time Clock 
+			- keeps track of time when off but not when sys is running
+			- drifts from real time based on tickrate
+			- its purpose is not for high precision timing
+		System Clock
+			- software based counter based on timer interrupt
+			- only runs when system is on (gets initialized at REAL TIME CLOCK
+			- references to the clock in ntpd mean the system clock
+		TSC - is a hardware counter that is being clocked by a precision clocking function
+			- this is the clock for the cpu (and is very fast)
+			- also the clock tick powering the CPU
+			- linux builds high res timers off that clock
+
+	the equivalent to getcurrenttime is clock_gettime with the flag/parameter CLOCK_REALTIME
+
+		Note on CLOCK_MONOTONIC 	
+			ensures the clock is never set backwards 
+			may have skips forward
+		Note on CLOCK_MONOTONIC_RAW
+			provides access to raw hardware based time not subject to adjustments performed by adjtime
+			USE THIS ONE
+	Process Creation
+		Fork()
+			a parent process forks a child process
+				return vals
+					0 - this is the context of the child process
+					GT 0 - this is the context of the parent process
+					LT 1 - this is a failure 
+			exec syscall after a fork to replace a processes memory space with a new program 
+				everything gets COPIED to the child process
+				it is a deep copy in that everything gets re-allocated
+				the child will have a seperate address space that is seeded from the address space of the parent
+			When a child terminates, there is an interaction between the parent and the system
+				the OS should provide a way to tell parent when child has terminated 
+	
+
+	go through the UNIX 101 Slides

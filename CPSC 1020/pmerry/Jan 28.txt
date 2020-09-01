@@ -1,0 +1,51 @@
+CPSC 1020 - Jan 28 2019
+
+Additional Lecturs
+	Command Line Args
+	Dynamic Matrix
+	Environmental Variables
+
+Email Dr. Smotherman - Teammate For Group Project 
+	
+
+Doubly linked list assignment - 
+
+
+List* Newlist from sll_list.h 
+	INITIALIZES LIST FOR YOU
+	Kinda like a "Constructor" in C++
+
+
+
+ON SLL_list.h -> MAKE ALL PROTOTYPES IN C
+	THEY ARE SHORT FXNS
+	
+
+
+
+
+Singly linked lists - Have a pointer to the NEXT NODE
+	No backwards link
+	to do a "poprear" you have to start at head and push forward until you have saved the LAST and NEXT TO LAST nodes
+
+
+Circular linked list
+	Head and tail point to each other to "link"
+	Doubly linked list
+
+Dummy Node - Always stays and doesnt hold value
+	- protects HEAD and TAIL pointer from going null
+	
+
+ROW MAJOR VS COLUMN MAJOR
+	Row major order - start with row zero and pop colums
+		- store the rows together
+		IJ calculation -  index = i*rows+j
+		
+
+Using Matrix structure with array notation
+	a[i][j] is a DOUBLE POINTER
+		but you do get ij syntax
+		the *a type is holding MORE POINTERS
+			must allocate memory for MORE POINTERS
+		

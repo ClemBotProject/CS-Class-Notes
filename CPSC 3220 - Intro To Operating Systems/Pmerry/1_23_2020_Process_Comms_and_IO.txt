@@ -1,0 +1,203 @@
+1_22_2020
+
+System Call Interface
+
+	Software should be specific to hardware
+		IE the OS should be concerned with making the hardware work properly
+
+	You want to kinda meet hardware and software in the middle
+		IE you have a few peices of software meant to communicate to hardware
+		These small peices make the hardware accessible in a standard way to the rest of the OS
+			The large scope of hardware compatibility gets narrowed into its interfacing with the OS
+			Called the "Thin Waist" concept
+
+	Creating and managing processes
+		fork()
+			creates 2 processes
+			child program executes
+			parent program waits for child to finish
+		exec()
+		wait()
+
+	performing I/O
+		open()
+		read()
+		write()
+		close()
+
+	communication between processes (topic of today's lecture)
+		pipe()
+		dup2()
+		select()
+		connect()
+
+Unix I/O
+	Uniformity
+		all ops on files and IO devices and pipes use the same set of system calls
+			such as open, read, write, close, 
+
+	open before use
+		check permissions and set up internal housekeeping
+		open() returns a handle (file descriptor) for use in later calls on the file 
+	
+	Interface is BYTE oriented
+		This is the abstraction of our file system
+
+	Kernel-buffered read and write
+		reads in blocks until data arrives
+		write returns immediately after copying data to buffer
+
+		The purpose of the kernel buffer is to take the abstracted version of what you wish to write (IE on the software level)
+			this version is then passed to the hardware level after being converted to an un-abstracted form
+
+		This also allows for instantaneous writes in the software, but will take the time to process when the write is saved to main memory
+		
+	explicit close()
+		decrement the reference count
+			the system will record the number of references for IO (the system will view the reference count as a sort of 'to-do' list)
+		garbage collect kernel data structures
+			These data structures keep track of how many references for each device or file		
+
+		The OS has a limited number of file descriptors
+		failure to close exhausts the quantity of file descriptors (kinda like a memory leak)
+
+
+Filesystems
+	HDD with varying interfaces
+		Serial ATA
+		SCSI
+		USB disks
+		(many more interfaces)
+
+	Different size HDD may be accessed differently
+		earlier used cylinder-head sector addressing
+			put limitations on the disk size
+		modern disks still use the CHS addressing, but with optimized geometry (outer zones can fit more sectors)
+		
+		Later disks introduced Logical Block Addressing - supports larger disks 
+
+	Standard Interface
+		Open, close, read, write
+
+	A Virtual file system presents a single unified view of all disks and files on computer
+		root of the VFS is /
+		storage devices get mounted at specific paths 
+			ie: /mnt/cdrom
+		Every file can be accessed as a path from the root
+
+	The file system described above supports console input/output (printf and scanf use read and write), socket comms, and pipes between processes
+
+All input/output is performed with unix system functions
+ ssize_t read(...)
+ ssize_t write(...)
+		attempt to read or write n-bytes to a file specified by the passed file descriptor
+
+	the user prog requests that the kernel reads or writes up to nbytes on behalf of the process
+		frequently takes a longer time (millisecond order)
+		Kernel initiates request, then context switches to another process until IO subsystem fires an interrupt to signal completion
+
+
+File descriptor
+	is a nonneg int value to represent a file or a device
+
+Processes can have multiple open files
+	each process's open files recorded in an array of file pointers
+	array elements point to file structs describing the open file
+		the process' current read/write offset for example
+		
+	each process has a cap on number of open files
+
+	The kernel has an array for each process to keep track of ALL open files
+
+
+Levels of indirection allow multiple processes to have the same file open
+		There are consistency issues, the OS has to ensure both processes see the sam information to begin with
+	each process has its own read/write offset for the file
+	operations are performed against the same underlying disk file 
+
+When a UNIX process is initialized by the OS, standard IO and error streams are automatically set up
+	almost always 
+		FD 0 = standard in = STDIN_FILENO
+		FD 1 = standard out = STDOUT_FILENO
+		FD 2 = standard error = STDERR_FILENO
+		FD = file descriptor
+
+Command interpreter (the Shell)
+	User level interactive interface to OS syscalls
+
+	Finds executable file associated with a cmd and creates a process (it will pass the necessary parameters)
+	
+	A program can be a file of commands or a single program
+		-#! interpreter //first, interpreter can be /bin/sh, /bin/csh
+		- shell scripts
+	
+	The command line forks a process - and then the command line waits for your child process to finish
+		
+	Handles IO redirection
+		by changing the stdout file descriptor in the child
+			eg: ls > tmp
+				ie you just replace the file descriptor with STDOUT_FILENO
+		by changing the stdin
+		Output of one program can be the input to another with a pipe
+			IE cat output.txt | grep good
+				^ this will show all lines in the output.txt that contain the line 'good' 
+
+	the shell also has start up files and envireonent variables 
+		Example of environment variable
+			when you issue a cd - the root directory is an environment variable
+
+	Programs usually do not care where stdin or stdout go, so long as it works
+	the command shell is very concerned with this
+
+	grep Allow < logfile.txt > output.txt				-> a few slides on there is an example of the code to execute this command
+		shell sets greps stdin to read from logfile.txt
+		shell sets greps stdout to write file to output.txt
+			if output.txt exists, it is truncated
+	
+	once stdin and stdout are set, grep is invoked
+
+
+
+Unix Command shell
+	wait for cmd to be entered on shells stdin
+	
+	Tokenize the command into an array of tokens
+
+	if tokens[0] is an interal shell cmd (history or export) then handle the internal command and go back to 1
+	
+	otherwise fork() off a child process to executethe program, wait for child to terminate and go back to 1
+
+	
+	Child processes
+		if the parsed cmd specifies redirection, modify stdin/stdout/stderr - the child process does this because it will mess up the parent process later on
+		more on the slides
+	
+
+	
+Redirection
+	Unix has 2 syscalls for this
+	dup() and dup2()
+
+		dup 
+			- duplicates the file descriptor, returning a new and unused file descriptor
+		note the internal file struct is not duplicated, only the ptr to the file struct
+		
+	implication
+		(find on slides)
+
+	dup2(filedes, filedes2)
+		duplicates the specified file descriptor into the descriptor specified by teh filedes2
+		if filedes2 is an open file, it gets closed before filedes is duped
+
+		this fxn allows the cmd shells child process to redirect standard input or output
+
+	
+
+Interprocess communication using pipes
+	Connect the IO of two programs on the command line using the pipe "|"
+
+	combine applications into more complex structures 
+
+	Read the slide "the use of pipe in shell"
+	
+

@@ -1,0 +1,61 @@
+CPSC 3500 - Computer Science Theory
+First Quiz Monday
+	All assesments draw from the same selection of questions - IE study from practices and homework
+	Revision Questions Tab on website has old test questions
+
+State "remembering" - when the state has a transition that doubles back (a trap)
+	
+
+(continued example)
+C) accept binary strings of exactly one 0 (if a path doesnt lead out, its a trap)
+
+-> A -0-> |B| -0-> C 
+	
+D) accept binary strings not containing a 0
+
+-> |A| -0-> B
+
+E) Not exactly one 0 
+
+	note - this is a compliment of C
+		How do you use the compliment of a FA?
+		 We would swap the accept/reject cases from C (or any complimentary FA)
+		 Where it said yes, it will now say no
+		 Where it said no, it will now say yes
+			This holds because (in this example), the one case 
+			you would except will now be rejected
+
+	Second method of handling NOT cases
+		if you cannot interchange accept/reject
+		rewrite the statement without using negatives
+			IE accept exacly no 0s or 2 or more 0s
+
+
+Tricks - think about processing the string yourself, what is absolutely essential to remember?
+	The FA should resemble these properties
+
+Deterministic Finite Automata - MUST have for every state and possible character, a transition
+
+
+Theory of Finite Automata
+	input tape 0 contains a single string
+
+	head - reads input string one symbol at a time
+
+	memory - in one finite number of states (the FA can only retain current state)
+	
+
+	Terminlogy
+		Alphabet (capital sigma) - is the set of symbols
+	
+		language is a set of strings
+			unary language means alphabet contains exactly one char
+
+		length - number of symbols in a string
+
+
+	Building FA - Recent memory
+		Accept Strings ending with 00
+			(incomplete)
+			-> A - 0 - > B - 0 -> |C|...
+			   A < - 1 - B 

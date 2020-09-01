@@ -1,0 +1,97 @@
+1_27_2020
+
+Office Hours
+	Prof: Thurs 1:00 - 2:00
+	TA (Anvrata): Wed 11:00-Noon 221 McAdams
+
+There is a review page on the website 
+	It chronicles the topics week by week with the scope of exams listed as well
+
+
+Data comm 101
+	Wrapup
+		The comm channel along with modulation technique determines the bandwidth
+			Channel Bandwidth: Measured cycles per second (hertz), is the fastest CONTINOUSLY oscillating signal that can be sent over the channel
+				Also refers to bandwidth as width of the spectrum available to the signal
+				
+				A transmitters max signal rate (baud rate) is limited by the channel bandwidth.
+
+		The FCC has divided the wireless spectrum into bands
+			Wifi has multiple bands of the wireless spectrum (2.5GHz, 5Ghz)
+			Cell phones have around 600MHz to 60GHz
+
+		Therefore channel bandwidth refers to the portion of the spectrum being used on that physical media
+		With ethernet/CoAx - the whole spectrum gets used thus more data transfer 
+
+
+	Max data rate over a channel
+		
+
+	D=2B Log_2(K)			: NOTE: this assumes no noise on a channel, therefore max data rate
+	
+		D = max data rate over a channel (measured in MegaBits per second, but the line is fuzzy)
+		B = Channel bandwidth
+		K = The number of signal levels available
+			Ethernet has 64 qam, 256 qam
+				qam = Quadrature Amplitude modulation, but the important part is that the 
+					qam deals with rate of oscillation between 0 and 1 
+
+Data Comm 102
+	Data is divided into packets, computers take turns sending packets over a packet switched network
+
+	A packet is referred to as a fram once it 'hits' the wire
+
+	there are a few times that are significant
+		T0 - where the first bit of the frame is sent
+		T1 - where the last bit of the fram is sent
+		T0' - where the first bit of the frame is recieved
+		T1' - where the last bit of the fram is recieved
+
+	Ideally,
+		T1 - T0 = T1' - T0'
+
+	T1' - T1 = the time it takes for the information to travel from host to reciever
+			the upper bound is the speed of light
+			the medium can slow or speed this up 
+
+	Bit errors
+		A transmitter must use specific power and modulation parameters,
+			to correct for bit errors
+		the transmission propagates over medium does add background noise, the reciever must differentitate between the transmission signal and noise
+		
+		Errors must be detected and recovered
+			Error Detection: Methods such as a checksum as a mathematic signature of src data
+				The sender computes sending CRC = f(message) and adds to the frame
+				the reciever computes recieved CRC = f(message) (this detects for errors at every layer or hop)
+				no error if these are the same
+		
+		Error Recovery
+			Sliding window error recovery
+				Go-Back-N: can send a window of N packets before stalling. Acks from the reciever clock out new packets at the sender
+				If a packet is deopped, a timeout at the sender forces a retransmit of the entire window
+
+			Forward error correction (FEC), also called coding - A cetain amt of redundant info is sent with each frame, the strength of coding should match channel conditions
+
+	Network Congestion
+		A sender that sends VERY fast that has a reciever reading at a slower rate
+			The data will stack up in "buffers" (there are a lot in the path)
+			its possible to overflow (feasibly) in which packets are dropped or pushed out
+
+
+		
+		
+
+	Ethernet Frame Format (prod by link layer)
+		Preamble (7) | Src Addr (6) | Dest Addr (6) | Length(2) ||| DSAP (1) | SSAP (1) | cntl (1) | code (3) | Type (2)||| Data (38 - 1492) | CRC (4)
+					MAC HEADER			 |			802.2 header			 |	Data: IP, ARP, SNA
+
+	Length: total num bytes in the frame
+	DSAP, SSAP, cntl, code, type - how to pass information through stack (check that fact)
+
+
+
+		
+	
+
+	
+			

@@ -1,0 +1,234 @@
+**In this file, specialization refers to specialization AND generalization
+
+Enhanced Entity Relationship Modeling
+	EER Model Concepts
+		Includes all from ER models
+		Additional Concepts
+			subclass/superclasses
+			specialization/generalization
+			categories (UNION TYPES)
+			Attribute and relationship inheritance
+	ER includes EEr by default
+
+	The addtional EER concepts are used to model more completely and accurately
+		EER includes some OO concepts sucha as inheritance
+
+Subclasses and Superclasses
+	An entity Type may have additional meaningful subgroupings of its entities
+	
+	IE employee may be grouped into
+		secretary, engineer, technician
+	EER diagrams extendc ER diagrams to represent these additional subgroupings, called subclasses or subtypes
+
+Subclasses and Superclasses
+	each subgrouping is a subset of the supergrouping
+	Each is a subgrouping subclass of the parent superclass
+
+	To specify in text a superclass/subclass relationship
+		Employee/Secretary
+		Employee/Manager
+		etc.
+
+	
+	
+	There are also an Is-A relationship
+		This is a type of super/sub class relation
+		The subclass gets all the attributes from the superclass
+		
+	Note: an entity that is a member of a subclass represents the same real world entity as some member of the superclass
+		IE
+
+			The subclass member is the same entity in a distinct specific role
+			An entity cannot exist in the database merely by being a member of a subclass, it must also be a member of the superclass
+				IE a secretary cannot exist without being an employee
+			A member of the superclass can optionally be included as a member of any number of ist subclass
+				IE we can have an employee that is not a member of any of the subclasses of the employee superclass
+				You can also have an employee belong to MULTIPLE subclasses (ie an hourly employee AND an engineer
+
+	
+	Representing Specialization in EER Diagrams
+		Slide 4-9
+		Timestamp 6:00 - 8:00
+		note the line with a U isnt in draw.io, thats okay
+			just use a line going into a circ with lines coming out
+			***IF YOU HAVE A SPECIALIZATION WITH ONLY ONE SUBCLASS
+				INCLUDE THE U ON THE LINE TO INDICATE SPECIALIZATON
+
+Attribute inheritance in super/subclass relationships
+	An entity that is a member of a subclass *INHERITS*
+		all the attributes of the entity as a member of the superclass
+		All relationships of the entity as a member of the superclass
+	
+
+	Big Question
+		Does the superclass participate in the relationship? Or is it just some/most of the subclasses?
+			IE all employees work for a department, put the work for relationship on the employee entity
+			BUT if all employees do not work on a project (such as a secretary or IT person)
+				Then you would want the works on relationship ONLY between the subclasses that are assigned to projects
+					(such as devs, engineers, etc)
+
+	
+
+Specialization
+	Defn - The process of defining a set of subclasses of a superclass
+	The set of subclasses is based upon some distinguishing characteristics of the entities in the superclass
+
+	Superclass subclass relationships and specialization can be diagrammtically represented in EER diagrams
+	Attributes of a subclass are called Specific/Local Attributes
+	
+	The subclass can also participate in a specific relationship types
+		IE a secretary may have a specific relationship such as WORKS_FOR manager
+
+
+Generalization 
+	the reverse of specialization
+	Several classes with common features get GENERALIZED into a superclass
+		the original classes become subclasses
+
+Start with superclass and move towards specific subclasses - that is specialization
+Start with subclasses and realize they share a common ground, so you make a superclass - that is generalization
+
+Data modelling with specialization and generalization
+	a superclass or subclass represents a collection of entities
+	also represents a particular type of entity
+	Shown in rectaqnges in EER diagrams
+	We call all entity types classes, no matter if they are a standalone entity, a superclass, or a subclass
+	
+
+Specialization VS Generalization
+	Doesnt change the diagram
+	just gives insight to how the heirarchy/ or super/subclass relationship is formed
+
+Disjointness Constraint
+	Defn - Specifies that the subclass of the specialization must be disjoint
+		An entity can be a member of at MOST one of the subclasses of the specialization
+	Specified by the 'd' in an EER diagram (d goes inside the circle)
+	
+Overlapping Constraint
+	That is that the same entity may be a member of MULTIPLE subclasses of the specialization
+	this gets an 'o' in the specialization circle notation
+
+Completeness/Exhaustiveness Constraint
+	Total -
+		Specifies that every entity in the superclass MUST be a member of some subclass in the specialization/generalization
+		This is shown by a DOUBLE LINE
+			IE an employee must be SALARIED or HOURLY, so we would give that specialization a double line
+	Partial - 
+		allows an entity to exist independent of any subclasses
+		this is shown by a SINLGE line
+			IE an employee may not be a secretary, engineer, etc. They can be JUST an employee. So that specialization gets a single line
+
+	
+
+So there are 4 types of specialization/generalization
+	Disjoint, total
+		Only one subclass specialization can occur per superclass entity, and every superclass entity must specialize into a subclass
+
+		Every superclass belongs to exactly one subclass 
+	Disjoint, partial
+		Only one subclass specialization can occur per superclass entity, but any superclass entity may exist without specializing into a subclass
+		Every superclass may belong to 0 or 1 subclass
+	Overlapping, total
+		Any number of subclass specializtion per superclass entity, and every superclass entity MUST be a member of at least one subclass/specialization
+		Every superclass belongs to one or more subclass
+	Overlapping, partial
+		Any number of subclass specializtion per superclass entity, but any superclass entity may exist without specialzing into a subclass
+		Every superclass belongs to zero or more subclass
+
+
+Specializtion Heirarchies/Lattices and Shared Subclasses
+	A subclass itself may have further subclasses specializing from it
+		forms a heirarchy or lattice
+
+	Heirarchy
+		Has the constraint that every subclass has only one superclass.
+		This is a tree structure
+	
+	Lattice
+		a subclass can be a subclass of MULTIPLE superclasses
+		this is where shared subclasses come in
+		sometimes this is called multiple inheritance
+
+
+	EX - we want the database to support an engineering manager subclass. To be an engineering manager
+		one must be 
+			An engineer
+			a manager
+			and a salaried employee
+		Thus the Engineering manager entity/subclass will have superclass(es)
+			Engineer
+			Manager
+			Salaried_employee
+
+			and all of these must be participated in for the engineering manager entity to be formed on the aforementioned employee
+
+	A subclass inherits attributes of ALL predecessor superclass
+		in the above example. the Engineering manager subclass would get all attributes from
+			Engineer 		(superclass)
+			Manager  		(superclass)
+			Salaried_employee	(superclass)
+			Employee		(predecessor {x1} superclass)
+		^ this ex builds from figure 4.8, or slide 4-26
+
+	Shared Subclass
+		Any subclass with more than one superclass (AKA multiple inheritance)
+
+
+Categories (UNION TYPES)
+	All the superclasses/subclass thus far have had a single direct superclass
+	A shared subclass is a subclass in 
+		MORE than one distinct superclass/subclass relationship
+		each relationship has a single superclass
+		shared subclass leads to multiple inheritance
+
+	In some cases we need to show a single superclass/subclass relationship
+		that has more than one superclass
+
+		Such a subclass is called a UNION type
+	
+	Superclasses can represent different entity types
+	
+	EX
+		A vehicle owner may be a:
+			person
+			bank
+			company
+	
+		thus we make a UNION type called OWNER to represent a subset of the union of the 3 superclasses (company, bank, and person)
+		
+		A category member MUST exist in at least one (typically just one) of its superclasses
+
+	
+	How is a union type distinct from a shared subclass
+		A union type is a subset of the intersection of its superclasses
+		Shared subclass member must exist in ALL of its superclasses
+
+	A union works well when the following criteria are met
+		there is NO common information (ex bank, company, and person share no attributes)
+		the is a common role (ex bank, company, and person can assume the role of the owner of a vehicle)
+
+
+Alt Diagram notations
+	Timestamp 28:09 - 
+
+
+
+	
+
+
+Question
+	If there is a case where we would have a single specialization/subclass coming from one entity
+		IE If we have employee, and the ONLY specialization the database supports is manager
+			Is it better to represent this with a relationship or a subclass? 
+
+Question
+	Can we have relationships between subclasses?
+		IE we have the Employee superclass, with specializations of Secretary and manager (ignoring others now)
+		Could we have the relationship between the secretary subclass and manager subclass such as
+			Secretary HELPS manager? (supposing that these were both subclasses of the same specialization)
+		
+		Does the specialization restrict further relationships between the subclasses?
+		
+
+Quiz question 1
+An entity type B that is a subclass of entity type A inherits the attributes of A, but the the relationship types of A

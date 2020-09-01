@@ -1,0 +1,69 @@
+CPSC 3500 - Syllabus and intro to Finite Automata
+
+Office Hours 
+3rd Floor McAdams - If there then available
+(Wednesdays are best)
+
+Book: Dont buy - slides/summaries/information available on website
+Website: 
+https://people.cs.clemson.edu/~goddard/handouts/cpsc3500/
+
+Cumulative Final
+
+
+
+Intro to Automata
+
+Example of a finite automaton
+
+  
+<would be drawn as a "flow chart" from state to state, usually with binary pathing>
+
+A finite automaton is a thing that processes a string
+A string contains only 0 or one
+it starts at state "A" and for every new input, follow the appropriate path
+
+Path arrows are called transitions (IE from state to state)
+
+The start point will have a lead in arrow with no condition, but when given a string
+ you follow the start transition
+
+State's with "double circle" notation are an "Accept State"
+	Accept States - often dont care which state you end in, but whether you land in an
+			 Accept state or not
+
+	Process ends in Accept state - the automaton Accepts the string
+	Process ends not in Accept State - Automaton doesnt accept string
+
+"Irrevocable Transition" - Once a transition is taken, the string is accepted.
+	Question of "what are accepted strings" now becomes "how do we cross this Irrevocable Transition
+	
+	Example answer
+		"Accepts all strings with a double Zero"
+
+	Note to check this answer
+		Must confirm - if it accepts, it has a double 0
+		Also confirm - if it has a double 0, it accepts
+
+Terminology:
+	Alphabet - set of all allowable characters 
+		Every drawn finite Automaton will have an allowable char set
+
+	Language - set of strings
+
+	Empty String - use epsilon (lowercase) = ϵ
+		note this is not the same as an empty language
+		nor is it the same as the language containing the empty string
+
+	Trap - once the remainder of the string is irrelevant, you have a doubling back transition
+		that will retain its state
+
+
+Build a Finite Automaton for the following cases 
+	Alphabet = 0, 1
+	give FA for
+
+A) string starting with 0
+B) string ending with 0
+C) strings containing exactly one 0
+D) all strings without 0

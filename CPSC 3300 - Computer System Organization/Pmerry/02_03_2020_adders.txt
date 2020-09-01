@@ -1,0 +1,180 @@
+02_03_2020
+Quiz Wednesday to cover
+	CPU performance Equation
+	Logic Gates
+	Truth Tables
+	Sum of products 
+Note, I denote a negated var as ! instead of bar
+
+Literals, Minterms, SOP (Sums of products)
+	A variable has two literals
+		x_i and x_i_negated
+					x_i_negated is shown as _
+								X
+		A literal product where each var is represented by at most one literal is 
+			A product
+			A product term
+			a term
+
+			When you include all 3 variables
+				the product term becomes a minterm as well as a product term
+
+	A minterm is a logical product of n literals where each variable occurs as exactly one literal
+
+	a canonical sum of products is a logical sum of minterms, where all minterms are different 
+		This can be a means of representing a boolean function using a group of variables
+				 that have one operation performed on them (anding)
+				 then or those terms together
+
+	
+
+	given 3 vars, A, B, C(in), identify the function for cout
+		there is an input/output truth table
+		
+
+		there are 6 literals
+			A, B, C, and these three negated as well. 
+
+		
+		A*B = a and b -> NOT a minterm because youre missing C
+		      _
+		A*B*C*C -> NOT a minterm because you have both C and C negated
+			 _ _ _
+		A*B*C or A*B*C	-> These are a minterm because they contain all n variables, and no two literals corresponding to the same variable
+
+
+		How to assign binary values to each literal in a minterm
+			A*B*C = A=1, B=1, C=1
+			!A * !B * !C = A=0, B=0, C=0
+
+		Now given the truth table, produce a function to mirror the behavior
+			Select the true states of the truth table (defined where output is 1)
+				For each true entry you will produce a minterm
+					for a true entry, to produce a minterm, you will take variables that are a 1 as their natural state, 
+											  and variables that are a 0 as their negated state.
+
+
+Multiplexors or MUX
+	a device that allows you to pick one of n inputs and direct it to an output
+	an N-1 MUX consists of 
+		n data inputs
+		control inputs - ceil(log_2 (n))
+		output: 1 	-> by definition/implicit
+
+	Diagram of 2-1 MUX
+		Data inputs n = 2, (call x0, y0)
+		control inputs - ceil (log_2(2)) = 1 bit
+		outputs - 1
+
+	Diagram below:
+
+
+	x0	y0
+	|	|
+	V	V
+       +---------+
+       | 2-1MUX  |
+   C ->|	 |-> Z
+       +---------+	
+
+
+
+
+	So what is on the truth table for the above MUX
+		Variables = C, x0, y0, Z
+		ins -> C, x0, y0
+		outs-> Z
+
+	Thus the Truth table:
+
+	     C  | x0	| y0	|| Z
+	-----------------------------
+	0	|0	|0	|| 0
+	0	|0	|1	|| 1
+	0	|1	|0	|| 0
+	0	|1	|1	|| 1
+	1	|0	|0	|| 0
+	1	|0	|1	|| 0
+	1	|1	|0	|| 1
+	1	|1	|1	|| 1
+
+
+Binary Addition
+	
+
+	Bit Addition
+	
+	A	|B	|    A+B|
+	--------+-------+-------+
+	0	|0	|0	|
+	0	|1	|1	|
+	1	|0	|1	|
+	1	|1	|10 	|
+
+	Problem, how do you represent the sum A+B with a single bit
+		you cant, but you can with two single bits
+		Sum
+		Carry
+
+		Sum refers to the in place sum, so 1 + 1 = 0 in place
+		but when doing the general addition, 1 + 1 fills the sum with 0 and carry with 1
+
+
+	Thus we can show the carry bit is essentially an AND between A and B
+		meanwhile the sum bit is an exclusive OR between A and B
+		S = XOR(A,B)
+		C = AND(A,B)
+
+
+	Half Adder
+		add two one digit addends, can only be used to add the least sig bit
+			(we cant deal with a carry in bit from the lower digit)
+
+		The half adder consists of one AND and one XOR 
+
+	Full Adder
+		Like a half adder, takes A and B as input, but also accepts a carry in
+
+
+
+Full Adder
+	Note a half adder does NOT handle carrys
+	a full adder can handle 3 input bits and 2 output bits
+	
+
+	Now we have 
+	A	|B	|Cin	||  Cout|      S|
+	0	|0	|0	||0	|0	|
+	0	|0	|1	||0	|1	|
+	0	|1	|0	||0	|1	|
+	0	|1	|1	||1	|0	|
+	1	|0	|0	||0	|1	|
+	1	|0	|1	||1	|0	|
+	1	|1	|0	||1	|0	|
+	1	|1	|1	||1	|1	|
+
+Question Relevant to homework
+	Using 2-1 multiplexors, can you build a 4-1 multiplexor
+		Yes, using 3 MUXs, you can turn 4 ins to 2 outs, and feed the 2 outs as the ins for the final 3rd multiplexor
+
+
+
+
+Ripple Carry adder
+	Has 2^n + 1 inputs 
+	a0 - an
+	b0 - bn
+	carry in
+	
+	Further, it has n numbers of full adders 
+
+	It get cumbersome at 32 or 64 bits, so we make use of a "Carry lookahead unit" 
+
+
+
+Carry Lookahead Adder
+	Carry (propagate) Pi = Ai XOR Bi
+	Carry (generate)  Gi = AiBi	
+
+	S_i = P_i XOR C_i
+	C_i+1 = G_i + P_i C_i

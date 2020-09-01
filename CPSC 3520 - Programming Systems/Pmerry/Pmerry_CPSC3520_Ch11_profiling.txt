@@ -1,0 +1,38 @@
+Why use profiling
+ 	Check distribution of fxn use
+	identify costly functions based on total usage
+	investigate branch distribution
+	determine scalability
+
+
+
+ocamlc vs ocamlopt
+	ocamlc produces bytecode, and can be run under any instance of ocaml
+	
+	ocamlopt compiles to native code for the target machine
+		
+
+
+You also want to make sure you have ocaml that enables profiling
+	run ocamlcp -v
+		you should make sure its a version that supports profiling
+	ocamlcp -help
+		sshows usage and some options
+	
+	profiling options
+		defaults are F and M  - function calls and match-with structures. 
+		
+		a - everything
+		i - if then else
+		l - while and for loops
+		t - try-with structure
+
+	
+	Mechanics of profiling
+		step 1- compile the ocaml contents
+
+		step 2 - un with ./<executable>
+		
+		step 3 - view ocamlprog <codefile> 	- this marks up the base code file to show the profiling
+	
+		

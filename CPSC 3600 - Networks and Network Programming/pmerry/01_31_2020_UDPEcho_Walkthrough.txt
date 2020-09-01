@@ -1,0 +1,69 @@
+01_31_2020
+
+IP addressing and Sockets
+
+IPv6 format
+	as opposed to the IPv4 which is 32 bits
+	IPv6 uses 64 bits
+
+	XXXX:XXXX:XXXX:XXXX : YYYY:YYYY:YYYY:YYYY
+	|Network ID	  |   |	Host ID		|
+
+
+	8 sets of 16 bit hex values seperated by :'s
+
+	Leading zeros can be omitted, consecutive zeros can be represented by '::'
+
+	usually the network prefix is the first 64 bits, the host id is the last 64 bits
+		the network prefix is usually set by the organization
+		Host id can be set by
+			randomly
+			DHCPv6
+			Extended unique ID (EUI-64)
+
+in the ./server program
+	when run with parms ./server 5000
+	it gives 4 pieces of info
+	the ipv4 address, the port
+	the ipv6 address and the port
+
+Note on ports - use between 5,000 - 10,000
+Errors with ports
+	port already in use
+	user programs are not allowed to use ports in that range
+
+
+In the example today he hosted the server and client on the same machine
+	program was simpleUDPEcho
+	to 'loopback' he uses 'localhost'
+
+	the invokation of the udpecho client is as shown
+		
+		$ client localhost 5000   1 000 000		10
+			 <IP >     <Port> <iteration_delay> <num iter>
+						in microsecs 
+
+	in the simpleUDPEcho program SERVER side 
+		*buffer is the pointer used when we malloc for hte message
+		check for the parameters for port/service
+		
+	the //construct the serve address structure block is where some of the important stuff happens
+
+	getaddrinfor() -> this will fill in information for us
+			the return is return by reference, and the important field is the info in address pointed to by &servAddr
+				This program will just use the first address on the list
+
+				
+
+	We specify with AF_UNSPEc or AF_INET to be using a specific ip implementation
+		AF_INET - ipv4
+		AF_INET6 - ipv6
+		AF_UNSPEC - dont care/want to use both
+
+	he issues a command 'signal' 
+		signal(SIGINT, CNTCCode)
+			this specifies a control c handler in order to specify the behavior 
+
+
+
+	

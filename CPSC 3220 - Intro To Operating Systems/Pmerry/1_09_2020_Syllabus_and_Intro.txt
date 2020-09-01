@@ -1,0 +1,98 @@
+1_09_2020_CPSC3220_Intro
+CPSC 3220 - 001 Introduction to Operating Systems
+
+Read for next class: chapther 1 and 2
+
+Office Hours
+TA: 10-11:30 Wednesday and 3-4 Thursday (or appointment)
+Prof:TR 10:45 - 12:15 (or appointment)
+
+Textbook:
+	Operatig Systems: Principles & practice 2nd ed
+		T. Anderson and M. Dahlin, 2014
+
+	Operating Systems: Three Easy Pieces (free)
+		R. H. Arpaci-Dusseau
+
+	xv6: a simplue, Unix-like teaching operating system 
+		R. Cox, F. Kaashoek
+
+Grading scale
+	PArticipation: 10%
+	Assignments: 20%
+	Programming Projects: 40%
+	Midterm: 15%
+	Final Exam: 15%
+
+Short intro to operating systems
+What is an OS?
+	OS aim to solve many more similar questions for a variety of computer systems, services, and applications
+	
+	A layer of software that manages and abstracts resources for users and applications
+		(power, memory, I/O devices, etc)
+		User must go through OS to access hardware
+
+		OS provides abstraction from hardware in things such as
+			CPU processes
+			RAM management
+			Hard Drive/SSD gets abstracted as files
+
+	KEY building blocks/Concerns for OS
+		Process and scheduling
+		Concurrency/Coordination
+		Address Space and Translation
+		Protection, isolation, sharing, security
+			Chrome uses process alloc model to "sandbox" tabs. IE they cannot access user data or critical files
+		communication and comm protocols
+		persistent storage, transactions, consistency, resilience
+		Masking Limitations (display power greater than underlying hardware)
+			IE, bits are binary but the OS allows for numeric computation
+			
+			Further, the OS, through abstraction/virtualization mechanisms provides an application with illusion of 
+			nearly infinite resources or illusion of reliable services
+
+	Linux OS kernel (C source code primarily)
+		27.8 million lines (monolithic kernel, in one program)
+		66 thousand files
+		21 thousand authors
+
+	OS provides set of common serives to simplify and standardise application
+
+
+
+	ROLES OF OS
+		Referee
+			Allocate resources
+			Isolate applications
+			Provide communication between processes
+			protect itself from applications and bugs
+		Illusionist
+		(one more, didnt get there in time)		
+Why study OS?
+	
+	OS evaluation criteria
+		Reliability/Dependability
+			vulnerabilities are exploitable
+		Availability
+			Two metrics
+				Mean time to Failure (MMTF) (increase improves relaibility)
+					how frequent are failures
+				Mean time to Repair  (MMTR) (decrease improves availability)
+					how long to repair after a failure
+		Security
+			No useful software/OS is totally secure
+		Portability
+
+		Abstraction
+			Abstract Virtual machine: Standard way for application to interact with OS
+		Performance
+			LAtency
+			Throughput
+			Overhead
+			Fairness
+			Predictability
+		Adoption
+			Value of technology depends on capability and number of users using it
+	
+What are OS challenges/Obstacles?
+	

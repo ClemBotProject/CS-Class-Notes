@@ -1,0 +1,52 @@
+01_22_2020
+
+There is a pingpdf matlab/octave file that will take a single data file command line argument
+	this is meant to plot the round trip ping if i am not mistaken
+
+DATA COMM 101
+
+	How do computers  really communicate
+		there must be a connection (wireless counts as physical connection)
+			The transferr medium makes a difference
+				copper: twisted pair
+				Glass: optical -> highest capabilities as a transfer medium
+				Air: radio (many portions of frequency spectrum can be used, think 2.4 or 5 GHz)
+		Data is encoded and transmitted as energy
+		Energy is decoded at the destination back into data
+		each form of energy has different properties and requirements for transition 
+
+	
+	The physical layer encodes the binary 1's and 0s into changes in the energy (or signal) to be sent via the physical medium
+		The destination device will decode based on standards for communication 
+
+	
+
+	Data communications
+		simplest approach - use varying voltages to rep a 0 or a 1
+		one common encoding uses negative voltage for 1 and positive for 0
+		In following figure, transmitter puts voltage on line for 0 and negative on the line for 1 
+
+		more sophisticated schemes will use a carrier signal to help propagate the energy further
+
+		Modulation - encoding data on a signal
+
+	Multiplexing
+		Frequency Division Multiplexing (FDM) achieves multiplexing by using different carrier frequencies
+		allows mulitple sources to simultaneously share a medium without interference
+
+	Noise in the wire leads to bit errors
+		bit errors can lead to packet loss
+
+	Physical layer can be destroyed
+		the higher layers should handle this for us
+
+
+
+UNIX 101
+	the command 'ps' shows active processes
+		with no parameters, it shows only that related to the current shell
+
+	for processes concerned with your user ID
+		ps aux | grep <username>
+		       ^ piping the standard out of this program to the grep program
+			when there is at least one pipe symbol the whole command is called "A pipeline"

@@ -1,0 +1,30 @@
+CPSC 1020 - March 1 2019
+
+New MIMIR assignment going up soon
+	Notebook program
+	Add/subtract sections
+		invariants in #sections and width
+	Individual assignment
+
+
+
+
+
+default arguments
+	If want to use defualt arguments- LEAVE THE LIKELY DEFUALT PARMS TO THE RIGHT
+
+	
+Accessors - functions that ONLY return a value. Make const for readability
+
+Mutator - Can manipulate data in the class
+
+Getters/Setters - Typically only GET or SET a value, they are unprotected and dangerous
+
+
+
+With things like a bank account
+	floats dont work - the rounding messes things up
+	use int - represent as cents - prevents ANY rounding
+
+the endl char flushes the buffer. \n does not
+	

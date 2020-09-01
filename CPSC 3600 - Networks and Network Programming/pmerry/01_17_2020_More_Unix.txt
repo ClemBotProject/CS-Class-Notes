@@ -1,0 +1,102 @@
+01_17_2020
+	
+	Homework and excersize one issued
+		EX1 - due 1/22 @ midnight
+		HW 1 - due 1/29 @ midnight
+
+	Exam One on 2/3
+		Includes EX 1 & 2, HW 1
+
+	Reading 
+		CHPT Kurose
+
+Information on VM's
+	Setting up the VM (go through the page IN DETAIL)
+		
+	After installinng Ubuntu on the virtualbox VM
+		You have to install guest additions (its in the manual) - it has QOL improvements
+		
+
+Linux Overview
+	man command
+		Stands for manual
+		Shows you information on particular topics
+	apropos
+
+
+	Ex 1 will be working with progs in the git repository
+	
+	HW1 sec 1 is from reading
+	HW1 sec 2 is about analyzing ping results
+	HW3 sec 3 sockets programming (code in git, UDPcho subdirectory)
+		Wait until next week
+
+	Most computers have a way of tracking time/date
+		The article "Measuring Latency in Linux" sets up the topic, read it
+		
+		Wall clock time - the computers understanding of the REAL time and date
+			very difficult to know, there is lots of instrumentation using 
+			atomic clocks to maintain the current time
+		
+			There is infrastructure to get the time for reference (considered a standard)
+				One Method: GPS system on computer connects to clock infrastructure for time
+				Another	  : Configure network time protocols with NTP servers
+						which are, at the top level, part of the time infrastruture
+	
+	(Note to go through these slides more in depth)
+	Name: UNIX - the commercial trademark reference to the OS dev by Bell Labs in 1969
+	unix is the generic name of UNIX based OS
+	Berkeley software division developed a variant of unix to speed code & feature delivery
+	GNU: GNU's not UNIX - meant to replace UNIX
+
+	Timing:
+		Unix maintains time with a 32 bit unsigned integer
+		Beginning: A vaue of 0 was equated to 1/1/1971 which was close to crrent time & because unix
+			was based on time tick of 1/60th of a second which would wrap within years. Soon after they
+			changed system time to 1 sec intervals and redefined the 0 val to 1/1/1970
+		End Time: scheduled for 1/19/2038 (#INEEDSOLAR)
+	Go through the first 20-30 slides of the unix intro ppt
+
+	UNIX Design Principles
+		Designed to be simple and elegant OS
+		Designed to be a time-sharing system
+			meaning multiple users can access the system simultaneously
+		Simple standard UI (shell) that can be replaced
+		File System with multilevel tree-structured directories (akin to windows?)
+		Files are supported by kernel as unstructured sequence of bytes (EVERYTHING is a file)
+			This implies you can open a file and get a file descriptor
+				you then can do a file write or file read
+				that is also how the IO interface works 
+		Supports multiple processes; a process can create new processes
+		High priority to make system interactive, and providing facilities for prog development
+
+		BASH -> Born Again SHell (more coming in another lecture)
+
+	4BSD Layer Structure
+		|___THE USER___	|
+		|Shells  & CMDS	|
+		|Compilers	|
+		|Interpreters	|
+		|sys libs	|
+		|_______________|
+		|Sys Call Interface to Kernel	|
+		|	...more in slides	|
+
+	
+	Unix Directory Structure
+		It looks like a Tree data structure
+
+		There is a root and subdirectories branching to other subdirectories  etc
+		There is access control and permissions	
+			IE keep other users out of my data
+
+	Process Control
+		a process = prog in execution
+		Processes are identified by process identifier, an integer
+		Process control system calls 
+			(see the slides for the sys calls)
+	
+		
+Data Com 101
+	
+Data Com 102

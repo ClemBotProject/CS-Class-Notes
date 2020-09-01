@@ -1,0 +1,251 @@
+CPSC 4620 - CHPT 5 - The Relational Model
+
+The relational model is based off of a relation
+	the strength comes from relation theory, a field of mathematics
+
+	A relation is based on the idea of sets
+	
+	
+Informal definitions
+	A relation looks like a table of values
+	A relation contains a set of rows
+	The data elements in each row represent certain facts that correspond to a real world entity or relationship
+		in the formal model, rows are called tuples 
+	each column has a header that gives indication on datas meaning
+		in the formal model these are called attributes/attribute name
+
+	Data in a single row is a related to a specific instance
+
+
+	Key of a relation
+		Each row has a value of a data item to uniquely identify that row/instance in the table
+			called the key
+		in the student example, the ssn is the key
+	
+		Sometimes row ids are sequential numbers
+			surrogate keys are what they call this
+
+	The Schema of a relation
+		is denoted by R(a1, a2, ... aN)
+		R is the name of the relation
+		the attributes of the relation a1-n
+	EX
+		Customer(Cust-id, custname, addr, phone)
+			customer is the relation name
+			attributes in the parens
+
+	Each attribute has a domain or set of valid values
+		the domain of cust-id might be 6 digit numbers
+
+A tuple is an ordered set of values (with angle brackets)
+	So if we take the schema, that is the 'template' for how the data relates
+	when we actually put instance-related data, we will show it with the brackets like so
+		
+		<123456, "Phil Merry", "123 Address Way, Clemson, Sc 29634 ", (864)-555-5555>
+
+	The above exampe is a 4 tuple
+		it is a row in the customer relation
+	
+	a relation is the SET of such tuples (rows)
+		sets are not ordered. 
+		thus the tuples are not ordered even though they are in tabular form
+ 
+		the order of the attributes WITHIN a tuple/relation schema DOES MATTER
+			IE if we have R(A1, A2...) then you better start listing the tuple with a1's value, then a2's etc
+
+
+		When two relations have the same values, but different order, they are still considered equivalent
+
+Domain 
+	Definition - the logical implication of the data covered
+		IE, all 10 digit phone numbers in the US
+			Street names within the delivery radius
+			6 digit numbers (like an ID num)
+	A domain also has a data type or format defined for it 
+		
+	The attribute name designates the role played by a domain ina relation
+		Used to interpret the meaning of the data corresponding to the attribute
+
+
+Values in a tuple
+	They are atomic (indivisible)
+	Null represents unavailable data
+
+Suppose that S is a relation schema belonging to a database
+	S is the name of the whole DATABASE SCHEMA
+		S = {R1, R2, R3, ..., Rn} and a set of Integrity constraints (IC)
+
+	R1 - Rn are names of the relation schemas within the database S
+
+
+Company Database Schema 
+	EX at 10:00 and slide 5/18
+
+
+Relational database state
+	a relational database state (AKA snapshot) is the set
+		of relational states DB={r1 - rn} such that each ri is a state of Ri and
+		such that the ri relation states satisfy the integrity constraints
+	
+	If the state does not meet IC, its an invalid state
+
+	
+Populated database state
+	each relation will have many tuples in its current relation state
+	The relational database state is the union of all individual relation states
+
+	Whenever db changes, new state arises.
+
+
+Basic DB operations
+	Insert a new tuple in a relation
+	delete an existing tuple from a relation
+	Modify an existing tuple 
+
+Constriants
+	Define what is and is not permissible in the database
+	3 main types
+		Inherent or implicit constraints
+			These are based on data model itself (EG relational model doesnt allow a list as a value for an attribute)
+		Schema based/Explicit constriants
+			They are expressed in the schema by using facilities provided by the model (IE max cardinality ration constraint in the ER model)
+		Application or Semantic Constraints
+			Beyond the expressive power of the model, and must be enforced by application programs
+				EG - 
+
+Relational Integrity constraints
+	Conditions that must hold on all valid data
+	There are 3 main types of explicit (schema based) constraints that can be shown in the relational model
+		Key constraints (unique values)
+		Entity integrity constraints
+		Referential integrity constraints
+	Another schema based constraint is the domain constraint
+		every value in a tuple must be from the domain of its attribue (could be null, if allowed)
+
+
+	Key constraints
+		Key of R
+			is a set of attributes K of T with the conditions
+				No two tuples in any valid state r(R) will have the same value for K
+				That is, for any distinct tuples t1 and t2 in r(R), t1[K] != t[k]
+				This must hold for ANY valid state
+				removal of an any attribute from K results in a set of attributes NOT guaranteed to be 
+					unique for any 2 tuples in a valid relation state
+
+		Example on slide 5-25 (starts around 17:00, lecture 5)
+
+		If a relation has several candidate keys (such as the prev example on 5-25) 
+			One is chosen arbitrarily to be a primary key.
+			Underline the primary key
+
+		The primary key (PK) is what will be used to uniquely identify each tuple in a relation
+	
+		Also used to reference a tuple from another tuple
+			General rule - choose the primary kley that is smallest of the candidate keys (in terms of size)
+			General Rule 2 - choose a key who is unlikely or IMPOSSIBLE to change
+			Not always applicable - choice can be subjective 
+
+		If you have an ID to the relation with no real world meaning
+			This is an 'Artifical' or 'Surrogate' key
+
+Entity Integrity constraint
+	The primary values PK of each relation schema CANNOT have null values in any tuple of r(R)
+		This is because we MUST be able to identify individual tuples
+		t[PK] != null fopr any tuple in r(R)
+		If PK is made of several attributes, NONE of those attributes may be null
+
+	There may be other attributes prohibited from being null, even though they are not members of the PK
+
+
+Referential Inegrity
+	A constraint involving 2 relations
+		previous constraints involve only a single relation
+	Used to specify a relationship among tuples in 2 relations
+		the referencing relation and the referenced relation
+	Tuples in the Referencing relation R` have attributes FK (foreign key) that
+		reference the PK of the referenced relation R2
+
+		A tuple t1 in R1 is said to reference a tuple in T2 in R3 WHEN
+		t1[FK] = t2[PK] (IE we make the foriegn key of the referencer the primary key of the referenced)
+
+	A referential integrity constraint can be displayed in a relational database schema as a directed arc arrow from R1.fk to R2
+
+	Statement of the constraint
+		The value in the foreign key column FK of the referencing relation R1 can be either
+			1 - a value of an existing primary key value of a corresponding PK in the referenced relation R2
+				OR
+			2 - a null
+		If (2) is the case - the FK in R1 should NOT be a part of its own primary key
+	
+	Example of this on slide 5-33 (starts around 29:00)
+
+
+
+
+
+Displaying a relational Database schema and its constraints
+	Each RELATION SCHEMA can be displayed as a ROW of ATTRIBUTE NAMES
+		The name of the relation is written above the attribute names (think titling the table 'Person')
+	The primary key attribute will be underlined
+	A foreign key (referential integrity) constraint is displayed as a directed arrow from the foreign key attributes to the primary key of the referenced table
+	
+	Slide 5-33 shows the company relational schema diagram with the added referential integrity constraints 
+
+
+Semantic Integrity constraints
+	Based on application semantics and NOT expressable in the relational model per se
+	
+	IE "max number of hours per employee for all their projects is 56 hours per week"
+
+	A Constraint Specification language may have to be used to express these
+	
+	SQL-99 allows Create_Trigger and Create_Assertion to express these semantics
+	
+	Keys, permissibility of null values, candidate keys, foreign keys, referential integrity, etc are expressed by the Create Table statement in SQL
+
+
+Operations on Relations
+	Insert a tuple
+	Delete a tuple
+	Modify a Tuple
+	Integrity constraints SHOULDNT be violated by an update operation
+	Several update operations may need to be grouped together
+	Updates may propogate to cause other automatic updates - this would be done to maintain integrity constraints 
+
+	In case of an integrity violation
+		1 - Cancel the operation that causes the violation (Restrict or Reject)
+		2 - Perform the operation but inform user of violation (puts you in an invalid state)
+		3 - Trigger additional updates so the violation is corrected (Cascade option, set null option)
+		4 - Execute a user specific error correction routine
+
+
+Possible violations by operation
+	Insert 
+		Domain constraint
+			If one attribute value provided for new tuple is nto of the specified domain
+		Key constraint
+			if the key attribute in the new tuple exists already in another tuple
+		Referential Integrity
+			if a foreign key value in a new tuple references a primary key val that doesnt exist in the referenced relation
+		Entity Integrity
+			the PK is null in the new tuple 
+
+
+	Delete can only violate referential integrity
+		IE you delete a tuple referenced somewhere else in the database
+			Remedy this by 
+				Restrict option - reject deletion
+				Cascade  opton - propagate the new primary key value into the foreign keys of the referencing tuples
+				Set null Option - set the foriegn keys of referencing tuples to NULL
+		One of the options MUST be specified during the database design for EACH key constraint
+	
+
+	Update may violate the domain and NOTNULL constraint on the attribute being modified
+		Any of the other constraints can also be violated depending on the attribute to be updated
+			Updating the primary key PK
+				similar to delete followed by insert
+				need to specify operations similar to DELETE
+			Updating a foreign key
+				may violate referential integrity
+			Updating ordinary attribute (not PK or FK)
+				this can only violate domain constraints 

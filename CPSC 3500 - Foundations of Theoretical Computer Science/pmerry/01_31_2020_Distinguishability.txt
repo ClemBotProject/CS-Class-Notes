@@ -1,0 +1,117 @@
+ 1_31_2020 - Product Construction & Closure
+
+Practice sheet 6 (in class)
+	Draw a 2 state FA for the language L1 of all strings ending with 0 
+		A - 0 ->B
+		A <- 1- B <-0-
+		^
+		1
+
+	Draw a 2 state FA for language L2 of all strings containing an even number of 1s
+		
+
+	Use product construction for L1 u L2
+			(because we want the union, in the product construction the accept states will be any pair with at least one accept state
+			(suppose we want the intersection, this would mean only the states in which BOTH states in the pair are accept states)
+			(Symmetric difference [L1 - L2], all strings where the answer is different for L1 L2, any string in one set and not the other)
+				For the symmetric difference, teh accept states in the product construction are where exactly one of the pairs are accepted
+				semantically - (L1 - L2) u (L2 - L1)
+		you have four possible states
+		Ax <-1-> Ay
+	       0|	 |0	
+		V 	 V 
+		Bx	 By
+
+	You can see the soln online
+
+
+
+Closure
+	Theorem:
+		If A,B are regular languages, then so is
+			1) AuB (union)
+			2) AB  (concatenation)
+			3) A*
+			4) AnB (intersection)
+			5) A' (complement, also denoted as A with a bar above it)
+			
+
+		How do we show if you have a langauge, that the opposite (complement) is a regular language
+			take the DFA from the given 
+				exchange accepts and rejects
+
+		Another way to calculate the intersection (without prod construction)
+			So AnB = (A'uB')'
+				this is demorgans law
+
+		
+	Theorem (same as above, rephrased):
+		the set of regular langauges are closed under
+			1) union		- in RE this would be a + (aka an OR)
+			2) concatenation	- intuitive in RE
+			3) star operations	- intuitive in RE
+			4) intersection		- not easy for RE, build the FA, then use alg to convert back to RE
+			5) complement		- similar to intersection
+
+
+
+
+	Example
+		Show that the regular languages are closed under reversal.
+			By reversal is that you start with your language A containting {cat, dodo, ant}
+			where reversal(A) = {tac, odod, tna}
+
+		Show that if you have a RE for A, how you can algorithmically produce a regular expression for reversal of A
+		OR
+		FA for A -> FA for reversal(A)
+
+
+		For the RE
+			you simply write the RE in reverse
+				start = (a+b)c*
+				reversed = c*(a+b)
+
+
+		For the FA
+			you would reverse the accept states and the start states, and reverse all transitions
+			Thus you must build an FA that has only one accept state
+
+
+
+	The "spirit of the class algorithm"
+
+
+	Distinguishability
+		Fix some language L
+		Strings x and y are DISTINGUISHABLE with respect to L if there
+		exists string z such that one of xz,yz in L and one not
+		
+		IE this is the case where we have strings 
+			x and y
+		and you must show that when concatenating the two with Z you produce one string in the language and one string not in the language
+
+		
+
+	Example
+		Language L = all binary strings where the first and last bit are different
+			x = 011
+			y = 1100
+		Distinguishable W/R/T L
+			because if Z = 000
+			xz = 011000 and is not in L
+			yz = 1100000 and is in L 
+
+		ALTERNATIVELY if
+			x = 011
+			y = 001011101
+		these are INDISINGUISHABLE meaning
+			whatever Z you use,either both xz and yz are in or not in L
+
+	
+	Distinguishability use
+		if two strings are distinguishable, then you can say that those two strings will evaluate to different states in a FA
+		(rephrased below)
+		if x & y are distinguishable, they must go to different states of a finite automaton for L
+		
+				
+

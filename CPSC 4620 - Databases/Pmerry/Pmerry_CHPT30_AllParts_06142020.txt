@@ -1,0 +1,216 @@
+Database Security / Chpt 30
+
+Security issues
+	Legal issues
+		Ferpa, HIPPa
+	Ethical
+		responsibility with personal data
+	Policy issues
+		Government, institution, or corporate level
+	Mutliple security levels
+		all compliacted by different clearance levels
+
+
+Database Threats
+	Threats to DB can result in
+		loss of integrity
+			data integrity is key to DB
+			use of DB with bad data results in 
+				inaccurate reports
+				fraud
+				erroneous decision making
+			add constraints to avoid bad data
+			security threats can introduce bad data through data modification
+		loss of availability
+			A database isnt useful if it isnt available
+			someone with malicious intent could eliminate availability for some/all data
+			down time can be inconvenient or financial loss
+			critical databases could have bigger impact on down time
+		loss of confidentiality
+			we need to protect against unauthorized disclosure of data
+			private data coul.d be used for fraud/blackmail
+			users dont feel safe, tehy wont use it
+			some laws exist to protect user data	
+				legal action can occur after data is disclosed
+
+
+control measures for security
+	four types of control measures
+		access control 
+			who has access
+		
+		inference control
+			even with identifying info hidden, can identities be inferred with the anon data
+	
+		flow control
+			Can secure info be moved to a less secure object
+
+		Data encryption 
+			encode the data
+
+Database admin
+	The central DB authority 
+	DBA can
+		create accounts
+		grant/revoke access priveleges
+		assign security levels
+
+	these are crucial to access control
+	DBA is responsible for overall security of database
+
+User accounts
+	the DBA can add user accts to the db
+		allows user to use their own username and password
+
+	applications caqn also be given an acct that they use to login to the DB
+		or the application can prompt user for their log in info
+
+	most DBMSs provide some method of logging user activity
+	users added using the CREATE USER statement
+	CREATE USER '<username>' @ '<host>' IDENTIFIED BY '<password>'
+		all accts stored in an encrypted table
+		use localhost to only allow direct access
+		use % for any remote access
+
+Grant priveleges
+	we can specift the type of privelege
+	we can specify where the privelege applies to
+		<Schema>.* - all tables
+		<Schema>.<Table> - for a specific table/view
+		<Schema>.<Table>(field) for only specific fields on the table
+
+	GRANT <privelege1>, <p2>, ..., <pN>
+	ON <Schema>.<Table>(Field)
+	To '<user>@'<host>'
+
+Priveleges 
+	can grant SQL statements we have learned 
+		SELECT
+		INSERT
+		UPDATE
+		DELETE
+		CREATE
+			applies to whole schema
+		Drop
+
+Revoke priveleges
+	we can revoke privs from users as well
+
+	same syntax as grant priveleges, but instead of GRANT use REVOKE
+
+Views for security
+	a user can only see certain rows/fields of tables
+		create a view defined by a query that limits the rows/fields
+		gran user the select privs on the view
+
+Discretionary vs mandatory
+	Discretionary security mechanisms
+		Used to grant security to specific users
+		privs decided on a user basis
+		we can enforce through SQL statements
+		Lots of control
+	Mandatory security mechanisms 
+		Enforces multi level security 
+		divide users and data into different security classes
+			security determiend by a specific class
+		Privs decided on a level by level basis
+		provided by some DBMSs
+		Easy to assign users a set of priveleges
+
+	Discretionary is more flexible
+		application accts are a weak point
+	Discretionary doesnt have control of data after it has been accessed by an authorized user
+	
+	Mandatory
+		controls the flow of info better
+			data can have levels, not just users
+			you can continuously check if user is allowed access
+		More rigid
+		Not applicable to as many situations
+			Do users fit into a classification well
+
+Role based access
+	roles are created with different priveleges
+		like mandatory access control
+	roles assigned to users
+		users can have more than one role, more flecible
+	security is tied to the type of actiosn the user would take in the sys
+
+	Create a role in sql
+	CREATE ROLE <rname1>, <rname 2>, ... <rname n>
+
+	Grant privs to role
+		same syntax as grant but use the role name instead of user name
+
+	Add the role to the users
+	GRANT <roles 1-n>
+		TO '<user1>'@'<host1>, ...
+
+SQL INJECTION
+	sql injection attack are common security threat that needs to be handled
+	the hacker attempts to inject another SQL statement into a normal parm
+	this happens bc of our dynamically created queries
+		recall - we get input from user and store it in vars
+		these vars then appended to a string with out SQL query to create the whole query
+		a hacker can use the input field to put a diff SQL statement into the system
+
+	Hacker could also add entire statments to try and get more info our or cause damage
+		EX on slide titled SQL INJECTION
+		
+	Hacker must guess table names or use SHOW and DESCRIBE
+	very easy to just drop all tables from the DB as well 
+
+SQL injection through url
+	many websites use URL to encode the parameters
+	Hacker loads the urls
+	if the first URL returns the review and the second returns a blank page or no error message, the hacker knows the sys is vulnerable
+
+	can get info about the db bit by bit 
+
+Guard against SQL injection attack
+	Validate input
+		Check for unexpected chars
+			', ; etc are all dangerous
+	ensure numeric vals are numbers
+
+	Use escape chars
+		write a fxn to replace special chars with some that is not as dangerous
+
+	Parameter Binding
+		using prepared statements also helps guard against this 
+			Process teh query and parms seperately
+			parameter bindingh requires type match
+				bindign sql data type
+				not using quotes which can be cancelled out to add in more conds
+
+Statistical DB Security
+	often we have a db that only allows statistical queries
+		Cant select fields directly, only can use aggregate data
+		this keeps every individual record protected and anonymous
+		Every query returns aggregate info about the population, not an individual
+		commonly used in datamining to find trends but protect privacy
+	However we can still infer private info
+		pick our conditions to elim as many people as possible
+		do we know age, gender, area they live, education level, etc - all this is useful
+		Even if the count isnt one with a small enough count you can get meaningful info
+			IE min and max will provide a range
+
+
+Gaurd statistical DBS
+	dont allow queries to run if the count is below a threshold
+		Can use the having clause to eliminate small groups
+	partition the DB
+		seperate the population out into groups of a min size
+		only allow queries to refer to a group/set of groups, not a subset of records in a group
+
+Encryption
+	Convert data into an encoded format
+	Symmetric key algorithms
+		same key for en/decryption
+			need to share the secret encryption key
+			often is a users password 
+	Public (Asymmetric) key encrypttion
+		public key used to encrypt
+		private key used to decrypt
+		the keys are linked but its difficult to derive the private key from public key
+		you give the public key away so people can encrypt a message, but only you can decrypt it

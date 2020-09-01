@@ -1,0 +1,139 @@
+System admin
+
+BIOS
+	Basic input output system
+		firmware inits hardware on MB
+		makes sys ready to load OS 
+
+	each device starts with MBR (512 Bytes) was introduced in 1983 with PC DOS 2.0
+	lives at cylinder 0, head 0, sector 1
+
+	MBR = master boot routine
+		Every entry in the table is 64 bytes
+			contain info about each partition
+
+	
+
+	Loots for all bootable vols in the table
+		boot order can be changed in firmware UI
+		device must be bootable/active
+
+	BIos loads 2nd stage boot code from beginning of active partition of memory
+		active partition starts at 64th disk block
+
+	Boot code determines which kernel to boot
+		locates kernel on disk and loads into memory
+			boot loader loads kernel and initial ram based File system to mem
+
+	7 steps to booting the system on the notes sheet
+
+	
+
+UEFI
+	Replaced BIOS but may be issue for single OS Ubuntu installs
+
+	Can fall back to BIOS implementation if sys doesnt support UEFI
+	
+	Virtualized env often prefer bios
+	
+	Modern disk partitioning scheme changed (look for the key changes)
+
+
+	access through some steps (listed on page)
+
+	
+
+	How is Bootloader different than Bootstrapper? is there one
+		Bootlaoder is more broad
+		bootstrapper refers to the first step, where the bootable devices are loaded to the table
+Bootloaders
+	small program identifies and loads OS kernel into memory
+	Pass arguments to the kernel
+	can allow to select between OSs
+	loadlin was an early loader; Lilo and ELILO came later and still in use by some
+	Most distros use GRUB2
+
+GRUB2
+	Default loader for linux distros
+	Allows to select bootable kernel and mode
+	may present a boot time ui in multiple boot envs
+
+
+init systems
+	sysVinit and BSD init - allwos sequential startup of services
+		devs were adding services, but it became obsolete
+	Upstart - allows concurrent service start up (unless dependent on other services). Supports multicore processing
+	systemd - allos conurrent service startup and supports multicore processing
+		since 2015, ubuntu uses systemd
+		gets PID 1
+
+Daemons
+	kernel background process that starts autnonomously after booting
+	part of kernel implementaiton
+	not configurable, do not require attentoion
+	have d at end of name
+	have nothing to do with directories ending with .d
+	Low PIDs
+	have brackes around names in ps -ef
+
+	systemd is daemon with PID 1
+	what entity has PID 0
+		the current process's parent
+
+
+		
+
+systemd
+	controls system process management
+	a collection of progs, daemons, libraries, and kernel components
+	aggressive parallelization capabilities
+		starts faster than ststem with init
+
+	Dependency based service control logic
+
+	makes a dependency control model
+		shows what services ahve prereqs
+
+	manages
+		network connections
+		...
+
+	LOTS of systemd commands that control processes
+
+
+
+Booting problems
+	3 approaches
+		do not waste time debugging, restore and redo
+			you need backups
+			saves time
+		run a shell and debug interactively
+			
+		boot another image, mount non-booting system, debug
+			save backups yet again
+
+Reboot and Shutdown
+	enter at cmd line
+	halt - logs shutdown, stops servicews, flushes cached data, halts kernel,
+	...
+
+Runlevels
+	0 - poweroff.target
+	1 - rescue.target
+	2-4 multi-user.target
+	5 - graphical 
+	6 - reboot
+	Emergency
+
+	These changed to targets under systemd
+		the idea is they will boot system under a certain level of "safety"
+
+
+
+Discovery Exercises
+	listed on the file for next time
+
+Hypervisor
+Container
+appliance
+	find these in readings

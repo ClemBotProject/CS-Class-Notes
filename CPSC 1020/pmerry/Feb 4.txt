@@ -1,0 +1,154 @@
+CPSC 1020 - 2/4/2019
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Dummy Node - A node that head and Tail defaults to 
+	- Use some sort of UNUSABLE number to store in dummy node to prevent accidental data manipulation
+	- DUMMY NODE ONLY IS IN WHEN LIST SIZE IS 0
+
+	- Pushfront/pushrear - Create a new node and push it into the list 
+		-MAKE SURE TO NOT "LOOSE YOUR POINTER"
+	
+		Node i
+		____
+->    XX   - > |    | -> FORWARD NODE ->
+	       +----+
+<- Prev Node <-|____| <-     XX       <-
+
+
+
+*XX is the next or previos node pointing BACK to the node present
+	Forward node is node i+1
+	BAck node is node i-1
+
+
+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+
+
+Comments in C++
+
+	use // for one line comments, or /**/
+
+Preprocessor Directives
+	
+	#include<iostream> //preprocesor directive
+	using namespace std; // Namespace to use	
+
+	//Also works
+
+	using namespace std::cout;  // double colon (::) is the "scope resolution"
+	//std brings in cin, cout, and many more
+
+Code Blocks
+	
+	int main() //Function header
+	{
+		cout << "Hello, there!"; //output statement
+		return 0; //
+	}
+
+=========================================================================================
+
+The "cout" Object
+
+
+
+USE << to send info to cout
+
+	cout << "Hello, There!"; 
+	
+	prints: Hello, There!
+
+	cout << "Hello, There!" << endl; // prints hello, there and then a new line
+
+To use \n, always put it in Double quotes
+
+=========================================================================================
+
+The "cin" object
+
+IE
+	int height;
+	cout << "How tall is the room? "; //also can use "printf"
+	cin  >> height; // Takes in a value for height
+
+	// NOTE for cin, the data type of the variable you are reading DEFINES the type of data it will read/ 
+		// SO passing "1.5" for height in the above will only take the value 1
+	
+	cin >> height >> width; //will read <height> <width> <ENTER_KEY>
+
+	
+=========================================================================================
+
+Stream Manipulators
+		
+Used to control output field
+	
+some effect next value, IE "setw(x)" -> prints value in a field at least x spaces wide
+	Value will be right justified if not needing x spaces
+	Decimals use a space
+
+setprecision(x)
+	Rounding used if x is less than the number of sig figs
+
+showpoint // always print a decimal 
+Left or Right // Sets justificaiton
+resetiosflags //sets flags to default
+
+SO THE LINE
+
+	cout << setw(8) << e << endl; 
+
+
+	GIVES
+
+	
+	^^^2.718 <-| // NOTE "^" signifies a leading space, and would not be shown on the command line
+
+	
+	WHILE
+
+	cout << left << setw(8) << e << endl;
+
+	GIVES
+
+	2.718^^^<-|
+
+
+THE FLAGS ARE "STICKY" 
+	USING THE FLAG WILL EFFECT EVERYTHING BELOW IT
+
+
+en.cppreference.com/w/cpp/io/manip -> Website for io manipulators
+
+
+=========================================================================================
+
+NOTES
+
+	BE CAREFUL WITH DATA FORMATTING. DONT RUN NUMBERS TOGETHER
+
+
+=========================================================================================
+
+HEX OUTPUT
+
+	Use setbase(<base>) to change the base of numbers
+	using showbase will lead with a 0x for hex
+	use "setfill" to continue giving chars in the setw(x) space
+	noshowbase stops showing the base
+	
+
+========================================================================================= 
+
+COUT KNOWS HOW TO PRINT A VARIABLE BASED ON THE DATA TYPE
+
+When using a pointer to print a value, the dereference operator still works
+
+
+=========================================================================================
+
+
+	
