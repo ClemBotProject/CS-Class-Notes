@@ -1,0 +1,89 @@
+CPSC 3220 - Networks and Network Programming
+
+
+Intro to Distributed Systems
+	Network Definitions
+		Host - A computer that connects to a network
+		Client-Server Applications - Applications online that a computer may access
+		
+			Browser -> Host -> Network -> Website
+			|	   |	     | 		^The website will also retain a networking stack, but the presentation/session layers will be seperated (got rolled into application layer)
+			|	   |	     |			This stack will contain Application | Transport | Network - link - physical
+			|	   |	     |
+			|	   |	     ^Protocols - the rules by which two hosts will communicate/participate
+			|	   |
+			|	   ^Has a Networking Stack - usually a 7 layered : Application | Presentation | Session | Transport | Network | Link | Physical
+			|	   |	One of the design goals is to architect the web app to fit this model
+			|	   |	Primary interface - called Sockets
+			|	   ^ Host implies a networking stack is used (though different types of networks exist)
+			|
+			^Intuitive, such as google chrome
+
+
+	Network stack AS ASSOCIATED WITH THE INTERNET
+		Application	|
+		Transport	| <- Considered a part of TCP-IP
+		Network 	|
+		Link		    | TCP-IP is supposed to work over any link type
+		Physicial
+
+	Why concern with network stack
+			note each stack layer has its own header
+		The application layer on one host will communicate with the application layer on the other host
+			The logic follows for all layers
+
+		End to End - the computing done on that stack layer is fully contained, and only is done on end points (between the accessing and serving computers)
+			IE this just means it doesnt go anywhere but its source and destination
+
+Conceptualization of Distributed Systems with the Postal System
+
+	Jim's	------> Local PO ------> Regional PO(s) --> local Po --------> 	Dan's
+	Home 	------>								Home
+	
+
+	What does the letter have
+		The name of the recipient
+			The street, city, state, zip address (destination Address)
+		Return address
+			ditto (source address)
+		Contents
+			Note the contents is irrelevant to the delivery process
+			(package delivers the same as letter for example)
+
+	Suppose the letter being sent is the application and the recipient is the peer application
+		The data will be placed into one or more 'Packets' - This is called an IP Datagram
+		IP Datagram format defined by TCP-IP (the protocol is called IP - internet protocol)
+			IP Datagram
+				IP Header -> contained within -> source address (IP addr, port #), destination address (IP addr, port #)
+				---------
+				transport 
+				---------
+				Data
+
+	The post offices in the example correspond to Routers in the network
+	The name on a letter corresponds to where in the destination the packet will be delivered
+		IE ensure mail goes to you not your children
+		In the real sense, this ensures the correct application recieves the info
+
+Misc info about IP addresses
+	8.8.8.8
+	9.9.9.9
+	192.156.0.1
+	etc
+
+	a 32 bit number
+	each number represents the octet, seperated by periods/decimals
+	there are 4 octets
+
+	IP contains 2 pieces of information
+		<zip code , streed addr> :: <network ID, Host ID> 
+
+Intro to VMs
+	Information is online on the website
+
+	a VM gives a sandbox to work in
+		we will be using ubuntu 16.4 with root access
+	
+	Host OS - the os on your machine
+	Virtual box - the virtual machine manager, allows creation of virtual machines which are essentially a new machine
+		Sometimes a VM is called a Guest OS

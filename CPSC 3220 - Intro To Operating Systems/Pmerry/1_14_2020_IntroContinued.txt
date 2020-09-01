@@ -1,0 +1,165 @@
+CPSC 3220 - 01-14-2020
+
+objectives
+
+What happens when OS runs a program
+
+Shell Program
+
+Privileged and unpriveleged program execution
+
+
+
+
+What is an OS
+	A layer of software that manages and abstracts a computer resources for its users and applications
+		interposed between applications and hardware
+
+Hardware Abstraction - how is it done
+	Processes are simply representation of CPU hardware (as aree threads)
+	HDD/SSD being represented in a file system
+
+
+
+What happens when a program is run?
+	BAsics
+		A computer as a fixed set of hardware and can execute a fixed set
+		of instructions (Instruction set architecture or ISA)
+
+		Programs are stored and manipulated in the computers memory, like 
+		data
+
+	(From textbook)
+		Xv6 can time-share processes: it transparently switches the available CPUs
+		among the set of processes waiting to execute. When a process is not executing, xv6 saves its CPU
+		registers, restoring them when it next runs the process. The kernel associates a process identifier,
+		or pid, with each process.
+
+	
+	Von neumann architecture
+
+
+	
+			Arithmetic Logic Unit
+	input device -> Control Unit		-> Output Device
+			Memory Unit
+-----------------------------------------------------------------
+	IE					   IE
+	keyboard    -> |HARDWARE		-> Monitor etc
+
+	The program is stored in the memory unit
+	The ALU is the functional units to do actual computation
+	Control unit controls the passing of instructions to ALU and data to memory
+
+
+
+	RECALL (sequence of compilation)
+	Hello.c -|preprocessor (cpp)|-> Hello.i -|Compiler|-> hello.s -|Assembler|-> hello.o -|Linker|-> hello (executable, in ELF/(Executable and Linkable) format)
+												^ this is where the printf.o obj file will be linked so printing will work
+
+note in the objdump of your .o file, you will see the entry point of the program along with a lot of other jibberish
+
+	steps in running ./hello
+		user types ./hello to cmd
+		the shell reachs chars into registers and stores into the mem
+		3 ...
+		4 once the hello executable is loaded into mem, the processor begins executing machine language instr in programs main routine
+
+	Does shell or Hello program access the keyboard, display, main mem etc directly?
+		No, they rely on services provided by OS
+	What abstractions does the OS provide and how are they related to hardware
+		OS abstracted keyboard input as a file 
+		Shell code was stored in mem along with hello executable (the shell program accessed correct mem for hello without user directing the addresses)
+		
+	Process - a program in execution with LIMITED privelege
+		Thread: execution sequence within a process
+		Address space: Valid range of memory addresses
+		Allocated Resources: physical mem, files, and network connections the process can access
+		Capabilities: the permissions the process has to access system objects 
+
+
+Process Abstraction
+	Text section containing program code
+	Current state, including program counter and processor registers
+	Stack - contains temporary data
+		function parms, return addr, local vars, function call stack frames
+	Data section contains global variables
+	Heap contains memory dynamically allocated at run time
+
+	STACK ->	 <-HEAP | Data | Text 
+	^DONT KNOW SIZE OF SEC^
+	hence why they grow towards each other
+		Stack grows towards the 0 addresses (Stack grows down)
+		heap  grows towards the max addressses
+
+ 	The data structure designed above is an example of the OS regulating program
+		execution
+
+
+How to implement execution with limited priveleges
+	SYSTEM CALLS - they are a means for the program to invoke operating system to
+		take care of the hardware level aspects
+		
+		Steps
+			Execute prog in a simulator
+			if instr is permitted, do it
+			otherwise stop
+		Steps (kernel mode)
+			execute with full privs of hardware
+		Steps (user mode)
+			limited privs
+			only those granted by OS kernel
+
+		Mode bit stored in PSR (program status register)
+			in x86 mode bits are on the CS register
+			on RISC-V mode bits on a CSR (control and status register
+
+Hardware support for Dual Mode operation
+	1 - privileged instructions
+		potentially unsafe instrs can only run in kernel mode
+			IE
+				starting / stopping processes
+				etc
+	2 - Mem protection
+	3 - ?
+
+What is Kernel
+	a special program that provides services to running programs
+
+How dows a process use kernel service
+	invokes a procedure call in the OS interface which is a system call
+	
+	the system calls enters the kernel; the kernel performs the service and returns
+	
+	A process alternates between executing in user space and kernel space 
+
+Common system calls to kernel for
+	CPU scheduling
+	page replacement
+	forks
+	exits
+	waits
+	kill(pid)
+	getpid()
+	sleep(n)
+	dup(fd) //duplicate
+	chdir
+	mkdir
+
+Example of what one does
+	Fork - duplicates the parent process with a child process
+
+What is the shell program
+	A primary CLI to traditional unix like systems
+	
+	Command interpreter
+
+	while(true)
+		read cmd
+		parse cmd
+		execute cmd
+	Multiple shell progs are available on linux
+		bourne shell (sh)
+		bourne again shell (bash)
+		C shell (csh)
+		Korn shell			

@@ -1,0 +1,38 @@
+Memory on the Datapath
+	
+	you have a pipe of mem - with seperate for IF and MEM
+
+	well over 100* for mem access than CPU clock cyc
+
+	Mem accesses to DRAM are costly
+		Now its close to 30 nanosec for DRAM access
+
+
+	Mem prioiritized size over speed
+
+	
+
+How to create small but fast mem
+
+	This is Cache Memory
+
+Principle of locality
+	PRogram access small portions of address space at a time
+
+	Temporal and spatial locality
+		lookups in time likely to be looked up soon again
+		lookups will probably look up nearby locs next
+
+
+RAM integrated circuits
+	Static - info stored in latches
+	dynamic - info stored as charges on capacitors
+
+
+SRAM uses logic gates to maintain value (and takes more)
+
+DRAM
+	Stor info on capacitors
+	Cheaper larger capacity
+
+	Slower than setting a latch 

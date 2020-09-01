@@ -1,0 +1,180 @@
+System Calls and interrupts and kernel mode
+
+Priveleged instr
+	available to kernel
+	not available in user mode
+	
+Limits on mem access -prevents user from overwriting kernel
+	prevents user from overwriting the kernel
+
+Timer
+	to regain control from a user in a loop
+	the timer only manages the core itself
+		I believe each core has its own timer?
+	
+Priveleged instruction examples
+	Change mode bit in program status register
+	change mem locs a prog can access
+	send commands to IO devices
+	jump to kernel code (In terms of a jump instruction)
+
+
+interrupts
+	triggered by timer or IO devices
+	timer: hardware that periodically interrupts processor
+		transfer control to kerel timer interrupt handler
+		interrupt freq set by kernel
+		itnerrupts can be temporarily deferred
+		interrupt deferral crucial for implementing mutual exclusion	
+exceptions
+	triggered by unexpected prog behavior
+	or malicious behavior
+
+system calls (aka protected procedure calls)
+	request a prog for kernel do some op on its behalf
+	only limited # of carefully coded entry points
+		in each system there are only certain available system calls
+'
+
+Mode transfer kernel -> user
+	new process/new thread start		
+		jump to first instr in prog/thread
+	return from interrupt, exception, system call
+		resume suspended execution
+
+
+Trap
+	interrupts, exceptions, and syscalls handled similarly
+		typcially invoked with a trap instr
+		trap instr means switch from user to kernel mode
+	a software generated exception
+	the kernel registers a handler for a specific trap
+		int $0x8 for linux calls on RISC-V architecture
+	Atomic Changes (atomic means they are done together)
+		execution mode (kernel/user)
+		permission or additional interrupts
+		program counter
+	Transparent restartable execution
+		user prog doesnt know interrupt occurred 
+	
+	Trap is going to need the index to the interrupt vector table passed to it
+		it will then know which entry to call
+		the index cannot be passed from user to kernel mode
+		therefore pass index to register "scause", usually scause=8
+
+	The user program accesses the IVT through a trap
+
+
+Interrupt vector table
+	the processor register sits at the top of the Interrupt vector table
+		in the IVT there are pointers for interrupt start points
+	Linux on RISC-V: index=8 for system call
+		IE fxn: handleSystemCall(){...}
+
+	Table set by kernel
+	At a fixed loc in kernel mem or located with a priveleged register
+	contains pointers to code handlers to run in response to different events
+	Each Entry
+		address for a handler for an interrupt, exception, or system call
+		limited number of entry points
+		each interrupt is given an index
+
+	interrupt handlers or interrupt service routines
+		sys_open() implements open()
+		sys_fork() implements fork()
+
+	anything outside the named entry points are considered malicious. 
+	Anything outside is a threat to security
+
+
+Arguments in Mode Transfer
+	cant easilty pass arguments to system calls on the stack
+		trap instr causes cpu to switch op mode
+		diff op modes have different stacks
+	typically args to sys call passed in registers and the return values come back in REGISTERS 
+	
+	one of the arguments is an integer indicating the system call to invoke
+
+	RISC-V calling convention
+	NOTE ON RISC-V arch instr set
+		32 REGISTERS
+		a0-a7 are for arguments
+		arguments get transferred to a return value register
+
+
+Generic Interrupt Response
+	save PC and Stack pointer
+	change ex mode to kernel
+	disable other interrupts
+	load new PC from interrupt vector table
+	control transferred to kernel at a KERNEL DEFINED entry point
+
+
+Interrupt handlers or Service routines
+	Non-blocking, runs to completion
+		min necessary to allow device to take next interrupt
+	any waiting must be limited duration
+		sometimes theyre divided into top and bottom haldf to allow waiting
+	wake up other threads to do any real work
+		device driver runs as a kernel thread
+
+Kernel Stacks
+	per-process, located in kernel memory
+		-used for interrupts
+	Fixed size and locked in memory
+
+	Only trusted components such as interrupt handlers and kernel routines use them
+		- kernel stack and SP are always in valid states
+		- access by kernel cannot cause page fault
+		- no accesses allowed from user code
+
+before interrupt accepted (meant to coincide with slide 17)
+
+	User level process	|	registers	||	Kernel
+				|<-	ss: ESP		||	handler(){... pushad...		
+	(a fxn)			|	CS: EIP		||	
+					other registers	||	interrupt stack (incl errors, EIP, cs, EFLAGS, ESP, SS)
+
+End of interrupt handler
+	in x86 there are certain registers saved and passed back 
+
+note the abbreviations above are on the slides (around slide 19 I believe)
+		ss = stack session
+		cs = code session, she said "consider it the base starting point"
+
+kernel is interrupt driven
+	interrupt handlers are the entry points into kernel
+	interrupt handlers are software
+	interrupt return instruction restores the PC (program counter) and PSR (program status register)
+
+
+user processes and system calls
+	oerating system freq exposes sys calls via a standard library
+		unix syscalls are exposed via c standard lib (libc)
+	some fxn are direct wrappers for syscalls
+		ie ssize_t(...)
+
+*** REFER TO SLIDE 26 - 27++
+ ***
+
+
+	note on the trap call
+		pass ivt index
+		build trapframe
+
+	User prog
+	main(){					kernel
+		file_open(args...)		file_open(...){//do op}
+	}	
+		
+	user stub				kernel stub
+	
+	file_open(arg1, arg2)
+	{
+		push #syscall_open
+		trap
+		return
+	}
+
+
+kernel stub does stuff like copying args and such

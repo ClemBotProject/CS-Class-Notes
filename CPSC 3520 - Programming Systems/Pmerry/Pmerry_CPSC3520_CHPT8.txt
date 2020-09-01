@@ -1,0 +1,119 @@
+Chapter 8 - Lambda Calculus 
+
+	Lambda Calculus
+		A basis for computation based upon defining and using functions
+		very simple syntax w powerful semantics (4 productions) 
+
+		The lambda calc allows functions to be applied to themselves, thus recursion occurs naturally
+		
+	We consider LIST (And ML and OCAML) as sugared implementatons of and extensions of hte lambda calculus
+
+	
+The turing machine analogy
+	Alan turing proposed and idealized mathematic structure for a writing machien. The turing machine is one
+	of the key abstractions used in modern computability theory
+	
+	The turing machine provides a formalism for expressing procedureal computation
+		
+
+
+Reviews
+	a binary relation is the mapping betweeen elements of 2 sets
+		R: A -> B
+
+	A function is a special case of a relation
+		F: X -> Y
+
+		such that for each element x within X, we can specify a unique element in Y denoted y or f(X)
+
+	functions can return objs or anything really
+
+	
+
+	Functions have name, body (indicates what gets done), argument (what gets passed)
+
+
+	Function signature denotes the domain and range
+
+	IE
+		Square: Integer -> Integer 
+
+	
+
+	Alternitively,
+		consider the defn of an anon fxn, which has the same input output mapping. 
+		in hte syntax of the labda calc the function is defined using the abstraction
+		(note the square syntax is different from the allowed notation)
+	
+			((lambda)n.n^2)
+	
+	Polymorphic example
+		the funciton abstraction for the identity mapping is:
+
+			(lamban.n)			(function takes n and returns n)
+
+		For example the combination\
+			((lambdan.n) 4)
+
+		retruns value 4 whereas
+		
+			((lamvdan.n) 'hi mom')
+		
+		returns hi mom
+
+		Whatever the type is, it returns the soomething of the same type
+
+
+
+	4 production go a long way
+
+
+	<expression> ::= <Varaible> | <constant> | (<expression> <expression>) | (lambda<variable>.<expression>)
+											^abstraction
+							^combination
+
+
+	there is no assignment in lambda calculus
+
+
+	the set of constants includes names of assumed built in functions such as add or +
+
+
+
+The combinbation) (prelude to reduction)
+
+	<Expression> ::= (<expression1> <Expression2>)
+				radr	     rand
+
+	expression one and expression 2 must be derived from <expression>
+
+
+
+Prelude to lisp
+	Currying -> instead of a function of two arguments, apply two single arg fxns successively (IE define multiplication, pass arg n times to get x^n)
+		can also use tupling, but not at the same time
+
+	example lisp syntax on slide 16
+
+		
+						
+
+
+Ocaml syntx shown on slide 19
+	sqrt is only defined for float
+	mul is defined for int
+	*. is defined for float
+
+	can name functions using "let"
+
+	you can give anon functions a name
+
+	the role of parens in OCAML is only disambiguation
+
+	
+
+
+
+
+
+

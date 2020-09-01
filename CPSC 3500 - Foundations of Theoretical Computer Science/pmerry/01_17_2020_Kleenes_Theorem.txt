@@ -1,0 +1,43 @@
+1_17_2020
+
+Quiz Wednesday 1/22
+
+Kleene's Theorem:
+	If there is a Finite Automaton for a language then you can build a real expression for the language
+		AND vice versa
+
+		Such a language is called regular
+
+
+	Significance:
+		Doesnt just prove equivilance, there are means to convert between FA and RE (both ways as well)
+
+
+
+Non-deterministic Finite Automata:
+	Example:
+		      0	     0         
+		| A | -> |B| -> || C || <- 0 , 1
+		^0,1
+
+	Language:
+		All Strings containing double 0
+
+	Significance:
+		Notice State A has two 0 transitions
+			Nondeterministic therefore ambiguous
+		
+		Notice State B has no 1 transition
+
+	
+	Features:
+		If no legal transition, the machine dies
+ 	
+		How would you handle transitioning from state A with a 0
+			Nondeterministic FA accepts a string IF and ONLY IF it is possible to end in an accept state 
+
+			Meaning of all choices you have, you can reach the accept state at the end of the string
+		
+			How does the FA know what transitions to take
+				the machine is "smart" in that if there are two paths, it can "process" both and pick appropriate solutions
+				

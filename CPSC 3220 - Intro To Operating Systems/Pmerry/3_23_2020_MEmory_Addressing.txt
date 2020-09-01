@@ -1,0 +1,137 @@
+segmentation
+
+	Fit variable sized chunks into mem
+	may move proc multiple times to fit it
+	Limited disk swap options
+	
+	Fragmentation: wasted space
+		External - gaps between allocated chunks
+		internal - dont need all mem win allocated chunks
+
+
+Paged Memory
+	used by XV6
+	
+	Suppose 2 procs
+		Youll have 2 translation maps
+			you have a page table containing entry for stack/heap/etc, and these "hash" (for lack of a better term) to a memory address
+			in phys mem
+
+	Allocate phys mem in fixed size chunks called "pages"
+	use page table to map virtual pages to physical pages
+
+Per proc page table
+	Similar to segment table
+	Every page has same size, no need for bound col
+
+Mem alloc
+	Can use vector of bits to handle alloc
+	EAch bit represents a page
+		0 = free
+		1 = used
+
+	
+Paging
+	Virtual addr - holds page num and offset
+	goes to page table to find frame
+		increment frame by offset
+		use this to index phys mem
+
+Virtual Addr Mapping
+	Offset from virtual addr copied to phys addr
+	Virtual page # is the remianing bits
+	
+		Virtual PAge # | page offset
+
+			|
+		    Translate
+			|
+			V
+		Physical Page $ | Page offset
+
+Context switch with page tables
+	take the the page table with you
+		save it in mem
+
+	Procs cannot share pages
+
+
+Page size
+	small - leads to too many entries into the page table
+	large - leads to internal fragmentation
+
+Uses of paging
+	Set entries in both page tables to point to same page frames
+	need core map of page frames to track which procs point to which page frames
+
+UNIX fork with copy on write
+	Copy page table of parent into child
+	mark all pages in new and old page tables as read only
+	trap into kernel on write
+	copy page
+	mark both as writable
+	resume execution
+
+
+You can have shared pages
+	Maybe when you open a file(?)
+
+	
+Fill on demand
+	start running prog before fully in mem
+	set all page table entries to invalid
+	When page referenced, kernel trap
+	kernel loads page from disk
+	resume exec
+	remaining pages transferred in background
+
+Address space randomization
+	position independent code - can place user code region anywhere in addr space
+		random start addr make it harder for attacker to jump to code it seeks and take over
+
+
+Paging pros and cons
+
+
+	Pros
+		simple mem alloc and management
+		simple uniform proc addr space
+		no external fragmentation
+		fast alloc and free
+		simple to swap portions of mem to disk
+	cons
+		internal fragmentation
+			page size may not match needed for proc
+		additional mem ref to page table is inefficient
+		substantial storage for all pages
+			not all pages are used all the time
+		Lots of unused page entries
+
+Multi Level translation
+	Might want to seperatye dynamiuc segments
+		per processor heaps
+		per thread stacks
+		mem mapped files 
+		dynamically linked libs
+
+
+	Now you have multi level virtual addr
+
+	Index 1 | I2 | I3 | Offset
+
+	index 1-3 all reference another page table to eventually produce a frame
+
+
+Multi level translation
+
+	pros
+		allocate roughly fust page entries for procs
+	easy mem alloc
+	easy sharing
+
+	cons
+	min unit of page table alloc is page
+	two or more lookups per ref
+
+
+	

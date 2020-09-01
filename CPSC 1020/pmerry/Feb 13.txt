@@ -1,0 +1,105 @@
+CPSC 1020 - 2/13/2019
+
+
+enumerated data indexes from zero 
+
+an example pass by reference function
+void myFun(int& para1, int& para2) //These are REFERENCE VARIABLES (the & works like a star)
+{
+	int temp = para1; //The ref var para1 doesnt now need to be dereferenced
+	para1 = para2;
+	para2 = temp; //Temp is type int, para2 is a pointer but because the fxn knows its a reference variable, it is automatically dereferenced as if the line were (*para2)
+}
+
+==============================================================================================================================================================================
+
+Default Arguments
+	A constant or literal in the PROTOTYPE or the HEADER
+		ie both of these work
+			void myFun(int = 1, int = 2);
+
+		OR
+			void myFun(int para1 = 1, int para2 = 2)
+			{
+				//CODE
+			}
+
+	Variable arg capability in c
+		Not suggested in C++
+		Should pass an array and a length instead
+
+	IF NOT ALL PARAMETERS TO A FXN HAVE DEFAULTS, THE ONES W/OUT DEFUALTS MUST MUST MUST BE DECLARED FIRST
+
+==============================================================================================================================================================================
+
+REFERENCE VARIABLES
+	If you use the variables as a reference variable, cannot do pointer arithmetic on the reference variabls
+		must be passed int the form (int* data)
+
+==============================================================================================================================================================================
+
+OVERLOADING FUNCTIONS
+	The signature of a function depends on the NAME and the PARAMETERS, IN ORDER
+		if you have multiple functions of the same name, the parameters MUST be different
+
+		As per google "References can be confusing, as they have value syntax but pointer semantics"
+
+	THESE FUNCTIONS ARE ACCEPTABLE IN ONE PROGRAM
+		void myFun(double data);
+	AND
+		void myFun(int data);
+	//Becuase data types differ, these both may be allowed and called. At the function call, the data type will be evaluated to pick the function to use
+	
+
+	AS PER GOOGLE - Prefer overloaded functions VS default parameters
+		Output variables should be pointers to non-const variables or objects
+
+	
+
+	VERY USEFUL TO
+		A - Avoid using default parameters (make multiple fxns to take varying # of args)	
+		B - Perform operations of the same type on different data type
+
+	
+
+	EVEN THOUGH C++ will automatically coerce data from one type to another, you should always EXPLICITLY CAST
+		Coercion is a cast without the programmer specifying the data type to cast to, the compiler choses
+
+	As Per google - Functions should be short and only handle one operation
+
+==============================================================================================================================================================================
+
+FUNCTION NAMING STYLE
+	void
+		Tell what the function does to the parameters
+	
+	regular (has a return)
+		Tell what kind of data is RETURNED
+
+	
+Pass by value or Pass by Reference
+	When a value should not be changed or is used as a const value, PASS BY VALUE
+		If you are not changing a parameter - USE const int <name> TO SPECIFY IT WILL NOT BE USED OR CHANGED
+
+	When one value is changed PASS BY VALUE
+		Better to pass by value actually - can write over the argument or assign to new variable(s)
+	
+	If multiple values or a LARGE STRUCTURE (IE a struct, file, or array) need be manipulated, PASS BY REFERENCE
+	
+	
+==============================================================================================================================================================================
+
+
+Input PArameter - Value is read as input but never changed - think a const
+
+Input/Output Parameter - Value is read and changed in order to pass back some information - think pass by pointer/reference
+
+Output Parameter - A parameter that is not read but output by a single function call - simple assignment of a variable from a fxn call
+	IE
+		x = pow (4,2) //x = 16 and x is the output parameter
+==============================================================================================================================================================================
+
+
+
+
+

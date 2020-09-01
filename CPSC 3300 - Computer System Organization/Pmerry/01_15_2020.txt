@@ -1,0 +1,104 @@
+01_15_2020 CPSC 3300
+
+Components of computers
+
+Computer
+------------------------------------------------+
+Processor 	| Memory 	| Devices	|
+Control		|		|		|
+	"brains"| (passive)	|		|
+Datapath  	|		| input		|
+	"Brawn"	| prog here	| output	|
+		| when run	|		|
+------------------------------------------------+
+- Von Neumann Architectures
+
+Datapath - performs operations on data
+
+Control: Sequences datapath, memory
+
+Cache memory
+	Small fast SRAM mem for immediate data access
+		Sram means Static Ram
+		Dram means Dynamic Ram
+	This is VERY fast because it exists on the CPU
+
+
+
+Inside the Processor
+	GPU is built so the data path is floating point heavy
+	
+	L3 cache is usually nearby
+	L2 cache is between cores
+	L1 cache is in the core
+
+Memory and Data Storage
+	Volatile main memry
+		Loses instr and data when powered off
+	Non-Volatile Secondary memory
+		Magnetic disk (hard drive)
+		Flash Memory
+		Optical Disk (CD, DVD)
+	Tertiary storage
+		Tapes
+
+Manufacturing Integrated Circuits
+	Integrated Circuit cost
+
+	Cost Per die = Cost Per Wafer /(Dies per Wafer * Yeild)
+	
+	Dies per wafer ~= wafer area / die area
+
+	Yeild = 1/(1+(defects per area*Die per area/2))^2
+
+	There is a nonlinear relation to area and defect rate
+		Wafer cost and area are fixed
+		Defect rate determined by manufacturing process
+		Die area determined by architecture and circuit design
+
+	Define performance as 1/execution time
+		Performance of x / perf of y = execution time x / execution time y = n
+
+	Elapsed time
+		The total response time including ALL aspects
+			Processing, i/o, OS overhead, idle time, etc
+
+		Determines system performance
+	
+	CPU time
+		Time spent processing a given job
+			discount IO time, other job's shares
+		Comprises user CPU time and system CPU time
+		Different programs are affected differently by CPU and system performance
+	
+CPU Hardware
+	Operation of digital hardware governed by a constant rate clock
+
+	Clock Cycles			|
+	Data Transfer and Computation	|	G R A P H
+	Update State			|
+
+
+Program CPU Time
+	CPU time Equation
+
+	PErformance improved by
+		Reducing number of prog clock cycles
+		
+		Increasing Clock Rate
+		
+		Hardware Designer must trade off against cycle count 	
+
+
+Homework 1
+	Available on canvas
+	Submit a Word Doc or PDF
+	Use one of the school of computing Linux machines for timing 
+		Use perf tool (will give ans in microseconds, or it can)
+		provide ans in milliseconds
+	Figure out commands and options of perf are needed for experiments
+	Due Wednesday Jan 29 
+
+	
+	Read CHPT 1.4-1.7; Zybooks participation activities as well
+

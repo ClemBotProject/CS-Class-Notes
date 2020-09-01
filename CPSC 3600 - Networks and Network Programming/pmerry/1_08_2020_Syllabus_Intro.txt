@@ -1,0 +1,16 @@
+CPSC 3600 - 08 Jan 2020
+Syllabus and course introduction
+
+Course Website
+https://people.cs.clemson.edu/~jmarty/courses/Spring-2020/CPSC360/
+
+Required Texts
+	TCP/IP sockets in C - 2nd Edition
+		Author - Donahoo
+		PDF online?
+
+	Computer Networking: A top down Approach - 7th edition
+
+
+Install VirtualBox by Friday 1/10
+

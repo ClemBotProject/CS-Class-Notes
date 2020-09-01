@@ -1,0 +1,94 @@
+Relational Model from EER diagrams
+	Goal	
+		preserve all data
+		maintain constraints to the extent possible
+		minimize null values
+
+	The mapping procedure described has been implemeneted in many commercial tools
+
+	The mapping is an algorithm
+		follow the steps and get the same solution
+
+
+
+Steps
+	1 - mapping regular entity types
+		for each reg entity in the schema, create a relation R that includes all simple attributes of E
+		Break down composity attributes into just the simple attributes
+		Choose one key attribute as Primary key for R
+		If the key is compositw, the set of simple attributes in the composite key will together be key
+
+	2 - Map weak entity types
+		for each weak entity, create teh relation R and include all simple attributes of W as attributes of R
+		also include as foreign key attributes of R the primary key attributes of the relations corresponding to the owner entity type
+		The primary key of R is the combination of the primary keys of the owners and the partial key of the weak entity type W, if any exists
+		
+	3A- Mapping specialization or Generalization
+		Convert each specialization with M subclasses and generalized superclass C, where the attributes of C are {k, a1, ..., an}, K being the primary key, into relational schemas
+		
+		Create a relation L for C w attributes ATTRS(L) = {k, a1, ..., an} and PK(L) = k
+		create a relation Li for each subclass with the attributes Attrs(li) = {K} U { attrs of Si}  and PK(li) = k
+			this works for any specialization  
+
+		(Step 3, less verbose)
+		Add a relation for the superclass with all its attributes and its primary key
+		then add a relation for each subcass with its subclass's specific attributes
+			Then add the PK of the superclass as the PK of the subclass
+		then add an arrow from the PK of the subclass to the PK of hte superclass
+			The PK of the subclass is itself a foreign key
+
+		(note) 
+		this will dissolve the disjoint/overlapping and total/partial constraints from the ER model
+			Will be enforced by semantic constriants 
+
+
+		(Continued) - Shared Inheritance
+		A shared subclass is a subclass of several superclasses, indicating multiple inheritance
+		the subclass gets the PK of EACH superclass as its FK
+		the Subclass PK will be a combo of all the superclass's PKs
+			You may have 2 superclasses share a PK, 
+
+
+	4 - Mapping of Union Types
+		Add each superclass following normal rules for adding an entity
+		for mapping a category/union type, make a new key attribute calleda surrogate key
+		add a new relation for the caztegory/union type, with the new surrogate as teh PK. 
+			Add any other attribtues of the union type as attributes to the telation
+		In each superclasses relation, asdd the PK of the category/union type as a foreign key, and add an arc connecting the FK to the category's PK
+
+	5 - Mapping of Binary 1:1 relationship types
+		For each bin 1:! relationship in R, identify the relations S and T corresponding to the entity types participating in R
+
+		Choose one of the relations, say S, and include a FK to S in the PK of T, it is better to choose an entity type with total participation in R in the role of S
+
+
+	6 -  Mapping 1:N binary relationships
+		For each reg bin 1:n relationship in R, identify the relation S for the participating N side of the relationship
+		make the foreign key for S the PK of the relationh T that represents the other entity participating in R
+		Include any simple attributes in the 1:N relationship on S
+		
+	7 - Mapping Binary M:N relationship types
+		For each regular M:N bin relationship type R, create a NEW relation S to represent R, this is the relationship relation
+		Include as FK attributes in S the PK of the relations that represent the participating entity types; the combo forms the PK of S
+		Also include any simple attributes of the M:N relationship type as attributes of S
+
+	8 - Mapping of Multivalue Attributes
+		For each multivalue attribute A, make a new relation R
+		this relation R will incldue an attribute corresponding to A, plus the PK attribute K - as a foreign key in R- of the relation that reperesents the entity type of relationship tpye A as an attribute
+			Arc from FK to PK
+		The PK of R is the combo of A and K, if the multivalued attribute is composite, include its simple components 
+
+	9 - Mapping of N-ary relationship types
+		For each nary relationship type R, where n>2, create a new relationship S to represent R
+		include as FK attributes in S, the primary keys of the relations that represent the participating entity types
+		Also include any simple attributes of the relationship type as attributes of S
+
+
+
+	Derived attributes
+		dont include them, they are solved in application layer, not the DB itself
+
+
+	33 mins onward (slide 5-40 onward)
+		he is going into specifics for the relational model, rewatch if needxed 
+	

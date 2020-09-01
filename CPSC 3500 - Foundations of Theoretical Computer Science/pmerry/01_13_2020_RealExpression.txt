@@ -1,0 +1,19 @@
+CPSC 3500 - 01_13_2020
+
+Real Exressions 
+	Example of an RE: 
+		(2+(11)*)0
+		
+	Facts about Regular Expressions
+		3 operations
+			+ is OR
+			* is star operation - arbitrarily many repeats and BY DEFINITION includes possibility of none
+			no operator (operands next to each other) = concatenation
+
+	By these rules, the RE above in the example produces
+		20 OR 110 OR 11110 OR 0 (note does not include 1120 - the * is not on the or between 2 and 11)
+
+	
+
+		
+

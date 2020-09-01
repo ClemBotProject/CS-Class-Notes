@@ -1,0 +1,88 @@
+Programming language semantics
+	
+
+Programming lang semantics
+	A prog lang is characterized by syntax and semantics
+
+	The syntax of hte language indicates the exact form and structure of elements that may be produces or recognized
+		This is called parsing
+
+	Formal semantics of a prog lang relate the language syntax to meaning
+		this is in many cases a quantitative description of underlying computation
+		There are many ways to approach formally quantifying semantics. 
+
+	Formal approaches to semantics have a goal of achieving a precise, mathematic characterization of 
+	behavior of an assumed syntactically correct approach in a spec lang
+
+	A standardized mathematic formalism does not exist
+
+	
+Overall motivation
+	Describe what a program does/produces
+	Describe what happens during execution of a prog
+	Describe meaning of statements in a prog lang
+	describe what a syntactic fragment should produce via machine translation
+
+Typically any approach studying semantics uses the following characteristics
+	Usually a divide and conquer/compositional approach
+		decompose prog into semantic fragments and consider individually
+		consider coupling of syntax and semantics
+
+	Also, an abstract syntax is employed for simplicity/clarity
+
+	
+Informal operational semantics
+	an approach based on specifying the operation of code fragments on an assumed machine
+
+	Typically used in lang references etc
+
+	Typically how langs are introduced 
+
+	
+Semantics via Self Definition
+	An operational self defn of the lang is given by defininf the interpretation of the language IN THE LANGUAGE ITSELF
+
+	this is shown by
+		a Lisp interpreter written in Lisp
+		a c interpreter written in c
+
+Semantics are conveyed by showing translation of prog frags into another language (called target lang)
+
+	this requires an actual or model of the target machine
+
+Another view of translational semantics is that teh semantics of t5he lang are conveyed by defining an interpreter or compiler for the lang
+
+Translational semantics is a significant approach for compiler writers, but is of limited general utility in learning or expressing semantics
+
+
+Operational semantics convey lang semantics by defining how computation is performed
+
+operational semantics also referred to as intensional semantics - bc the sequence of interned computation steps is most important
+
+informal op csemantics is the typical means of describing prog langs
+
+
+show semantics in steps
+	record machine state prior to evaluation of code frag
+
+	executre/eval code frag
+	
+	examine new machine state
+
+
+axiomatic semantics ovferview
+	axiomatic semantics employ logic to convey meaning
+
+the meaning of a syntactically correct program is formalized as a logical prop or assertion that constrains the mapping between prog and output
+
+the prog semantics are based on asseerations about logical relations that remain the same each tim the prog executes
+
+the basic representation strat is 
+	{logical preconditions} intersection {syntactic fragment} -> {logical postconditions}
+
+	axiomatic semantics are machine independent
+		the only pre/postconditions are related to logic - not a machine
+
+in algebraic semantics, an algebraic specification of data and consturcts can be developed
+	this approach leads to the notion of abstract data types, which can implt OOP
+

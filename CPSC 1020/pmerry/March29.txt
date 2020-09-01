@@ -1,0 +1,29 @@
+CPSC 1020 - March 29 2019
+when making an object or something simple, use the new operator
+	- this will allocate memory
+	- it will throw an exception if this is impossible
+	
+	- can access elements with [] or ptr arithmetic
+
+	- if something is made with new, it should be removed with delete
+		- same as malloc() and free()
+
+	- Classes allocate in the constructor
+		- delete in the destructor.
+
+
+	- When is it not possible to use delete??
+		- smart pointers
+			- a wrapper class that acts like a raw pointer
+
+			- smart pointers automatically deleted dynamic memory
+
+			- DO NOT SUPPORT POINTER ARITHMETIC
+
+			- when assigned to null
+				- the assignment operator is overloaded to detect a null assignment
+					- deletes when set to null
+
+
+	If you do a copy constructor
+	should do the others

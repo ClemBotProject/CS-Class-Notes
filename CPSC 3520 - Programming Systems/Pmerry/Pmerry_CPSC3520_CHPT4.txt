@@ -1,0 +1,188 @@
+CPSC 2530 Chpt 4
+
+The structural part of the minic code is shows the quanitites and actions we would like to take.
+
+The latter part of the minic ex shows the lexical part of the grammar. This is concerned with the set of terminals 
+	Terminals include reserved words symbols and user identifiers
+	Terminals sometimes get referred to as tokens 
+
+
+	
+Minic has an identifier
+	it can either be a single letter or a recursive production by replacing
+		<identifier>
+		to
+		<identifier><letter> 
+		OR
+		<identifier><digit>
+
+		in this case then productions will be used ot replace letter with a-z, digit with 1-9 and any remaining identifiers with a type that can be replaceed with a terminal
+
+When producing a minic program, the starting symbols is <transunit>
+	it also uses a ::= operator (walrus operator)
+
+
+	MINIC EXAMPLE
+		slides 2-3 on the chpt 4 slides
+
+	instead of () it also uses lparen and rparen so that the parser and the grammar's symbols do not get confused
+
+	in minic e means the empty string
+	
+	the semicolon is a reserved symbol and not a code-punctuation as usual
+
+	assign gets used to mean =
+
+	experssions are simply numerals
+	
+	return statements are similar as well
+
+	
+
+Generative mode
+	when you develop a string from the 'bottom up'
+
+	we replace the root transunit with main-decl
+	we replace main-decl with its production rule (<type> main <arg>)
+
+	type can become int or void
+	
+	This eventually builds a c program off of production rules to show the lexical generation of a C program
+
+	we generated the string
+
+	int main(void){return(r0);}
+
+	
+
+Minic syntax notes
+	lparens, rparens, lbrace, rbrace, assign. These all are used and seperate from the minic executable code
+
+	Their description is obvious, but their function is exactly as they would work in C code
+
+	these prevent the confusion of the symbol from the scanner/parser and the grammar
+
+
+
+
+slide 5 shows a minic sample program
+	int main(void)
+	{
+		int t1;
+		t1 = 10;
+		return(t1);
+	}
+	
+	^this was produced with minic
+	the whitespace was added after the fact
+	
+
+minic syntax subdivision
+	the prods which fundamentally ddetermine the strucure of major c onstructs in the langauge
+	reserved words and symbols
+	user-formed 'psuedo terminals' ie strings, which  are formed to represent numerals and identifiers
+	
+
+Slide 9 starts some derivation trees
+	shows hwo you go from identifier to letter and digit, and how the identifier gets 'replaced'
+
+	similar for numeral as well
+
+	slide 11 shows the derivation tree for the sampel minic prog from slide 5 
+
+
+how do you know hte prog coems from minic 
+	well you can show a derivation from s to string consisting only of tokens/terminals using the productions indicated by minic's grammar
+	
+
+We divide the overall syntax or the syntacti cspecification of a language into 2 parts
+	the lexical structure, which indicatess the constraints on the tokens, or lexical units, whcih define the basic words or multi-symbol terminals of the langauge
+	this includes reserved words and symbols as well as user-defined words such as variable and function names
+
+	the remaining syntactic structure, which is then input to the grammatical recognizer or parser.
+
+	
+2 essential processes of syntactic analysis
+	scanning: to see if we can recognize all termianls in the string (program). Valid identifiers are recognized and converted to psuedo terminals. at this time it is also convenient to convert the source file into tokens for subseqeunt  syntactic analsis.
+
+	Parsing: To see if the string (list, program) of tokens is derivable according to the non-lexical syntac of the langauge
+
+
+ 	in summary, grammatical recognitionis often accomplished in two parts:scanning followedby parsing. This corresponds to lexical analysis followed by syntactic analysis
+
+	if a string ever contains a symbol not in the set of terminals, you can immediately stop parsing
+
+	
+
+	1 - in practice, the parser must determine the extent of the elements which are derived from non terminals. This is not simple, given a complex gramar. 
+
+	2 - the parser must find a use for all strings x, ie, it cannot simply identify parts of the string with some structure and discard the rest. Thusm in a sense, the string must be consumed in parse
+
+
+
+Specification of the parsing problem
+
+	given a string of terminals comprising a sentence x, and a grammar G, specified as:
+		G = (V_t, V_n, P, S)
+
+	it may make sense to use a derivation tree to see if a string is an element of a language, and this is a very
+	inefficient way to test the validity of a string in a language. This would be called the 'speculative production'
+
+	You may build the parse tree from the bottom up, this is the easier way to go about solving the 'parsing problem'
+		this makes the same thing as a derivation tree, but is more efficient and computational rather than speculative
+
+	The process of creating the interior of the parse tree of productions which links s to x is called a parse
+
+	If we are successful, we have determined that x is a member of L(G)
+
+	if we fill  the interior of the tree from the top down, a top-dopwn parse results.
+
+	if we work from the botttm (x, our string) up, that is, begin with the terminal symbols, a bottom up parse results. 3
+
+
+The Cocke-Younger-Kasami (CYK) Parsing algorithm
+
+	Tries to parse x in time |x|^3
+
+	in Chomsky normal form, each prod of G must be in form
+	
+		A -> BC (single non terminal replaced with 2 non terminals)
+		A -> a (non terminal replaced with a single terminal)
+
+	
+	The CYK Parse table
+		slide 18
+		the form is shown in a figure
+			given a string of entities from the set of terminals (scanning already occured)
+			we form a table where the string elements are placed below the horizontal access
+			the vertical (j axis) increases and has cells placed on it
+			every cell contains the name of non terminals
+
+
+	*** IN THE CYK PARSE TABLE, EVERY CELL CONTAINS THE NAME OF A NON TERMINAL***
+
+	the cells are filled in order of strings len 1, len 2, ... (from the bottom up)
+
+	
+forming the CYK PARSE TABLE
+	built starting from location 1,1
+	if a substring of x, beginning with xi, and length j, can be derived from a nonterminal
+		THEN this nonterminal is placed into cell i,j
+
+	If cell (1,n) contains S, the table contains a valid derivation of X in L(G)
+		- this means its possible to derive the string from s
+
+	IN THE TOPMOST CELL WE HAVE THE NONTERMINAL S, THE PARSE SUCCEEDS
+
+	it is convenient to list the xi, starting with i = 1, under the bottom row of the table
+
+	around slide 20 you get an example parse tree production
+
+	CELLS IN A CYK TABLE CAN BE EMPTY IN FORMING A SUCCESSFUL PARSE
+
+		Slide 24: Note that the existence of an empty cell (other than 1,n) does not neccessarily lead to a failure to parse
+
+	
+Other ways to scan and parse
+	use Flex and Bison
+	using Prolog and the LGN (langauge grammar notation)

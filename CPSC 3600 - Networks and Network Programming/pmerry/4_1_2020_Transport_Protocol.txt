@@ -1,0 +1,26 @@
+Transport Protocols
+	
+Functions
+	Error detection and error recovery
+	
+	Socket absraction to network convergence layer
+		UDP - sendto maps to a single transport message
+		TCP - socket is a pipe, app fills pipe w stream of packets
+			Expects ack packs from reciever so it can slide window forward to send new data
+
+	End to end flow control
+		handles and enables fast sender slow reciever
+
+			if sender continues - data will be lost
+			the recieve side sends a signal that says slow down, my buffer will overflow
+				sender would then wait until buffer frees up some
+
+
+	Explicit congestion notification
+		a signal of congestion sent to offending host
+
+	IMpicit congestion notification
+		based off packet loss events
+
+	Congestion
+		when congested, a TCP host will half its sending rate

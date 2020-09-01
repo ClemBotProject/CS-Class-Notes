@@ -1,0 +1,66 @@
+01_15_2020
+
+Real Expressions
+
+Assume Languages A, B
+	
+	A + B is the union of the two languages (IE the OR of the two languages)
+		Keep in mind this operation is unordered	
+	
+	AB is the concatenation of A and B
+		concatenation is all strings formed by concatenating a string in A followed by a string in B
+		the number of possibilites is the number of strings in A multiplied by the number of strings in B
+
+		If you concatenate the language with itself
+			there may or may not be repeats
+			IE) A = {a, b}
+				AA = { aa, ab, ba, bb } 
+
+	A* is all strings that can be built from concatenating arbitrarily many strings from A
+		Keep in mind 0 is included in this "arbitrary" definition, and will always imply the empty string	
+		Concatenation is strictly ordered
+
+		A* = epsilon, A, A^2, A^3, A^4...
+			^ empty string
+
+
+		this will always include the entirety of the language
+			including the empty string
+
+		The * operation applies to the smallest piece of the RE it can
+			Behaves like an exponent
+		The + applies to the biggest piece it can 
+			behaves like addition
+		
+	
+
+RE Example 
+	Give an RE for 
+		All binary strings
+			
+		A) starting with 11
+			By definition it must BEGIN with 11, thus we can do 11(<concatenated with an arbitrary expression)
+
+			11(0+1)* 
+			
+			note the (0+1)* will produce all strings 
+		B) Finishing with 11
+			This is the inverse of part A (<arbitrary expression>)11
+
+			(0+1)*11
+		C) Alternates 0 and 1
+			ONE valid solution
+				(01)*
+			Another would be 
+				(10)*
+			Yet Another
+				(010)*
+			another (and most comprehensive)
+				(Epsilon + 1)(01*)(0+Epsilon)
+					^allows for beginning with 1 if necessary
+							^ allows for ending with 0 if necessary
+			last one 
+				(10)*+(10)*1+(01)*+(01)*0
+		D) Even number of 0s
+			He proposed
+				(1*01*01*)*+1*

@@ -1,0 +1,116 @@
+CPSC 4620 
+Lecture 1
+
+Database and Database Users
+	Traditional applications are numeric/textual data
+
+	Recent applications
+		media
+		geographic info systems
+		data warehous
+		mobile databases
+		real time and active databases
+
+
+Database
+	collection of related data
+	
+Data
+	facts that can be recorded and have an implicit meaning
+Mini-world
+	some part of the world about which data is stored in a database
+	for ex, student grades and transcrupts at uni
+Database Management System
+	A software package/sys to facilitate the creation and maintenance of 
+	computerized database
+
+Database System
+	The DBMS software together with data itself
+	sometimes the apps are also included
+
+
+Database environment
+					User  /	Developer
+						|
+		======================================================== Database system "boundary" 
+						|
+						V
+				Application Programs  and  Query
+						|
+		======================================================== Database Management System Software
+						|
+						V
+				       Software to process
+					  query/programs
+						|
+						V
+				       Software to access
+					  stored data
+						|
+				+---------------+---------------+
+				|				|
+				V				v
+			Stored Database			Stored Database
+			definition 
+			(Meta Data)
+
+
+DBMS functionality
+	Define a database in terms of types, structure, and constraints
+	Construct or load the initial contents on secondary storage medium
+	Manipulation
+		Retrieval
+		Modification
+		Accessing through web applications
+	Processing and Sharing by set of concurrent users and application programs while keeping data valid and consistent 
+
+
+Queries - access parts of data and formulate as result of req
+
+Transactions - may read and update values ort generate new data 
+
+Data abstraction
+	a data model is used to hide storage details and present the users with a conceptualized view
+
+ Concurrency control - guarantees each transaction is correctly executed or aborted
+
+Database users
+	two groups
+		Actors on the scene - design and use database conten
+		Workers behind the scene - design dbms software and tools  
+
+Adv Of databases
+	Controlling redundancy in data storage and in dev and maintenance efforts
+	Restricting unauthorized access to data, only DBA staff have privelege
+	Providing consistent storage for program objects
+	Providing storage structures for easy query processing
+	provide optimimization for efficient processing
+	backup/recovery
+	Provied interfaces to different classes of users
+	Represnting complex relationships among data
+	Drawing inferences and actions from the stored data using deductive
+		and active rules and triggers
+	Databases enforce STandards
+		refers to data item names, display formats, screens, report structures, meta data, etc. 
+
+DBMS Drawback
+	high initial investment for hardware
+	overhead is very general and requires lots of concerns
+
+When to use databases
+	Not to use:
+		if database and app is well defined, simple, and wont change (think like a program to evaluate quadratic fxn)
+		if multiple users neednt access data
+
+	Infeasible:
+		in embedded systems when general purpose db may not fit on system storage
+
+
+
+Questions
+	Handling multiple users accessing data at the same time
+		IS this analagous to the locking concepts we used in OS?
+		Perhaps it is not, in which case would it follow a pipeline read-after-write dependency model,
+		in which the offending read is stalled until the write successfully finishes? 
+  
+

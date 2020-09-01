@@ -1,0 +1,130 @@
+Database sys concepts and architecture
+
+Data model
+	a set of concepts to describe the stucture of a database
+		operations ot manip
+		constraints to obey
+	
+
+Data model and constraints
+	Define database structure
+	constructs typically incl elements, groups of elements, and relations among groups
+
+
+Conceptual data model
+	based off concepts of the real world to percieve data
+	
+Phyiscal data models
+	relates to how data stores on disk
+
+Implementation data models
+	falls between conceptual and physical - how do you store real world on disk? what does DBMS understand?
+
+Self describing
+	combine description w data values 
+
+Schema
+	description of database
+	incl descriptions of structre, datatype, etc
+
+Schema diagram
+	a display illustrative of the database schema
+Schema construct
+	a component of the schema or object within 
+
+Database state/instance
+	what is stored at any moment in time
+	ALL data in the database at any time 
+
+initial database state - what is initially loaded in system
+
+Valid state
+	a state that satisfies constraints of database
+
+
+Schema - changes very infrequently, structure is consistent
+Database state - actual data, changes with every update
+
+three schema architecture
+
+	proposed to support
+		program data independence 
+		support multiple views of data
+
+	not explicitly used in commercial DBMS, but useful to describe sys org
+
+internal schema
+	where things are stored
+	how we access them
+
+conceptual schema
+	describe sturcure oand constraints for database
+	for a community of uses
+
+external schemas
+	describes various user views
+	may be extention of conceptual schema in some cases
+
+mappings among schema levels azre needed to transform data
+	progs refer to internal schema and are mapped by DBMS...
+
+
+
+Logical data independence
+	capacity to change conceptual schema without changing the external schemas
+
+Phys data independence
+	capacity to change internal schema without changing conceptual schema
+	ex internal might change when file structures are reorganized or  new indexes created to improve performance 
+
+when a schema at a lower level is changed, only mappings between higher level schemas need to be changed in a DBMS that supports data independence 
+the actual higher level schema can remain unchanged 
+
+DAtabase system utilites
+	loading data stored in files into databas
+		incl data conversion tools
+
+	backup database
+
+	reorganize file structure
+	performance monitoring utilites
+	report generation 
+	sorting, monitoring, compression, etc 
+
+Centralized DBMS
+	combines everything into a single system
+	incl
+		DBMS software
+		hardware
+		aplication programs
+		user interface processing software
+		user can still connect through remote terminal, all processing done centrally
+
+2 tier client server architecture 
+	specialized servers with specialized fxns
+		print server 
+		file server 
+		DBMS server 
+		web server 
+		email server
+	clients access specialized servers as needed 
+
+DBMS server 
+	provides db query and transaction services to clients
+	relational DBMS servers are often called SQL servers, query serves, or transaction servers
+
+Applicationps running on clients utilize an application program interface (API) to aqccess server databases via standard interface
+
+client and server must install proper client module and server module for OBDC or JDBC
+
+Client prog may connect to several DBMSs and sometimes called data sources
+
+In general, data sources can be files or other non DBMS software to manage data
+
+
+
+Is the three teir server architecture like Model/view/controller? 
+	IE 
+		client = view
+		application server/web server = controller (facilitates the interaction of DB and client)
+		Database server = model (the actual represention of data and operations to manipulate the data) 

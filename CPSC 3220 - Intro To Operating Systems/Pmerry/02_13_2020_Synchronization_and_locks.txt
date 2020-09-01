@@ -1,0 +1,107 @@
+02_13_2020
+
+Mesa Semantics
+	signal or broadcast call take the waiting threads from a CVs wait list and put them on ready list. Threads may block while they re-acquire the lock
+
+Hoare Semantics	
+	When a thread calls signal, the signalling thread is suspended,
+	 the ownership of the lock is imiediately transferred to one of the waiting threads, and the thread immediately starts execution
+
+
+High Level Methodology
+	Design OOP single threaded programs
+		1 - decompose prog into classes
+		2 - for each class
+			define a clean interface
+			identify teh right internal state and invariants 
+
+
+
+Pitfalls - double checked locking
+	double checked locking design patern aims to optimize but it is bad design
+
+	if(pinstance == null)
+		...
+		if(!pinstance)
+			pinstance = new Singleton();	//bad form, may allocate mem, assign pointer, then initialize the object
+			^ this line is not atomic, thus its not safe due to potential interleavings between two or more threads due to construction of the instruction order
+
+
+
+Example of correct way to declare a sync method
+	public synchronized <name>(){...}
+
+	DO NOT EVER
+	public <name>(){
+		...
+		synchronized{
+
+		}
+	}
+
+
+
+Readers/Writers lock (RWlocks)
+	A RWlock protects shared data but allows multiple reader threads to simultaneously access the share data 
+		Only one writer thread can hold the RWlock
+		any number of readers can read as long as no write holds the rwlock
+
+	When to replace the mutual exclusion with a RWlock
+		there is a substantial contentiion for the mutual exclusion lock
+		a substantial majority of the accesses are read only
+	Use cases of reader-writer locks
+		database: faster query, less frequent update
+		OS: core data structures read by many threads; only infrequently updated
+
+
+	Use of broadcast WRT RWlock
+		You can have concurrent reads thus you may broadcast to ALL the readers to begin
+
+	
+
+Synchroniation barriers
+	Synch barrier is a mechanism to check whether all threads have finished their work.
+		a thread calls check in when it has completed its work
+
+		No threads may return from check until all n threads check in
+	
+		once all threads have checked in, it is safe to use the results of previous steps 
+
+	
+	Example Use: 
+		Iterative solutions in scientific computing
+
+		IE we need the results from one iteration to begin the next, thus we must wait on all threads doing these calcs to wait for the others to 
+			finish. 
+
+		Parallel computation - (Mapreduce)
+
+	Why not use fork-join
+		fork join can achieve the same effect as a synch barrier
+		however fork-join needs to use some partitioning, and is not optimal
+
+
+MapReduce
+	input files go to map phasr which wait until all reads are done
+
+	do some writes on intermediate files
+	
+	go to the "reduce workers"
+	
+	then write to the output files 
+
+
+	Create n threads
+	create a barrier
+
+	Each thread executes map operation in parallel
+	barrier.checkin();
+
+	each thread sends data in parallel to reducers
+	barrier.checkin();
+
+	(one more)
+
+
+One Use Synchronization barrier
+	

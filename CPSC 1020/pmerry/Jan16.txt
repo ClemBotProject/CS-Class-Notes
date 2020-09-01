@@ -1,0 +1,114 @@
+CPSC 1020 - Jan 16, 2019
+
+Review In Class Activity From Jan 14, 2019 (on Canvas, under files) - Book Sections 5.8-6.11
+
+Be Proficient in Using MULTIPLE files
+
+To include prototypes, use 
+	#include"file.h" (single quotes means look in CURRENT dierectory)
+
+
+Powerpoints from Book Publisher & lecture notes BOTH on canvas
+
+
+
+Review From 1-14
+	Arrays have 0 origin indexing
+
+	Recall with n elements, the index ends at n-1
+
+	C++ array class has an array bounds checking
+
+	REcall - >int d[10]={0}; //makes all elements 0, for 10 elements
+
+	Macros -
+		#define SIZE 10
+		int e[SIZE];
+		for(i=0;i<size;i++){...e[i]...}
+	
+	Local Arrays can be dynamically sized
+
+	Character Strings are an array of Chars
+		MUST LEAVE SPACE FOR NULL BYTE
+	Arrays variable name (ie arr instead of arr[n]) evaluates to ptr
+	Can take one array and assign to another
+	
+	
+
+POINTERS
+	Pointer is like an array index (where array is ALL memory) to the name of a location
+	
+	The memory stored in a mem loc does not denote itself as an instruction, address, or data value. This is defined by the program
+		Von Noimand said dont use Tag bits (definers on memory type) to save memory
+			Dont know what is in a memory word until it is fetched and used
+
+	USE gdb to see the data storage and memory words
+
+	**DEFINITION - Memory Word - The contents of memory in a certain memory location
+
+	In printf a pointer uses callout "%p"
+
+	> printf("address is %p and value is %d\n", pointer, *pointer); //This code is correct
+
+	One hex digit is 4 bits
+
+	LEARN GDB instead of spamming PRINTF
+
+	A null pointer still yeilds a seg fault (pointers must be a VALID mem address) -> Still initialize to null when creating a ptr
+
+	Use ptrs carefully, they can point to legal but incorrect locations and cause Bugs in the program
+
+	C uses Null as macro for 0 -
+	
+*?*	given:
+		int *p = NULL
+		if (!p){
+			//error message & exit statement
+		} //Is this format valid when NULL isnt a macro to 0 
+
+	array names in C are equivalent to pointers
+
+	Arrays are passed to fxns as pointers
+		for a defined # of elements, use normal array notation
+
+	Passing pointers to fxns is a "PASS BY REFERENCE" (C, by defualt, is "call by value")
+
+	*!*EX of PBR
+		void swap (int *a, int *b){
+			int temp = *a;
+			*a = *b;
+			*b = temp;
+		}
+
+	In C++, the instruction "a = b + c" depends on data type to evaluate
+	
+	Functions can return an int
+	functions can also return a pointer
+	
+	IE
+	int fn_ri(...);	//returns integer
+	int *fn_rpi(...); //returns pointer to integer
+
+		DONT RETURN A PTR TO A LOCAL VAR IN THE FXN - ??IT EXPIRES
+
+	recall the post index increments based on data type (8 bytes for double, 4 for int)
+
+	The difference between two pointers in the same array can act as an offset
+	
+	A structure is a collection of related data
+
+	IE
+		struct pair{		/* name after struct is tag */
+			int x;
+			float y;
+		};
+
+	Then we can initialize the struct as follows
+		
+		struct pait c = {2, 0.5};
+	The name of a struct is NOT a pointer
+	A struct is passed by value (PASSED AS SCALAR PARAMETER)
+		To CHANGE STRUCT - PASS BY REFERENCE
+	
+	In Structs, a=b copies the struct b into the struct a
+

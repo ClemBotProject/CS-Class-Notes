@@ -1,0 +1,62 @@
+CPSC 1020 - Feb 6 2019
+
+
+The bool data type takes logically true or falso (1 or 0)
+	A nonzero number becomes "true"
+	a zero number is always "false"
+	the Bool data type will return an error if passed incorrect data
+
+	
+Cout manipulators 
+	The manipulators are GLOBAL - a manip in one loc will change all output from cout - BE EXPLICIT with what you want output to look like
+
+Printf in C++
+	in the "cstdio" library
+	
+
+===================================================================================================================================================
+
+bool data type defined as integers - represents true or false
+	true and false are known to the compiler
+	
+auto data type
+	gives simplest datta type to describe an initialized value
+
+Data type conversion and Typecasting
+	operations are performed between same type
+		if not the same type, one will be changed to the others data type
+
+Heirarchy of data types
+	Highest		long double
+			double
+			float
+			unsigned long long int
+			long long int
+			unsigned long int
+			long int
+			unsigned int
+	lowest 		int
+RANKED BY LARGEST NUMBER THAT THE DATA TYPE CAN HOLD
+	use (sizeof) to find the size of the data type
+
+when using the = operator, the expr on the right is converted to the type on the left
+
+FLOATING POINT VALUES  ARE TRUNCATED WHEN ASSIGNED TO INT VARIABLES
+
+
+
+CASTING
+	c:
+		int (variable); //typecast variable to type int
+
+	c++;
+		static_cast<type>(variable)
+
+
+
+CONSTANTS
+
+	c:
+		const int variable = <initialization>;
+	c++; 
+		#DEFINE <MACRO> <VALUE>

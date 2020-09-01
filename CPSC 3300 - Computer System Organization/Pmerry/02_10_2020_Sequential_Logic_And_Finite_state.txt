@@ -1,0 +1,144 @@
+02_10_2020
+
+What is a state?
+	Math functions are stateless
+		they take input
+		produce output
+		do NOT store information or convey data
+
+	Definition of a state
+		State is a quantity that stores the prev history fo whats happened in a way that one 
+		can predict the output, given any future input
+
+
+
+Sequential logic circuits
+	Contains one or more combinational logic blocks
+	HAVE STATE IN A FEEDBACK LOOP WITH THE LOGIC
+	uses a clock
+	the next state depends on the inputs and the present state
+	the output depends on the present state and perhaps also the inputs
+
+	SEQUENTIAL LOGIC CIRCUITS HAVE MEMORY!
+
+ 
+
+
+How do you make memory cells in a circuit?
+	A basic two-inverter element
+		A memory cell - 
+			Two inverters connected back to back, ie out of one input to input of the other and vice versa
+				this allows for the original signal to always exist in the cell
+			this is analagous to the existence of a buffer gate in teh memory cell
+
+			it doesnt matter where in the cell you read/write, so long as you read/write to the same spot in the cell every time
+
+	Clock and clock edges
+		Timing diafram is used to describe the behavior of a clock
+		1	_________	________	_________
+		|_______|	|_______|	|_______|	|...
+		0
+			|<------------>|
+				T
+		Very small transition time: 0->1 annd 1->0
+			positive edges: the clock transitions from 0 to 1 (positive slope)
+			negative edges: the clock transitions from 1 to 0
+
+		WHEN EXAGGERATED
+
+		1__...__	 ______
+	      0_/	\__...__/
+		^pos	^neg
+		
+		Why worry about clock edges
+			flip flops and registers are timed devices and triggered by edges
+			why build the flip flops this way?
+
+		What is a flip flop?
+			a memory cell that can only change states when a clock edge occurs 
+
+	SR latch
+		Latch - a pair of logic gates organized to create feedback loop, but connected to circuitry so they may be read/written to
+			A 2 inverter (or single buffer) element is a type of latch
+
+		The NOR-Base SR latch
+			Contains basic memory cell to allow setting teh state of the latch
+			inputs - S and R
+			outputs - Q and ~Q
+			
+		Be careful - S and R cannot both be 1 at the same time
+			this essentially an impossible state, it makes Q and ~Q alternate VERY quickly, and breaks it 
+
+		if S and R both 0, maintain previous output (IE this is a memory cell)
+
+	Clocked SR latch
+		AND the clock signal with the S and R bits, and then feed
+			S&&CK and R&&CK to their orignal ins
+
+		the latch is responsive only when clock is high (a 1)
+		
+		Timing diagram shows the level sensitive nature of the clocked SR latch
+			there are 4 times when Q (output) changes state
+				When S goes high and CLK is positive (1)
+				on leading CLK edge after changes in S&R during clock low
+				A positive glitch in S while CLK is high
+					Happens when comb logic curcuits arent done crafting their output yet
+				When R goes high during positive CLK
+
+
+	D Latch
+		Data Latch
+		A D Latch is implemented with
+			A clocked, NOR based SR latch
+			D connected to S
+			Inverted D conncected to input R
+		Behavior
+			when CLK is high, D is transmitted to output Q (and ~D to ~Q)
+
+			When CLK is low, the latch retains prev state
+		Transparent Latches are typically used as IO ports or in asynch systems
+			or in synchronous, two phase systems 
+
+	Edge Triggered D flip Flops
+		Synchronous sequential circuits - inputs captured at only discrete instants of time
+			such as the rising edges of the clock
+		Latches are level-triggered, not practical for use in synchronous sequential circuits
+
+		Behavior
+			Rising edge: sample input D and direct it to Qnext
+				if D=0 then Qnext=0; if D=1, then Qnext = 1
+			Non Rising Edge
+				Qnext = 0 no matter what D is 
+
+	
+Sequential Logic Implementation
+	A Sequential Device - IE counter - can be represented as a finite state machine
+	representation of memory (states)
+	changes in states (Transitions)
+	
+FSM Design Procedure
+	Describe behavior with a state diagram
+		Denote Input(first) And Outputs(last)
+		States (purely symbolic or with specific state bits)
+		State Transitions (source and destination for each edge)
+	State diagram to state transition table
+		Inputs:inputs and current state
+		outputs: outputs and next state
+	Implementation
+		Flip flop for each state bit
+		...
+
+	Note: The clock input is a given and integral to any sequential logic circuit
+		The clock has no impact on other input, other than allowing the CLK state to change from 0 to 1
+	
+	the Mod 4 counter
+		Req 4 states, encoded in binary, with 2 bits for them to be encoded uniquely
+			States: A = 00, B = 01, C = 10, D = 11
+		The input requires only a single bit
+	
+	You will see the transitions labelled as 0/01
+		0 -> this is the bit being processed
+		01 -> these are the next state bits, represent output
+
+	
+Look through the slides on Karnoff Maps

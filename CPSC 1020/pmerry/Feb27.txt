@@ -1,0 +1,119 @@
+CPSC 1020 - 27 February 2019
+
+Creating and using objects
+ 	An object is an instance of the class (it is not initialization, it is instantiation
+
+	Can access members of a class with the dot notation. IE
+		Square sq1;
+		sq1.setside();
+	
+		THE ARROW DEREFERENCE NOTATION WORKS AS WELL
+
+	Classess make use of IN LINE FUNCTIONS
+		IE in the class, the entire function is described. This is done in the CLASS DECLARATION
+
+	When defining a member fxn outside of the class, use 
+		
+	<rettype> CLASSNAME::fxnname(parameters){}
+
+
+	NO RETURN TYPE TO CONSTRUCTOR OR DESTRUCTORS
+		GOOD CONSTRUCTORS SET INVARIANT
+
+	
+
+	constructor fxn ex
+
+	Square::Square(int s)
+	{
+		side = s; //Side is a private member. The parameter S allows the member to access the private variable and write into it
+	}
+
+	
+
+	To create an object using a constructor that has parameters, include argument list (IE)
+
+	Square square{8}; // More proper method of doing this... Distinguish as fxn call
+
+	OR
+
+	Square square(8); // Works, but is confusing
+
+	Square square(); // Works, but will expect parameters and give a warning on compile
+
+
+
+
+PRIVATE MEMBER FUNCTIONS
+	also called helper functions
+		
+	IE some manipulation repeated on private members, make the manipulation a hidden segment of code to act on the private members
+
+
+
+Writing functions
+	Use a return value that is inaccessible otherwise to signify an error
+		
+	Set error parameter last (when pass by reference) 
+
+	C++17 allows for multiple return types (called structured bindings)
+
+	Sometimes 5-6 lines is more prone than 100-200. "Sweet spot" is between 40-100 lines
+
+
+
+Passing class objects into functions
+	Passing by value - a copy of the class is made (locally) and the original is unaffected
+
+	Passing by reference - use the "set" functions to modify the object in the calling environment (function)
+					IE: y.set(value)
+
+
+	TO MAKE CODE THAT IS FASTER AND PROTECTED (doesnt accidentally modify values)
+		pass parameters as: 	<returnType> fxn( const <dataType> &<variable>){}
+
+
+
+
+
+Square initSquare()
+{
+	Square s; // loc obj
+	int inputsize;
+	cout << "Enter side len: ";
+	cin >> inputsize;
+	s.setside(inputsize)
+	return(s); //dont know if this is correct statement //it is correct
+}
+
+
+
+
+
+
+
+Using seperate files
+	.h 	- these are headers or Class specification files
+	.o 	- these are objects
+	.cpp 	- these are code files
+
+	
+
+
+Include guard
+
+
+	#ifndef <NAME_H>
+	#define <NAME_H>
+	
+	... //code
+
+	#endif
+
+
+Instantiating classes
+	ONLY SET DEFAULT VALUES ONE ONE ONE ONE TIME. 
+
+
+Strongly typed ENUMS
+	must use the :: operator to access these enum types

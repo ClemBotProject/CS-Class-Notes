@@ -1,0 +1,99 @@
+02_05_2020 - 
+
+Adders
+	Carry Look Ahead Adder
+		As was in the reading, there are the generic forms
+		
+		S_i = P_i XOR C_i
+			where 	S_i is the sum of the ith place
+				P_i is the propagate (i believe this is an operation)
+				C_i is the carry at the ith place
+
+		Also
+
+		C_i+1 = G_i + P_i * C_i
+			The next carry bit is the 
+
+			G_i - the generate bit
+			OR
+			the P_i (propagate) bit AND the C_I (carry) bit
+
+		How do we find propagate 
+			it is A_i XOR B_i
+
+		How do we find generate bit
+			it is A_i AND B_i
+
+		Why do we use propagate and generate?
+			Rather than the myriads of logical gates in the ripple adder, the propagate and carry can be calculated 
+			FOR ANY PLACE with one unit of delay - this one unit of delay is 4 gate delays, but the delay is CONSTANT
+				- This allows 32 or 64 bit addition to be done far faster than it could with a ripple adder 
+
+	
+		Why would we care about C_0 - wouldnt it always be 0
+			2's compliment subraction - you can use the carry in as the +1 after negation
+			With add with carry (representing 64 bits with 2 32 bit nums)
+
+			AS SUCH - we cannot disregard the huge AND clause with the C_0 bit included 
+
+
+		How many transistors are in the carry - lookahead unit?
+			Consider n bits, you will need n^2 transistors to create a carry lookahead unit
+			There is a practical limitation leaving us at a 4 bit carry-lookahead adder 
+
+		To finish the CLA
+			you simply need to XOR the carry and the propagate bits for the last position
+
+
+	there is a wonderful picture about the CLA on slide 14 of the adders ppt - it shows how the CLA is done for a 4 bit addition 
+
+	In total on ANY Carry lookahead adder
+		the gate delay is 4 
+
+
+
+3 levels of logic in a CLA
+	1st
+		generate all P & g signals with XOR and AND gates
+	2nd 
+		2 - level implementation logic circuit
+			First - and gate
+			second -OR gate
+	3rd
+		XOR gates generate signal (sum) S
+		Signal (sum) S valid after 4 gate delays
+
+How to handle wider bit widths with a Carry Lookahead Adder
+	Use multiple Carry-Lookahead stages
+		IE for 16 bits, you use 4 4 bit CLA units 
+			CLA unit 1 (the 4 bit version), gives the Carry_4 that will be the carry in bit for CLA unit 2
+				Youll have a special lookahead unit for the propagate bits for each position
+
+
+
+
+
+
+Sequential Logic
+	ALU - Arithmetic logic unit
+		Does _,-,*,/,%
+		Also does AND, OR, NOT, XOR
+
+	the ALU has a multiplexor as well
+
+	an ALU has many operations, and uses multiple control line bits for the multiplexor (so you can perform many different operations)
+		IE 0000 = AND 
+		   0001 = OR
+
+	The ALU has some indicators such as Zero, overflow, negative, carry 
+
+	There is a 1-1 input to output combination (There are no pieces of memory in these combinational circuits)
+
+	Mathematic functions are stateless
+		Take inputs, produce output
+
+	Sequential logic circuits
+		contains one or more combinational logic block
+		can preserve some condition to be used for processing
+
+	

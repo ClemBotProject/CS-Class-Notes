@@ -1,0 +1,61 @@
+CPSC 4240 - Class 1
+
+Linux History
+	Started as Multics
+		Multiplexed information and computing service
+		modular w banks of processors
+		for military security.
+
+		Unix based on compact programs called tools
+		
+
+	1973 Thompson and Ritchie present a paper at ACM Symposium on OS Principles at Purdue
+		Uni CA Berkley paid $400 for the source and 2 students made it BSD linux
+
+	Unix became a myriad of things
+		BSD, SunOS, GNU, etc..
+
+
+GNU
+	Richard Stallman, creates community to share software
+
+	GNU = GNUs not unix
+	Free software is not price, but freedom to use it however
+	Free version of EMACS (editing macros, gcc compiler)
+	**Did it under the Copyleft License -- LOOK UP COPYLEFT TO BE SAFE
+		you can have a derivative work, its license cannot be more restrictive than the original's license
+
+
+
+Linux
+	1991- Linus Torvalds starts writing
+	Linux is just a kernel
+
+	Free version under GPL
+
+	Watch Linus Torvalds Ted Talk
+
+	
+Cybersecurity
+	protection of comp systems from theft of, or damage to their hardware, software, or electronic data 
+	as well as the disruption or misdirection of the services they provide
+
+	Head person responsible for security
+		Sysadmin
+		everyone has a role in security
+
+	
+
+Duties of Sysadmin
+	control access
+	adding/upgrading hardware and software
+	backups
+	automating tasks
+	monitorying security
+	troubleshooting
+	performance tune-ups
+	develop site policies
+	work with cloud providers/contractors/experts
+	document everything
+	manage the human factor - WEAKEST
+	minimize attack fronts - whats visible publicly on the system

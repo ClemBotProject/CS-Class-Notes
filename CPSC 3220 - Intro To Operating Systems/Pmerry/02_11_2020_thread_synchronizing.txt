@@ -1,0 +1,131 @@
+02_11_2020
+
+Shared Objects
+	shared objects are objs that can be accessed safely by multiple threads.
+	All share states should be encapsulated in one or more share objects
+
+	Shared objs extends OOP
+		the obj data is the shared data
+		synchronization vars - used to guard the payload data
+
+	Use of Synchronization variables 
+		
+
+
+Locks
+	When writing code that must not be affected by other segments
+		you can "lock" it using a lock
+		
+		Declaring:
+			lock mylock;
+		
+		Using:
+			mylock.Acquire();	|
+			(code block)		} keep this structure. Period. 
+			mylock.Release(); 	|
+
+	Locks can be costly- with making threads wait (you create idle time)
+
+Checking For race conditions?
+	look at the shared variables
+	
+	Check all possible cases of interleaving 
+		this is inefficient
+	instead youll use some reasoning in your invariants
+
+
+Reasoning Invariants 
+	Check for things that are true IMMEDIATELY after the lock is aquired
+		
+
+	Suppose:
+		lock.acquire();
+		if(front < nextEmpty){
+			*item = items[front % max];
+			front++;
+			success = true;
+		}
+		lock.release();
+		return success;
+
+	so we know
+		front <= nextEmpty
+		tot # inserted is nextempty
+		tot # of items is front
+		nextempty - front <= max 
+			immediately after the lock
+
+	What holds immediately before the lock is released?
+		the same invaraints must be true
+	
+
+	If you dont use a lock, are the constraints upheld?
+		no, the constraints are true to a thread only when it holds the lock
+		If no lock held, another thread holding the lock might be in process of
+		manipulating the same data you are.
+
+	
+
+Condition Variables
+	Condition variables provide a way for 1 thread to wait for another thread to take some action
+	
+	These are better than locks because they have less overhead
+		it causes the processor to relinquish resources while it waits
+
+
+	in many cases, a thread waits for some action to change the system state so that it can make progress
+		you can consider this analagous to the callback pattern, when the condition changes we wish to update the concerned threads
+	
+		to do this instead of using an 
+		if(conditionVar)
+		
+	
+		
+		do{
+			conditionVar = tryRemove(&item);
+		}while(conditionVar); //still consumes CPU resources
+
+
+
+	How do you use condition variables
+		Three Methods
+			CV::wait(Lock *lock)
+				atomically releases the lock and processor, placing calling thread on wait list (releasing the lock)
+				when re-enabled, it reacquires the lock
+			CV::signal()
+				takes one thread off the CVs waiting list and marks it as eligible to run
+			CV::broadcast()
+`				takes all threads off wait list and marks them as eligible to run
+
+
+	The shared object has one lock and 1+ condition variables
+		Method that waits
+			Aquires lock
+			read/write the shared objs state vars
+			Calls wait on shared objs cv to wait untill call to testsharedstate succesds
+				put thread on wait list
+				release lock to allow threads to continue the execution
+
+
+		Condition Variable properties
+			condition Variable is memoryless
+				the condition variable itself has no other internal state other than a queue of waiting threads
+	
+		CV::wait automatically releases lock
+			a thread always call wait while holding a lock
+			
+	
+
+	Initialize thread with sthread_create()
+		ready state on the thread
+			running
+				waiting
+			finished
+
+Blocking Bounded Queue Example
+	BBQ is a bounded queue in which
+		a thread trying to remove an item from an empty queue will wair until an item is available
+
+
+
+	

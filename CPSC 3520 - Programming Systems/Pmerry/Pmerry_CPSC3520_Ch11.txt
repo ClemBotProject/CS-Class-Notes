@@ -1,0 +1,167 @@
+Ocaml (more)
+
+Exiting Ocaml
+	Ctrl-Alt-Z (not usable with Ledit
+
+Ocaml takes comments are in the same form as XML
+	(*comment body*)
+
+All var names must begin with a lowercase letter;
+	names beginning with a capital letter are reserved for constructors for user defined data structures
+	
+
+recursive fxn designations must include the rec designator
+
+Integer and floating point ops are distinguished by seperate symbols
+
+CAML allows multi arg fxns represented in either curried or tupled form
+	all lib funcs are curried
+
+Caml uses the semicolon to seperate list elements
+
+the interactive system prompt is the # character and a pair of ;; is the ocaml expression terminator
+
+ocaml statements are either 
+in ocaml lists are polymorphic data structures
+
+ALL LISTS IN OCAML MUST HAVE ELEMENTS OF THE SAME TYPE
+
+
+Curried variables
+	Lambda calc allows only one variable passed
+
+	Currying allows you to pass multi parms as a series of successive function calls, one for each parm
+
+	YOU CANNOT MIX TUPLING AND CURRYING
+
+Tupled variables
+	a tuple itself is considered a single argument
+	the elements within the tuple can still be extracted
+
+	in ocaml, tupling occurs by placing the function parms in parens, seperated w a comma
+		(parm1, parm2)
+
+recursion, Pattern Matching, List, and Trace
+	The rec designator shows a function as recursive
+		> let rec member = function
+		>	(x, [])-> false (*if hte input is the tuple x,empty list, return false*)
+		>      |(x, h::t) ->	(*if the input is x and a list (represented in head tail form)*)
+			    if(h == x)
+				then true
+				else member (x,t)	(*call the member function on x and the tail of the list, t*)
+
+
+Ocaml 'use'
+	like import from C
+	# #use "member.caml"
+	^this is how you would import a file to a compilable  
+
+
+Ocaml #trace
+	takes a single parm, a function to be traced
+
+for a funcsignature
+	just type in the name of the function with no parameters
+	
+
+DEfining yet unnamed functions
+	the match form using the function keyword
+	
+	function pattern_1 -> expr_1
+	...
+	pattern_n -> expr_2
+
+	Many functions only use the first match case
+
+
+Tupling for function arguments
+	instead of 
+
+	function a1, a2, a3 _> a1*a2*a3
+
+
+	function (a1,a2,a3) (*this is syntactically correct*)
+	
+	A tuple may contain a tuple
+
+
+Currying for function arguments
+	your statement looks like so
+		fun parm1 parm2 parm3 parm4... parmn -> expression
+
+	what it evaluates
+
+		((fun parm1) parm2) -> expr
+
+
+Naming functions (let)
+	General ocaml syntax
+		let <name-of-something> = <expr>
+
+	DO NOT
+		use the imperitive programming to give variable names or other incorrect uses
+
+	Let is used to give a function a name
+
+		# let a = function x -> x*x
+
+
+	This gets complex since there are multiple ways to name functions
+
+
+
+Tracing
+	use trace to name a function
+	
+	you can untrace a given function 
+	or untrace all
+
+
+Slide 40
+	this is a template of how recursively building a list can be done
+	this gets extended on slide 44
+
+	adding 2 lists -> slide 50
+
+match/case construct
+	Syntax
+		match expr
+		with pattern1 -> expr1
+		|	pattern_n -> expr_n
+
+	IE
+
+	let isZero n = match n with
+	0 -> true
+	| _ -> false
+
+
+There is no forward referencing in OCAML
+	you must define a function before you use it 
+	
+
+
+Mutually Recursive functions
+	odd-evencall.caml (*truly a terrible use, but a good example*)
+
+	IE one function call another, that other func calls the original
+		Which do you declare first?
+	you declare them together - slide 59
+
+the printf module
+	very similar to printf from C
+	slide info 66
+
+Executing a script
+	The ocaml command starts the toplevel sys for objective caml
+	
+	ocaml [script file]
+
+
+Objects in Caml
+	Not very useful rn
+
+copyshop@bellsout.net
+	use .pdf
+	
+	

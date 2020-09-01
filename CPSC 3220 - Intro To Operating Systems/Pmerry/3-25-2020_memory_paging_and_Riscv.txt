@@ -1,0 +1,46 @@
+Address translation steps
+	extract virtual page num from the virtual address
+	calculate the address of page table entry
+	use addr to read page table entry			<- This is the slowest/most costly step (up to 100x the runtime)
+	build phys addr by calc page frame num and offset
+	you have address - now read the data
+
+
+Translation lookaside buffer
+		in the TLB you have 3 fields
+		
+		Virtual Page number
+		Phys frame number
+		access
+
+
+	this is a cache of recent VPN->PPN translation
+	if cache hit, use the translation
+	if cache miss, walk the multi level page table 
+
+	hits provide faster execution 
+
+	To increase TLB reach, increase page size (IE less new pages to translate to)
+
+TLB on contact switch
+	you flush TLB on each context switch
+	
+	You only have one hardware piece  to support EVERY active process
+
+
+
+RiscV paging
+	partion phyiscal and virual space into page sizes
+	Each process has page tables
+		these have frame number and translation
+	
+	PAge fault - when riscv page table cant find the correct info
+
+	A page can hold a page table, so a page table will be 4k 
+
+
+
+	Riscv flags
+		bit 0 - valid - 
+		bit 1 - readable
+		bit 2 - writable 

@@ -1,0 +1,157 @@
+CPSC 1020, March 25 2019
+
+
+Notebook Class Assignment overview
+	
+
+The This pointer
+	A particular pointer to that exact instantiation
+
+
+	The this pointer is an implicit parameter passed to every member fxn
+	it points to the OBJECT CALLING THE FUNCTION
+		hence the name "this"
+
+	
+	Const member function
+		Does not modify its calling object
+
+=========
+	IE with objects
+	a holding 10
+	b holding 20
+	
+	the 
+		
+		getValue(this); or getValue(&a)
+		
+		is equivalent to
+
+		a.getValue();
+
+===========
+
+
+
+	this->value; //this will go through the current object to get to the value parameter
+
+	If a member functions parameter name is the same as the member variable, 
+		The this pointer must be used to discern the function and the variable
+
+
+
+		IE
+
+
+			void setNum(int num)
+			{
+				this -> num = num;
+			}// this->num is the variable in the CLASS
+			 // num refers to the parameter of setNum
+
+
+
+
+Cost of using "this" pointer
+	the "this pointer" uses pointers and thus doesnt go any slower, the compiler knows what to do
+	this basically means that the function will use the attributes from the class this is called from
+		
+
+	IE with the classes class1, class2 and attribute value
+		
+	and function
+		void MyFun(int value)
+		{
+			this->value = value;
+		}
+
+		calling
+
+		class1.MyFun(value); //will know that the function is calling from the class1 set of attributes
+
+
+
+
+
+When wanting to not change the object, set the fxn to const by doing the following
+	
+	int GetValue() const;
+
+
+
+Static member variables
+	one instance of the variable for the entire class
+	shared by all objects of the class
+
+Static Method/Member function
+	This allows the static object to be accessed before instantiating the class
+
+	IE from the object_count.cpp
+	
+	static int object_counter_; //is static across ALL instances of the class "item"
+
+
+	For static member variables, you can have an initialization statements in the class definition 
+		The compiler will require the initialization statement
+
+
+	Putting static before the function name in a class definition defines it as a member fxn that can call a member before instantiation
+		This can only access static member variables
+
+
+
+
+
+Static- for the duration of the program
+Auto - for the duration of the fxn call
+Dynamic - lifetime determined by programmer use of "new" and "delete"
+
+
+
+
+
+Friends of a class 
+	is not in the class but has access to the private members
+	when listing the methods, declare the function as a friend
+
+
+
+IE
+	class aclass
+	{
+		private:
+		int x;
+		friend void fset(aclass &c, int a);
+	};
+	
+	void fset(aclass &c, int a)
+	{
+		c.x = a;
+	}
+
+
+
+An entire class may be defined as a friend of another class
+in general, restrict friendship to those functions that must have access to the members of a class
+
+
+
+
+
+MEMBERWISE ASSIGNMENT
+	when taking two classe (v1 and v2), they can be assigned memberwise by the following
+	v2 = v1;
+		this is a special method that overloads the equal sign operator
+		
+		the compiler has a defualt assignemnt method that does member by member assignment
+
+
+	Shallow copy vs Deep copy
+	Shallow copy - can cause problems with memory leaks
+	Deep copy - must make other instances of arrays or pointered objects to be used in each instance of the class
+
+
+
+
+
+		

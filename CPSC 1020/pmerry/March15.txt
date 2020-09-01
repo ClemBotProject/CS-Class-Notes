@@ -1,0 +1,39 @@
+CPSC 1020 - March 15 2019
+
+When controlling the Array indexing within Bubblesort
+
+//array size = SIZE
+
+
+
+
+do...
+
+for(int i = 0; i < (SIZE - 1); i++)
+{
+	if(elements out of order)
+	{
+		swap element i and element i+1
+		//note dont go past size-1 to protect against seg fault
+		//this is sufficient to compare all elements
+	}
+}
+
+while(madeAswap)
+
+Bubble sort is LINEAR in the best case scenario
+		Quadratic in worst case scenario 
+
+Selection sort - Cannot short circuit, must go through a number of iterations
+
+Is it advantageous to make fewer passes through the array
+	It depends on the layout of the array - sometimes fewer passes = more array indexes. 
+
+vector v
+
+v.begin = address of first element
+v.end = last element PLUS ONE
+
+
+
+

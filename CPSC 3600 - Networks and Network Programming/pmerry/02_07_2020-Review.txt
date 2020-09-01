@@ -1,0 +1,26 @@
+Practice question number 28 - it was ambiguous 
+	the answer intended was: tokenizing/parsing
+Practice question number 35
+	answer - encodes, energy,  propagate
+ 
+
+
+NMCLI = network manager client interface 
+	
+
+Some Section 2 information - there will be 2 questions from here (one is based on stuff like RTT, one is based on classful IP)
+	Know how to calculate throughput and transfer rate 
+
+	Question 2.3 
+		Step 1 - draw a diagram of the specified interaction 
+
+		Consider sending a 1056 byte frame over a linke with rate 10MBPS. the propagation delay over link 1 is 1 ms and over link 2 is 10 ms
+			Multiply num bytes to send by 8 - we need bits
+			Convert 10MBPS to bytes per second
+			propagation delay + Num bytes to send / bits/sec = send time over link 1
+			send time over link 1  + send time over link 2 (calc similarly) = total time from host to client
+
+			
+
+Stop and wait protocol
+	You send a datagram, and wait to receive one back before continuing execution. 

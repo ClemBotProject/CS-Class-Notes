@@ -1,0 +1,70 @@
+Axiomatic semantics (AS)
+	provides a machine independent formalism for quantifying semantics
+
+	developing of axiomatic semantics is complex bc you have to consider assertions
+
+	in AS the prog semantics reduces to the semantics of a statement whcih is derived from a sequence of commands
+
+	The statement semantics are described by the addition of assertions that are always true when the control of the program reaches the assertions
+
+	in this sense, prog meaning = prog correctness WRT a specification given by pre and post condition assertions
+
+	
+
+AS used for these 3 primary objectives
+	prove programs as correct
+	to provide formal specifications from which progs can be derived and
+	to develop a formal and quantitative description of the semanitcs of syntactically correct prog fragments
+
+
+the relation between an initial logical assertion and a final logical assertion following a code fragment captures
+	the essense of a code fragment semantics 
+
+A typical assertion (using intersection/conjunction/and) might look like
+	{M<5 AND k=n^2}
+	where M, m, and k are variables in predicate calc which are related to program variables
+
+	the truth value depends on these variables
+
+
+2 classes of assertions
+	assertyions about entities that are true BEFORE execution
+	Assertions about entities that are true AFTER execution
+
+
+The prog semantics are based on assertions about logical relationships that remain the same each time a prog execures
+
+	P and the program executing and terminating IMPLY the logical postconditions
+
+	this all must be true
+
+	The values in the logical description get values from 
+		corresponding prog variables
+
+	
+The converse of an implication is NOT the same as the original implication
+
+
+
+The weakest precondition
+	given C and Q, the weakest precondition denoted W is defined as follows, 
+	Suppose P is any precondition for which
+	{P} C {Q}
+	holds IF
+		P -> W
+	any P will always imply W
+	then W is the weakest precondition
+
+
+Axiom for assignment
+	the semantics of syntactic constructs using = assignment must be
+		carefully considerred in oreder to avoid developing nonsensical descriptions
+
+		{true} x = x+1 {x = x + 1}
+
+	notice the mapping of program varibales to logical variables and the erroneous use of = in 
+		the implied statement
+
+	this is the LAW OF THE EXCLUDED MIRACLE
+
+	

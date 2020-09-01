@@ -1,0 +1,45 @@
+Prolog - The LGN
+
+To recognize strings in a grammar
+	use cyk algorithm
+	or tools like flex or bison (sometimes called 'cc' tools)
+
+	Prologs preprocessor (the Logic Grammar Notation/Definite Clause Grammar) which facilitates parser development
+
+	Entering grammar productions directly in prolog is facilitated by using the LGN
+		 
+	Grammar rules in the LGN/DCG format like ordinary clauses but use --> for seperating head and tail, rather than :-
+
+	Prolog will  internall expand grammar rules into 'pure prolog rules and facts"
+
+
+	NOTE*** In prolog, the string 'aabac' would be shown by the LIST [a,a,b,a,c]
+
+	
+The prolog LGN will actually re-format the language into 'pure prolog'
+
+this creates a consumption based parser
+	IE - when you have the start predicate 
+		s(A,B) - can you parse the string A into the string B
+			Supposing B is [], can A be wholly parsed such that all terminals are consumed
+			and the empty list remains (IE the string was able to be fully parsed)
+
+The following prolog code
+
+s(A,B) :-
+	a(A,C),
+	b(C,B).
+	
+	can be read in english as the following
+	A is an S with B leftover IF A is an a, with C leftover and C is a b with B leftover
+
+
+Production	|	In Prolog LGN		|	Translation
+----------------|-------------------------------|-----------------------		
+s->AB		|	s --> a,b.		|	s(A,B) :-
+		|				|		a(A,C),
+		|				|		b(C,B).
+----------------|-------------------------------|-----------------------
+A->terma	|	a-->[terma].		|	a([terma|A], A).
+
+

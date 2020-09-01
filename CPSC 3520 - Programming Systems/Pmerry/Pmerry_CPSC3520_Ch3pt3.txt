@@ -1,0 +1,34 @@
+Prolog - CHPT 3 part 3
+	Advanced topics
+
+Backtracking
+	multiple problem solutions leads to need for alternate paths to be examined
+
+	Prolog marks alternatives for investigation (called backtracking)
+
+The ; operator asks 'is there any solution, go back to last point of backtracking"
+
+The cut operator - !
+	notationally this is a predicate
+
+	the cut means - ALL BACKTRACKING POINTS SO FAR ARE ERASED
+
+	IE cut forces commitment ot hte currently found solution.
+
+	the cut always will succeeds/evals to true
+
+	
+ 
+The not operation - not/1
+	not succeeds if the unification of its only argument fails
+		this is distinct from a raised exception from a nonexisting predicate
+
+
+the call predicate
+	invoke a goal which could be a binding on a variable
+		recall the capital is reserved for variables
+
+	What if variables bindings take on names of predicates?
+		think function pointers
+
+	

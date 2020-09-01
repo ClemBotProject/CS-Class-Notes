@@ -1,0 +1,50 @@
+CPSC 1020 -  - Jan 23, 2019
+
+
+In Class Excersize 
+	- Pointer Specifier in printf format
+	
+1A
+	int* pn = &n;
+		//check ptr
+	*pn++;
+2A
+	%p   // This prints the ADDRESS held by the pointer
+
+3A
+	>0 2
+	>
+4A
+	>3
+	>
+5A
+	sizeof( pChar);		->	8 Bytes
+	sizeof( pInt);		->	8 Bytes
+	sizeof( pDouble);	->	8 Bytes
+
+6A
+	>30 
+	>
+
+Scan This Page, Upload it to canvas (in Class activity for 1/23)
+
+
+
+Linked lists are useful when you dont know the size something in advance
+	If you can statically allocate the array, do that instead
+
+FIFO Queue - first in first out
+	"Circular Buffer"
+	Be Careful with edge effects****
+
+
+
+Linked list design choices
+	Singly linked - Points to the following element
+	doubly linked - points to the following and PREVIOUS elements
+	Circularly linked - Last element points to first element
+	Dummy head node - head pointer never goes null
+	Dummy tail node (if linear, no need if circular)
+	
+	
+	

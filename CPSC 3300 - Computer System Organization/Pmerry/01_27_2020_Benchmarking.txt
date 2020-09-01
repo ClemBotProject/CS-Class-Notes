@@ -1,0 +1,119 @@
+1_27_2020
+
+Performance and benchmarking
+	view the slides for the equations needed for homework
+		Need to know
+			CPI
+			Clock rate
+			Instruction count
+
+		you must know all three in order to know CPU speed
+
+
+	MIPS eq
+		MIPS = IC / ((IC * CPI/ Clock Rate) * 10^6)
+
+	Notes on the MIPS eq
+		mips cannot be used to compare different ISAs
+		mips varies with programs on the same computer
+		mips can vary independently from performance 
+		
+
+CPU time = Instr/ prog * clock cycles/ instr * seconds / clock cycle
+
+	Performance depends on
+		Alg effects
+			IC, possibly CPI
+		Prog Lang affects
+			IC, CPI
+		Compiler affects
+			IC, CPI
+		ISA affects
+			IC, CPI, T_c (T_c = time to complete?)
+
+
+BenchMarking
+	Note you may see
+		IPC = instructions per cycle (reciprocal of CPI), high = faster
+
+		| this hasnt changed much, more transistors but smaller has kept it pretty const
+		v
+	Power = Capacitive load * Volatage^2 * frequency
+	^x30	   		   ^5v -> 1v	^x1000
+	
+	
+	Reducing power load
+		reduce one of the factors in the equation
+			cant change capactive load
+			hard to reduce voltage more
+			cant keep things running cooler
+		
+
+Parallel Systems 
+	CMP (chip multiprocessing) with multiple cores
+		used in high end servers to lower power in mobile systems
+	High end server processors (Xeon and Optetron)
+		Quad core, 6 core, 10 core processors
+	Atom processors in netbooks
+		dual, quad, six core
+	Processors in phones
+		Dual, quad, or six cores
+
+Benchmarking
+	A test to measure performance of a system/subsystem on a well defined set of tasks
+	
+	A method of comparing the performance of different computer architecture
+
+	A method of comparing the performance of different software
+
+
+Types of benchmarks
+	
+	REAL PROGRAMS
+		Have input, output, and options for running prog
+		Uses every aspect of the system, but also the IO 
+			useful for an overall benchmark, worse if you need to isolate a component
+	KErnels: small, key pieces from real programs
+	Toy Benchmarks: 10-100 lines of code
+		produce a result the user already knows - run for purpose of measuring performance 
+	Synthetic benchmarks: to match an avg exec profile
+		IE whetstone and dhrystone
+			whetstone - floating point processor performance 
+			dhrystone - integer operations instead fo floating point	
+		These have a section of code that is represnetative of a particular task - but tailored for testing a specific component 
+
+	Benchmarking Methods
+		Real Programs
+		Modified Apps
+		Kernels
+			Livermore kernels/linpack
+		Toy Benchmarks
+			sieve of Eratosthenes
+		Synthetic Benchmarks 
+			Whetstone, Dhrystone
+
+	Benchmarking Problems
+		optimization options affect the results of the tests
+			this is the case with toy benchmarks, as parts can be "optimized out"
+		Many benchmarks only test a SINGLE aspect of the system
+			Different aspects to test - CPU, GPU, IO, File System, Memory read/write/sustained-r/w
+		A compiler can recognize a benchmark suite and loads a hand-optimized algorithm for the test
+
+	
+	Benchmark Suites
+		Collection of benchmarks measuring the performnce of systems/subsystems
+		
+		weaknesses of any one benchmark lessened by presence of other benchmarks
+		
+		some benchmarks are kernels, but many are real problems
+
+		EX:
+			SPEC/HPL
+
+	Minimize
+		cheating on results
+		Incongrous comparisons
+
+	Note to get the geometric mean for normalized benchamrk times
+		use the geometric mean
+		

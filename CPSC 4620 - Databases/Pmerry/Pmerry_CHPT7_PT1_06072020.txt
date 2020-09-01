@@ -1,0 +1,395 @@
+Chpt 7 notes
+
+Additional features let users specify more complext retrievals from database
+	Nested queries
+			Complete a select from where clause WITHIN the WHERE clause of another query
+			Outer Query and nested subqueries
+		Comparison Operator 'IN'
+			Compares value v with a set/multiset of values V
+			True if v is equivalent/is one of the elements in V
+	
+		Tuples  In nested queries
+			Use tuples of values in comparison
+
+			IE
+
+			WHERE	(Pno, Hours) in (	SELECT 	Pno, Hours
+							FROM 	Works_on
+							WHERE	Essn = '123456789');
+
+		= ANY (or =SOME)*
+			REturns true if the value V is equal to some value in the set V and is hence equivalent to IN
+			Other operators can be combined with ANY/SOME
+			>(=) <(=), and <> (not equal)
+			
+			*The benefit of using these is the accompanyment of a comparison operator
+
+
+			Take an example of any,
+			4 = ANY (1,2,3,4); Returns true, 4 is equal to at least one of the values
+			4 <> ANY (1,2,3,4); Returns true, 4 is not equal to at least one of the vlaues 
+		= ALL:
+			value must exceed all values from nested query		
+			Take similar caution to ANY operator as the example above shows
+
+		Correlated nested Queries
+			If a condition in the WHERE clause of a nested query references an attr of a relation in the outer query, we deem the two queries 'Correlated'
+			The result of a correlated nested query is diff for each tuple of the relations in the outer query
+
+			EXample - Retrieve the name of each employee who has a dependent with the same first name as the employee
+			(SQL for query is slide 7-23)
+
+			This creates a repeated iteration of the query nested 
+			This example, the outer query selects an Employee as E, the inner query looks at E's dependents
+			The next employee is selected, and their dependents examined.
+			
+			As such, we get a result where every employee w/ a dependent named after them is returned (the name of the employee, that is)'
+
+
+		A query written with nested SELECT FROM WHERE blocks AND using the = or IN operators can ALWAYS be expressed as a single block query
+
+		To achieve the 'For all' effect, we use double negation in SQL
+		Query (sql on slide 7-16)
+			List first and last names of employees who work on ALL projects controlled by Dno = 5
+
+	Exists Function
+		Check whether the result of a correlated nested query is empty or not. They are boolean fxns 
+		EXISTS and NOT EXISTS
+			Typ in conjunction with a nested query
+		SQL function UNIQUE(Q)
+			returns truw if there are no duplicate tuples in the result of query Q
+	Types of Joined Tables
+		Natrual join
+		various types of outer join (left, right, full)
+
+		NATURAL JOIN on two relations (S, R)
+			No join condition specified
+			IS eq to an implicit EQUIJOIN condition for each pair of attributes with the same name from R and S
+				MUST have the same name to work		
+
+			IE to use EQUIJOIN/Natural Join
+				You must have 
+					Each table has an attribute with the EXACT same name
+						AND
+					You wish to join on said attribute
+					
+			Forcing a NATURAL JOIN
+				You may rename attributes of one relation so it can be joined with another using NATURAL JOIN
+				EX, Q1B
+					SELECT	Fname, Lname, Address
+					FROM	(Employee NATURAL JOIN 
+							(Department AS DEPT (Dname, Dno, Mssn, Msdate)))
+					WHERE	Dname = 'Research';
+
+					***This example works with EMPLOYEE.Dno = DEPT.Dno as an implicit join condition
+
+			INNER JOIN
+				Default type of join in a joined table
+				Tuple gets included in the result ONLY if a matching tuple exists in the other relation (IE a tuple with the correlating foreign key)
+				Max number of rows produced <= Number of tuples in the most populated table considered 
+			LEFT OUTER JOIN
+				Every tuple in left table MUST appear in the result
+				IF no matching tuple
+					PAdded w null values for attributes off right table
+
+				EX
+					Query
+						SELECT 	E.Lname AS Employee_Name
+							S.Lname AS Supervisor_Name
+						FROM 	EMPLOYEE AS E 
+								LEFT OUTER JOIN 
+							EMPLOYEE AS S 
+								ON
+							E.Super_ssn = S.Ssn
+
+					Result
+						We get the last name of the employee with the last name of their supervisor. If an employee doesnt have a supervisor, that tuple populates the attribute with NULL in the return
+			RIGHT OUTER JOIN
+				Every Tuple in the right table must appear in result
+				If no matching tuple
+					Padded w null values for attributes of left table 
+
+			FULL OUTER JOIN
+				Combines the results of LEFT and RIGHT outer Join
+				one can nest JOIN specs for multiway join
+
+				Ex. On slide 7-30
+		 
+			Visual Table join examples past slide 7-30
+	Joined tables
+		Can have queries use multiple tables
+		This leads to the product of ALL tables being joined (cartesian product)
+		Then need to use the WHERE clause, this eliminates the junk data by testing where condition on all selected data
+		The above steps are EXTREMELY mem intensive 
+
+		SOLUTION
+			join the tables in the from statement, with the intention of preventing the meaningless combinations from being in the table to begin with (IE, cut down on combos before WHERE even checks condition)
+			The tables must join 'on' something
+				this is where foriegn keys come in 
+
+		A joined table permits users to specify a table resulting from a join operation in the FROM clause of a query
+		The From clause in Q1A
+			Containts a single joined table, JOIN may also be called an "Inner join"
+
+			Q1A
+				SELECT	Fname, Lname, Address
+				FROM	(EMPLOYEE JOIN DEPARTMENT ON Dno = DNUMBER)
+				WHERE	Dname = 'Research'
+		
+			Tradeoff - We use some comparisons, but less than the cartesian product	
+
+	Aggregate functions
+		Summarize info from multiple tuples into a single tuple library
+		Built in aggregate functions include
+			COUNT
+			SUM
+			MAX
+			MIN
+			AVG
+		These aggFuncs get used in select clause or in a HAVING clause
+		EX, the following query returns a SINGLE row of computed values from the EMPLOYEE table
+			Q19: 
+				SELECT	SUM (Salary), MAX(Salary), MIN (Salary), AVG (Salary)
+				FROM 	EMPLOYEE
+
+				(where is the where clause? It is omitted as we wish to consider the ENTIRE EMPLOYEE table
+
+			you can also name them as such
+				SUM (Salary) AS Total_Sal
+	
+		Null Values
+			These get discarded when Aggregate fxns are applied to a particular column (including COUNT, AVG, etc)
+
+			You may wish to avoid this encountering of nulls when using Count, for example
+				The syntax for COUNT to count all the rows is as follows
+					COUNT (*)
+
+		
+		AggFuncs on Bools
+			SOME and ALL may be applied as functiosn on Bool values
+			Some returns true if at least one element is true (SOME correlates to OR)
+			ALL returns true if ALL the elements in the collection are true (Similar to AND)
+
+		
+	grouping 
+		create subgroups of tuples before summarizing
+
+		GROUP BY
+			Partitiion relations into subsets of tuples
+				based on grouping attributes
+			apply function to each subgroup independently
+			GROUP BY clause
+				Specifies grouping attributes
+			COUNT (*) would then count the number of tuples in the group
+
+			EX
+				SELECT		Dno, COUNT(*), AVG (Salary)
+				FROM		EMPLOYEE
+				GROUP BY	Dno;
+			If the grouping attribute has NULL as a possible value, then a seperate group would be created for null value
+			GROUP BY may be applied to the result of a JOIN
+				EX	
+					SELECT		Pnumber, Pname, COUNT (*)
+					FROM		PROJECT, WORKS_ON
+					WHERE		Pnumber = Pno
+					GROUP BY	Pnumber, Pname;
+			
+						This would create a group for each unique combination of Pnumber and Pname
+
+			You may specify multiple attributes in the GROUP BY clause
+				This will group the results based on the uniqe combo of those attributes 
+
+		
+			Suppose you wanted to count the number of projs in each location, for each department
+				SELECT 		Dname, Plocation, Count(*)
+				FROM		Project Inner Join Department on Dno = Dnumber
+				Group By	 Dname, Plocation; 
+
+
+
+			If you wish to include a field in the GROUP BY clause it MUST be in the select clause
+				Different from the where clause
+				REsults need to have labels for each group
+
+		IF you are using aggfuncs, everything in the SELECT statement needs to be either in an aggfunc OR in the group by
+			UNLESS the group by is a feild maked as the primary key or UNIQUE (IE then all would need to be in aggfuncs?)
+				Why group by the primary key?
+				Wont that result in one entry per group?
+
+		This can be helpful for joined tables where you will ONLY find aggregate values on one of the tabes
+			SELECT		Ssn, Fname, Lname, Salary, COUNT(Pno)
+			FROM		Employee JOIN Works_on on essn = ssn
+			GROUP BY	SSN;
+		HAVING Clause
+			Provides a condition to select or reject an entire group
+	
+			EX
+				SELECT		Pnumber, Pname, COUNT(*)
+				FROM 		PROJECT, WORKS_ON
+				WHERE		Pnumber = Pno
+				GROUP BY	Pnumber, Pname
+				HAVING		COUNT(*) > 2;
+
+			Distinguish WHERE and HAVING
+				WHERE clause applies tuplewise
+				HAVING clause applies groupwise
+
+
+	COUNT(Attribute) ignores nulls in that attribute
+		When you do an outer join and apply the aggfunc, youll be discarding potentially pertinent info
+	For COUNT(*) to ignore NULLs, all the feilds would have to be NULL
+	This Query will return a count of 1 even if no one works for a proj (slide 7-56)
+
+	EXPANDED BLOCK STRUCTURE OF SQL QUERIES
+		
+		SELECT 		<attr/func list>
+		FROM		<Table list>
+		[WHERE		<condition>]
+		[GROUP BY 	<grouping attribute(s)>]
+		[HAVING		<Group condition>]
+		[ORDER BY	<attribute list>];
+
+
+
+		
+You try it examples
+
+	How many projs located in Stafford?
+	
+		SELECT	COUNT(*) as Num_Projects
+		FROM 	Project
+		WHERE	Location = 'Stafford';
+
+	How many hours did employees weork on each project? Show the hours and proj name. Order by proj name
+	
+		SELECT		Pname, SUM(Hours) as Total_Hours
+		FROM		Works_On JOIN Project on Pno = Pnumber
+		GROUP BY	Pname
+		ORDER BY	Pname;
+
+	For each employee, show their name and # dependents, even if the number is 0
+
+		SELECT		Fname, Lname, COUNT(Dependent_Name) as Num_Dependents
+		FROM 		Employee LEFT OUTER JOIN Dependent on SSN = Essn
+		GROUP BY	Fname, Lname;
+		
+
+
+	
+Order of SQL interpretation
+	- Merge tables with FROM and JOIN
+	- Use WHERE to eliminate rows
+	- GROUP BY (and aggregates)
+	- HAVING - eliminate groups
+	- SELECT - Pick the Attributes
+	- ORDER BY
+
+	Optimizations to the DBMS may change order if it wont effect results
+	Still, helpful for understanding
+
+
+use of CASE
+	SQL also has a CASE construct
+	Used whern a value can be different based on certain conditions
+	Can be used in any part of an SQL query where a VALUE is expected
+	Applicable when queryiong, inserting, or updating tuples
+	Some DBMS require an END CASE (MySQL does)
+
+	The following EX shows that employees are recieving different raises in different departments (Variation of update U6)
+		UPDATE 	EMPLOYEE
+		SET	Salary = 
+			CASE	WHEN Dno = 5 THEN 	Salary + 2000
+				WHEN Dno = 4 THEN 	Salary + 1500
+				WHEN Dno = 1 THEN 	Salary + 3000
+
+Specifying constraints as Assertions, and Actions as Triggers
+	Semantic Constraints - The following are beyond the scope of the EER and relational model
+	CREATE ASSERTION
+		Specify additional types of constaints outside scope of built-in relational model constraints
+		SPecify  a query that selects any tuples that violate the desired condition
+		USE only in cases where it goes beyond a simple CHECK which applies to individual attributes and domains
+		EX
+			CREATE ASSERTIONM SALARY_CONSTRAINT
+				CHECK (NOT EXISTS (	SELECT *
+							FROM	EMPLOYEE E, EMPLOYEE M, DEPARTMENT D
+							WHERE 	E.Salary>M.Salary
+								AND E.Dno = D.Dnumber
+								AND D.Mgr_ssn = M.ssn ) );
+
+
+	CREATE TRIGGER
+		Specify automatic actiosn that database system will perform when certain events and conditions occur
+		used to monitor the DB
+		Typical trigger has 3 compnonents which make it a rule for an active database
+			EVENTS (when to check for a trigger)
+			CONDITION (what to check for to cause the trigger)
+			ACTION (what to do in response to the trigger)
+
+		EX	
+			CREATE TRIGGER SALARY_VIOLATION
+			BEFORE INSERT OR UPDATE OF Salary, Supervisor_ssn ON Employee
+			
+			FOR EACH ROW
+			WHEN (New.Salary > (	SELECT 	Salary 
+						FROM 	EMPLOYEE
+						WHERE 	Ssn = New.Supervisor_Ssn
+			INFORM_SUPERVISOR (NEW.Supervisor.Ssn, New.Ssn)
+
+Views (AKA Virtual Tables) in SQL
+	Concept of a view
+		single tbale derived from other tables called the DEFINING TABLES
+		Considered to be a virtual table that is not necessarily populated
+	A view is a virtual table that is derived from other tables
+	Allows for limited update operations
+	Allows full query operations
+	A convenience for expressing certain operations
+	
+	CREATE VIEW Command
+		Give table name, list of attribute names, and a query to specify the contents of the view
+		In V1, attribtues retain names from base tables. In V2, attributes are assigned names
+			V1 
+				CREATE VIEW 	WORKS_ON1
+				AS 	SELECT		Fname, Lname, Pname, Hours
+					FROM		Employee, Project, Works_on
+					Where 		Ssn=Essn AND Pno=Pnumber;
+			V2 
+				CREATE VIEW 		Dept_info(Dept_Name, No_Of_Emps, Total_sal)
+				AS 	SELECT		Dname, COUNT(*), SUM(Salary)
+					FROM		Department, Employee
+					WHERE		Dnumber = Dno
+					GROUP BY	Dname;
+		Once a view is defined, SQL queries can use the view relation in the FROM clause
+		View is ALWAYS up to date
+			responsibility of the DBMS and not the user
+		DROP VIEW command
+			dispose of a view
+	Views as Authorization mechanism
+		SQL Query authorization statements (GRANT and REVOKE) in chpt 30
+		Views can be used to hide certain attributes or tuples from unauth users
+		E.G for a user who is only allowed to see employee info for those in Dept 5, he may only access the view
+			DEPT5EMP:
+				CREATE VIEW	DEPT5EMP AS
+					SELECT 	*
+					FROM	Employee
+					WHERE	Dno = 5;
+
+Comparisons Involving NULL and 3 Value logic
+	Meaning of NULL
+		Unknown value
+		Unavailable or withheld value
+		Not applicable attribute
+	each individual NULL value considered to be different from every other NULL value
+	SQL uses 3 value logic, True, False, and unknown
+	NULL = NULL comparisons are avoided 
+
+	ternary logic table on slide 7-6
+		Unknown cannot be negated
+
+	SQL allows queries that check whether an attribute value is NULL
+		IS or IS NOT NULL
+
+	IE select names of employees without supervisors
+		
+		SELECT 	Fname, Lname
+		From 	Employee
+		where 	Super_ssn IS NULL

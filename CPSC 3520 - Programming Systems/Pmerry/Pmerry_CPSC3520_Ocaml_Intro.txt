@@ -1,0 +1,64 @@
+OCAML
+
+Ocaml Pragmatics
+ocaml.org
+
+Install Ocaml 4.05/4.07
+	Dont use OPAM
+	Use With a system package supported by your platform... (Use linux)
+	
+	Follow Documentation > Ocaml Manual > the HTML files (local copy)
+		Need for intro
+		contains langauge syntax
+		Ocaml Libraries
+		
+	uses extension .ml
+
+	OCAML doesnt do any 'readline'
+
+
+	how to get realine functionality
+		get the executible 'ledit'
+		run it with ledit ocaml
+			gives some command line interpretation
+	
+	how to exit
+		use hte command #quit;;
+
+Ocaml type inference
+	you dont have to specify types
+	Ocaml is strongly typed
+	
+	+ is integer addition, float addition is +.
+	this allows to maintain a strong type without any declaration
+
+	You can init a list by doing brackets with elements seperated by SEMICOLONS
+		in ocaml, all elements of a list must be of the same type
+		This is because the polymorphic list operations expect all elements to be the same type
+
+	
+	
+to interpret a file from ocaml source
+	syntax is
+
+		#use"<filename.caml>";;
+
+	
+some ocaml semantics
+
+	the option 
+		avector@avector concatenates avector w itself
+
+
+	Multivariable passing
+		gets done with tupling or with currying
+			tupled elements will get put together as (a1,a2)
+				
+	rec identifier shows the function is recursive to the interpreter
+
+	with ocaml it can be helpful to use 'if then else' -> IE PROVIDE TERMINATION CONDITIONS WITH RECURSION
+		note the else is required in ocaml 
+
+	prototypes and signatures are both important
+	
+	

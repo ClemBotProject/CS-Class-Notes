@@ -1,0 +1,154 @@
+Chpt 3 Part 1 - Prolog
+	Make sure you use SWI prolog
+
+	Prolog deve cycle goes like so commonly
+		creation of prolog database as a file or set of files (using an editor)
+		interpreting source files via consult or []
+		executuion of a prog/query with possible tracing
+		source file modifications
+		reinterpretation of source
+		further queries
+
+	Declaritive programming 
+		straightforward but some issues muddy waters
+			
+		complex bc its
+			goal satisfaction/unification mechanism 
+			the spawning of subgoals in the attempted solution
+			the computational reqs of DFS
+			constructs such as lists and the cut consturuct
+			recursion
+
+ 	Prolog is applicable when constraints are applied to a problem
+
+	In prolog, you dont try to focus on execution sequence, but instead specify the problem with a a database of clauses
+		clauses are facts or rules
+		it is left for prolog unification mechanism to find a soln if one exists
+
+	
+	Clauses 
+		Includes Facts and Rules
+		
+		ends with a period. ALWAYS. 
+
+		a clause always has a head and gets the :- seperator, and is terminated by a tail and period. (like a semicolon)
+		
+		the commas in prolog represent and logic 
+
+		the clause must have a goal to utilize a rule
+			when you give a goal for a rule, it looks for the rule with the name you give
+			prolog will execute the rule from left to right 
+
+	Invoking a goal/using a program
+		1 - consult the source 
+			returns true when done successfully, contents added to the DB
+
+		2* - optional - you can use listing(clausename), and the clause is written to STDOUT
+
+		3 - you call your clause (IE ?- go.)
+			(this is running)
+			> ?- go.
+
+	
+Prolog Help notation
+	brings up the prolog manual
+	
+	you cannot overload predicates 
+
+	
+In prolog (in the manual)
+	if a parm has a plus, must be bound before use
+	if a parm has a ?, this is essentially a 'wildcard', the predicate may or may not bind the ? args 
+	if hte parm has a -, that means the argument gets bound in the clause	
+	
+
+
+Some defns
+	Predicate - a name and an optional set of args. The *ARITY* of a predicate is the num of parms. They eval to true/false.
+
+	A clause is a rule(s) or a fact(s). Clauses get built using predicates and logical connectives and is allowed to contain vars which are assumed
+		to be universally quantified.
+		
+		A prolog clause is comprised of a head and an optional body/head
+
+		If the body of a clause is empty, the clause is a fact and is interpreted to be true. 
+
+	Fact - only has a head, no tail.
+		Ie:
+
+			equal(X, X).
+	Rule - Has a head and a tail. The tail may be a conjunction of other predicates.
+
+
+STYLE & SEMANTICS
+	parms passed capital - these are variables
+	parms passed lowercase - these are constants
+
+
+Suppose the following
+
+	has(X, door) :- is_house(X).
+	
+	in english, X has a door if X is a house
+	This gets read right to left (but executes right to left) 
+	
+
+Implication (logical)
+	q <- p
+		q is true if p is true
+		p implies q
+		 
+
+Conjunction and Disjunction
+	use of the , (and) (conjunction)
+
+	use of hte ';' (or) (disjunction) 
+		any time you have an or, write it as a pair of clause
+			instead of goal :- a;b.
+			use 
+				goal :- a.
+				goal :- b.
+
+
+Variables
+	always capital letters
+		
+	THE NAME OF A PREDICATE MAY NOT BE A VARIABLE 
+
+	The anonymous variable ( just underscore - _ )
+
+	The anon var matches anything, It is not necessary to give a name as it is already _ 
+	
+	Prolog can rename variables - but this doesnt change anything
+
+
+Goals
+	A prolog program is incolmplete without specification of a goals
+	
+	A goal is entered in the interpreter prompt (?-)
+	
+	Following a prompt is a goal in the form of a clause. This is terminated with a period
+
+	Prolog tries to unift the goal and the database
+
+
+Unification = solution = search
+
+	Unification is a search procedure 
+		Clauses are tested in order they appear in the databaser
+		when the subgoal matches the left side (head) of a rule, or the right side (tail) becomes a new set of subgoals to unify
+
+	The unifier proceeds from left to right in attempting to unify the predicates to the tail. When a subgoal is spawned, the unification/search process described in 1 repeats. 
+
+	A goal is satisfied when a matching fact is found in the DB for all the leaves of the goal tree
+
+	when 2+ clauses in the db with the same predicate name are matches, the first clause in the db is tested first. If this fails, backtracking is investigated. 
+
+	
+Logging a prolog session
+	you can call 
+		protocol(+File) - logs everything from the prolog session ot a file 
+
+	
+
+

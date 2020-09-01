@@ -1,0 +1,76 @@
+XML and JSON/Chapter 13
+
+Consider
+	when making a website you make an HTML doc
+		it describes the structure of the web page
+		specifies how things go on the screen
+		uses several tags such as <head> or <body>
+
+	This system of using tags is called a MArkup Language
+		Markup lang = specified code for formatting and presentation
+	What about data sent to and from a web page
+		can you use a markup lang for that? 
+
+XML
+	extensible markup language
+		markup lang to describe structure of data as opposed to a document
+
+	Provides a description of data using tags
+		self describing document
+	can be used for storage and retrieval
+		mainly for transferring data from oen sys to another
+	any collection of related data is a database
+
+
+Structured data = strict format
+	relational DB - every record has same format
+	DBMA forces structure
+semi structured data - no definite schema 
+	entities of same type may have different attribtues
+	new attrs can be introduced any time
+	strcutrue similar to a graph/tree
+unstructured data- no indication of the type of data
+	
+
+Hierarchical model
+	the basic obj in XML is the XML documenr
+	constructed w elements and attributes
+	Elements
+		Identified with a start and end tag
+			<project>...</project>
+		complex elements are composed of other elements that appeat between tags
+		simple elements have data vals between tags, complex have other elements
+
+	Attributes
+		Not the same concepts as a normal DB or ER Attribute
+		used to help describe elements
+		appear in the tag itself
+		similar to attributes in HTML 
+		useful for metadata 
+
+	Doc is well formed if
+		it starts with an XML declaration
+		it follows the tree data model
+			one root element
+			every element has a pair of start/end tags
+			every elemetn appears within the start and end tags of the root element
+	Doc is valid if 
+		well formed
+		AND follows a particular schema
+
+
+
+PArsing
+	often we will define our own XML doc structure to use with out applications
+	use XML docs to transmit data
+	can parse in an applicaiton
+	
+XML DTD
+	document type definition
+	specifies elements and nested structure of document
+	!DOCTYPE - specifies name of root element
+		<!DOCTYPE Projects [...]>
+	!ELEMENT - specifies an element that may exist
+		(t1, t2, ...)
+
+i just copy slides so no notes for these 
