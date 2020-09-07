@@ -30,3 +30,23 @@ Contribution steps
 
 5 - make a pull request against the original repo so that your notes can be brought in and shared
 	with your classmates. 
+
+
+---------------------------------------------------------------------------------------------------
+WHAT NOT TO ADD
+
+1 - Code related to your school projects
+
+2 - Test Questions before the test is graded and returned by your professor
+
+3 - Any resources your professors post, provided they did not provide permission to post it 
+
+4 - Any test or quiz keys. This includes spreadsheets or tools that can complete homework autonomously
+	(E.G. You cannot post a program or spreadsheet to solve your physics homework, 
+		shows the work for converting to a different base, etc.)
+
+5 - Starter Code. Because different professors may differ in their offering of starter code
+	for a similar or identical project, it cannot be posted here.
+
+6 - As a general rule, if you must question the ethics/honesty implications of uploading something,
+	it is safer to opt not to upload.
