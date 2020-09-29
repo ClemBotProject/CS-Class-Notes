@@ -1,0 +1,82 @@
+CPSC 4440 - Cloud infrastructure
+
+
+Amazon S3 review
+	Data is stored in buckets
+	Single obj limited to 5TB 
+	Virtually unlimited storage
+	Designed for 11 9s of durability
+		99.99999999% durability essentially
+
+	Granulare access to buckets and objects
+
+
+Amazon s3 storage classes
+	Amazon s3 has a range of storage classes
+		Standard
+		intelligent tiering (move to most cost effective tier without impacting performance)
+		standard-infrequent access
+		one zone infrequent access
+		Glacier
+		Glacier deep archive
+
+	Data is redundantly stored in the region
+
+	Common for
+		Storage application assets
+		static web hosting
+		backup and disaster recovery
+		Stagine area for big data
+
+	Dont charge for transfers intos3
+	tranfers out from amazon S3 to amazon cloudfront or amazon EC2 in the same region
+
+
+
+Amazon EBS
+	persistent block storage
+	
+	LIKE A DISK DRIVE
+
+	Block Storage (EBS) vs Object storage
+		block storage you can update just a piece of the file
+		object storage you must update the whole file for any modification
+
+	
+	Can create and attach volumes to EC2 instances
+
+	can be used for a DBMS	
+
+	Snapshots
+		point in time snapshots
+		rrecreate a new vol at any time
+
+	Encryption EBS volumes
+		no additional cost
+
+	Elasticity
+		increase capacity
+		change to diff types
+		can be done dynamically (without stopping the EC2 instance)
+
+	Volumes 
+		EBS volumes persist independently from the instance
+		ALL VOLS are charged by amt data per month
+
+	IOPS
+		gen purpose SSD
+			charged by amopunt provisioned per month until storage released
+		Magnetic
+			charged by number of requests to the volume
+		Provisioned IOPS SSD
+			Charged by the amount provisioned in IOPS
+
+	Snapshots
+		added cost of amazon EBS snapshots is per GB month of data stored
+
+	Data transfer
+		inbound is free
+		outbound data across regions incurs charges
+
+
+

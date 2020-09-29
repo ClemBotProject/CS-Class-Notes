@@ -1,0 +1,76 @@
+AWS well architected framework
+
+pillars of cloud creation
+	perform operations as code
+	annotate documentation
+	make small, reversible, frequent changes
+	refine operations procedures frequently
+	anticipate failure
+	learn fron operational events and failures
+
+
+Security pillar
+	protecc info, sys, assets while delivering business value through risk assessment
+
+	implement security foundation
+	tracability
+	apply security at ALL layers
+	automate security best practices
+	protect data in transit and at rest
+	keep people from data
+	prepare for security events
+
+
+Reliability piller
+	focus
+		prevent and recov er from failuyre to meet tdemand
+	
+	topics
+		setting up
+		cross project requirements
+		recovery handling
+		handling change
+	
+Performance efficiency
+	focus
+		use IT and compute resources efficientrly to meet reqs and maintain efficiency as demand changes
+		and tech evolves
+	Key topics
+		selecting resource types and sizes based on workload reqs
+		monitoring performance
+		making informed decisions to maintain efficiency as a business evolves
+
+	democratize advanced technologies -
+	go global in minutes
+	use serverless architectures
+	experiment more often
+	have mechanicaly sympathy
+
+
+Cost optimization
+	Focus
+		run systems to deliver perf at lowest cost possible
+	Key topics
+		understanding and controlling when money is being spent
+		selecting the most appropriate and right number of resource types
+		analyzing spending over time
+		sccaling to meet business needs without overspending
+
+
+Reliability & availability
+	reliability - the probability that a system will perform its intended function without failure
+		MTBF = mean time between failures = total time in service/#failures
+		MTTF = mean time to failures
+		MTTR = mean time to repair
+
+
+	availability - measure of percentage of time resources are operating normally
+		normal operation time/total time
+
+High availibility
+	sys can withstand some degradation while still being available
+	downtime minimized
+	minimal human intervention needed
+
+
+

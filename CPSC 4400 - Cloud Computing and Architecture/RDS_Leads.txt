@@ -1,0 +1,3 @@
+telnet to look at port 3306
+	
+Bastion endpoint
