@@ -1,0 +1,87 @@
+Amazon VPC - Virtual Private Cloud
+
+Virtual Private Cloud
+	VPC Is a foundational service
+	provision a logically isolated section of the AWS cloud where you can launch AWS resources in a virtual network that you define
+	Givese control of virtual networking resources
+		select IP range
+		creation of subnets
+		configure route table and network gateways
+	Enables customizing network config for VPC
+	Enables one to use multiple layers of security
+
+	VPCs can span availability zones
+
+	VPCs 
+		logically isolated from other VPCs
+		dedicated to AWS acct
+		Belong to a single AWS region and can span availability zones
+
+	Sub nets
+		Range of IP that divide a VPC
+		belong to  a single availability zone
+		classified as public or private
+
+	
+	Proper subnetting allows fine grain access protections
+	
+	DEFENSE IN DEPTH STRATEGY FOR SECURITY
+
+
+CIDR notation
+	the /24 means
+		first 3 octets (24 bits) are "locked" or not available for addresses
+
+		so you have 8 bits to make an address basically
+
+	Alternatively, /16
+		first 16 bits locked
+		increases addr space from 256 to 65536
+
+	https://cidr.xyz
+
+Route tables control traffic for subnet
+route tables have built in local route
+You add additional routes to the table
+the local route cannot be deleted
+
+
+Internet Gateway
+	Public subnet
+		allows public traffic ingress
+	Private subnet
+		no direct connection with public internet
+
+	Principle - minimize publicly available info
+
+	THERE IS ONE INTERNET GATEWAY PER VPC
+
+
+	route table
+		any traffic to the internet should go through the internet gateway UNLESS
+		useing 10.0, then dont go to internet - go to our route table to find the device
+
+VPC endpoints
+	interfcae endpoints 
+	________ (didnt get it in time)
+
+
+A VPC IS JUST AN ADDRESS SPACE
+
+
+Security Groups
+	read up on this
+	
+	Sec Group Vs network ACLs
+			sec group	- Network ACLs
+		scope - instance level 	- subnet level
+		Rules -	...
+
+
+Build security into VPC architecture
+	isolate subnets if possible
+	choose the appropriat5e gateway device or VPN connection for your needs
+	Use firewalls
+
+Security groups and network ACLs are firewall options that you can use to secure your VPC
+

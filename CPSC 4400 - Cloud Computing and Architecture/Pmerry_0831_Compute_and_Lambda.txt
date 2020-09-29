@@ -1,0 +1,112 @@
+CPSC 4400 - Cloud computing - 8/31
+
+
+is the 750ti 1, 2, or 4 GB
+	how many transcode seams too (13 is the 2GB or 4GB)
+
+1050 ti has 4gb Vram
+
+Amazon EC2
+	
+
+Docker
+	a software platform that enables build, test, and deploy apps quickly
+	you run a docker container
+		containers created from a template called an image
+
+	A container has everything a software application needs to run
+
+Containers vs VMs
+	VM has 
+		infrastructure
+			hypervisor
+				VM 1
+					App A
+						EC2 instance OS
+					App B
+						EC2 instance OS 
+			
+				VM 2
+				...
+				VM N
+
+	Look back at notes for the container
+
+
+Amazon elastic container service (ECS)
+	Scalable, fast, container management service
+	
+	benefits
+		orchestrates exewc of docker containers
+		maintains and scales the fleet of nodes that run containers
+		removes complexity of standing up the infrastructure
+
+	integrated w/ features familiar to amazon EC3 service users
+		load balancing (elastic)
+		Amazon EC2 security groups
+		Amazon EBS volumes
+		IAM roles
+
+
+Kubernetes
+	Open source software for container orchestrartion
+		deploy and manage containerized applications at scale
+	Complements Docker
+		docker enables you to run multiple containers on a single OS host
+		kubernetes orchestrates mutliple docker hosts (nodes)
+
+	Automates
+		container provisioning
+		networking
+		load distribution
+		scaling
+
+	Amazon EKS is amazon elastic kubernetes service
+		enables you to run kubernetes on AWS
+	
+	Use EKS to
+		manage clusters of amazon EC2 compute instances
+		run containers that are orchestrated by kubernetes on those instances
+
+	Manages a cluster of compute instances called nodes
+		manages resources on the nodes
+
+	Works with "layer abstraction"
+		Ie it doesnt matter if the whole EC2 instances is a docker container or one EC2 has multiple docker instances
+
+Amazon Elastic Container Registry
+	
+
+
+Containers can hold everything an app needs to run
+docker is a containerization technology
+Amazon ECS orchestrates execution of docker containers
+Kubernetes orchestrates the containers 
+Amazon EKS enables kubernetes on AWS
+Amazon ECR enabbles you to store, manage, and deploy your docker containers
+
+
+
+AWS lambda: run code without servers
+	AWS is a serverless compute service
+	Upload code
+		the code ytou run is a Lambda fxn
+		ruyn your code on sched or on events
+			your code only runs when triggered
+				pay only for compute time you use
+
+
+
+	Function code
+	Dependencies (code libraries etc)
+	execution role
+
+Takeaways
+	Serverless computing does so without provisioning servers 
+	AWS lambda is serverless compute servce with fault tolerance and auto scaling
+	An event source is an AWS service or dev created application that triggers a lambda fxn
+	the max mem alloc of a lambda fxn is 3008 MB
+	the max exec time is 15 mins
+
+
+			

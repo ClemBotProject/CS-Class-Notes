@@ -1,0 +1,60 @@
+Automatic Scaling and Monitoring ACF
+	
+Elastic load balancing
+	Dist incoming app or network traffic across multiple targets in a 1 or more AZs
+	
+	Scale load balancer as traffic to application changes over time
+
+Load balancers
+	App load balancer
+		load balancing of HTTP(S) traffic
+		routes traffic to targets on content of req
+		
+	Network load balancer 
+		Load balance TCP/UDP/TLS traffic when need extremem performance
+	Classic Load Balancer (prev gen)
+		Load ballance, HTTP(S), TCP, and SSL traffic
+		across EC2 instances
+
+
+Elasticv load balancing
+	With app load balancers and network load balancers, you register targets in target groups, and route traffic to target groups
+	classic load balances you register inscances with load balancer
+
+
+Cloudwatch
+	allows sstats on configured settings
+	allows alarms if a metric exceeds allowable range - Good for Denial of Service/DDoS attacks?
+
+Access logs
+	Cloudwatch captures detailed info about reqs to load balancer
+
+Cloudtrail logs
+	capture the who what when where of API interactions in AWS services
+
+ELB focuses on HTTP and HTTPS load balancing
+
+
+Cloudwatch
+	monitors
+		AWS resources
+		Apps on AWS
+	Collects and tracks
+		standard metrics
+		custom metrics
+	Alarms
+		Send noticfications to an amazon SNS topic
+		perform EC2 auto scaling or EC2 actions
+	Events
+		Define rules to match changes in AWS env and route events to one or more target functions 
+			or streams for processing
+Fast scale up
+Slow scale down
+
+Scaling enables response to network needs
+Amazon EC2 auto scaling maintains application availability by automaticallyadding/removing ec2 instances
+...
+
+bastion host is a hardened service - it exposes little
+	
+App load balance - distributes app traffic across resources

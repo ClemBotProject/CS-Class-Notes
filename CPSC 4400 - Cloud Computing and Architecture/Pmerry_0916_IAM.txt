@@ -1,0 +1,105 @@
+
+
+AWS Shared responmsibility model
+	Users are responsible for
+		customer data
+		platform apps, identity, access management
+		OS, Network, firewall
+		Client d
+
+	
+Services managed by customer
+	Amazon EC2
+		EBS
+		VPC
+
+Services managed by amazon
+	Amazon Lambda
+	Amazon RDS
+	AWS elastic beanstalk
+
+Infrastructure as a service vs Platform as a service
+	Iaas
+		cust has flexibility over config and storage
+	
+Amazon Software as a service examples
+	AWS trusted advisor, AWS shield, Amazon Chime
+
+
+AWS and cust share responsibiltiy
+	AWS is responsible for sec OF cloud *****
+	cust responsible for sec IN cloud *****
+
+AWS is responsible for infrastructure protection
+
+
+
+Amazon identity and access management
+	Use IAM to manage access to AWS resources
+		a resource is an entity in an aws acct you can work with
+		EX, an ec2 instance or s3 buckey
+
+	Define fine grained access rights
+		who can access what
+		which resources can be accessed and what the user can do to teh resource
+		How resources can be accesed
+
+	IAM is a no cost AWS acct feature
+
+
+IAM: essential components
+	person - person or app tat can authenricate with AWS acct
+	users/group - a collection of IAM users with identical authorizaiton
+	policy - The document defining which resources can be accesseed and the level of access to each resource
+	roles - useful mechanism to grant permissions for aws service requests
+
+
+Authenticate as IAM user to gain access
+
+When you define an IAM user, you select the type of access the user is permitted to use
+	programmatic access
+		authenticate using
+			Access key id
+			secret access key
+		provides AWS CLI and AWS SDK access
+	
+	AWS Management Console
+		Authenticate using
+			12 digit Account ID or alias
+			IAM username
+			IAM password
+	if enabled, multi-factor authentication prompts an authentication code
+
+
+Authorization: What is permitted
+	All permissions denied by default
+	explicit denial of privelege disallows that over any allow statements
+	Best practice: follow principle of least privelege
+
+IAM Policies
+	statments as JSON docs
+	Two types of policies
+		group or user
+
+	MADE UP OF
+		effect,
+		action
+		resource
+
+
+	There are 3 states you can have
+		Explicit Allow
+		Explicit Deny
+		Implicit Deny
+
+IAM GROUPS
+	collection of IAM users
+	A group is used to grant the same permissions to multiple users
+		permissions grated by attaching IAM policy or policies to the group
+
+	A user can be in multiple groups
+	no default group
+	GROUPS CANNOT BE NESTED
+
+
+	

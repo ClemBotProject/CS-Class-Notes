@@ -1,0 +1,68 @@
+Amazon Relational Database Service
+	
+
+Unmanaged vs Managed services
+	Unmanaged: Scaling, fault tolerance, and availability are managed by YOU
+	managed: The above are built into the service
+
+Relational databases need
+	server maintenance and energy footprint
+	software installation and patches
+	backups and availability
+	limiting scalability/enabling sclability
+	security
+	OS install and patches
+
+	On premises vs RDS
+		view pic
+
+
+In Managed, you manage
+	Application optimization
+
+	AWS manages
+		everything listed above
+
+Amazon RDS Can run in a virtual private cloud
+	it would be in the private subnet layer of the VPC
+
+
+Amaon RDS read replicas
+	use dupe db to parallelize reads
+
+	also offers async replication
+	can be promoted to master if needed
+
+	Functionality
+		use for read heavy db workloads
+		offload read queries
+ 
+Use cases
+	Web and mobile apps
+		high throughput
+		massive storage
+		high availability
+	Ecommerce	
+		low cost DB
+		data security
+		fully managed
+
+	Mobile/online games
+		rapidly grow capacity
+		auto scaling
+		DB monitoring
+
+When to use RDS
+	 complex transactions and queries
+	 med/high query or write rate. 30k iops (15k read and write)
+	no more than aa single worker node or shard
+	durable
+
+
+Dont use RDS when you need
+	MASSIVE read write rates
+	Sharding due to ...
+	(find the rest of this slide)
+
+
+	

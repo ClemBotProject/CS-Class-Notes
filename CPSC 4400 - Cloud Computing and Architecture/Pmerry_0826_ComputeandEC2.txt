@@ -1,0 +1,98 @@
+AWS educate account - provides credits & persistent
+AWS Free tier - free for maybe 1 year
+
+
+
+Module 6/ compute category AWS
+
+section 1
+
+section 2
+	EC2 - Elastic Compute Cloud
+		Provides Virtual Machines in the cloud
+		Get full control of guest OS (win/linux) on each instance
+
+	can launch instances of any size into any availability zone anywhere in the world
+		Launchg instances from Amazon Machine Images
+		Launch instances with a few clicks and ready in mins
+	controll traffic to and from instances
+
+	Step one - select AMI - Amazon machine image
+	Step 2 - select an instance type (type of machine to run on)
+		This includes networking features
+			To maximizze networking and bandwidth performance of your instance type
+				if you have interdependent instances, launch them into a cluster placement group
+
+	step 3 - Specify network settings 
+		where to deploy
+		identify the VPC and optionally the subnet
+		Should a public IP be automatically assigned
+			make it internet accessible
+
+	Step 4 - Attach Identity/access management roles (optional)
+
+	Step 5 -User data Script
+		Optionally provide a user data script at instance launch
+
+		Use User data scripts to customize the instance
+
+		Can be used strategically, 
+			IE reduce number of custom AMIs to build and maintain
+
+	Step 6 - Specify storage
+		Config root volume
+			this is where guest OS is installed
+
+		Attach storage volumes (optional)
+
+		for each volume, specify
+				size of disk
+				volume type
+				if vol is deleteed when instance tedrminates
+				if encryption should be used		
+
+	Step 7 - add tages
+		instance metadata
+		basically for resource inventory, owners, etc 
+
+	Step 8 - security groups
+		virtual firewall for instance
+			exists OUTSIDE the instance's guest OS
+				this allows grouping EC2 instances in one firewall
+
+		create rules that specify source and the acceptable ports/protocols to use
+
+	step 9 - identify/create the key pair
+		Key pair 
+			a public key that AWS stores
+			a private key file that you will store
+
+	
+EC2 instances can be made programmatically
+	
+
+Elastic IP Address
+	Rebooting an instance will not change any IP addr or DNS Hostname
+
+	When an instance is stopped and restartedd
+		Public IPv4 and external DNS hostname will change 
+
+	if you require a persistent IP addr,
+		associate the IP with an elastic...
+
+Amazon Cloudwatch
+	watch EC2 instances in real time
+
+	Can raise alarms of EC2 instances
+
+	
+
+
+	
+EC2 storage options
+	Elastic block storage 
+		durable block level storage
+		data is persistent
+
+	Instance store/ephemeral storage
+		if the instance stops, data is deleted

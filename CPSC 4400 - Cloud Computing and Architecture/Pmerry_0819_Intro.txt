@@ -1,0 +1,54 @@
+Intro To Cloud Computing 
+
+Cloud computing is the on demand delivery of computing power,database, storage, apps, or other IT devices via the internet with pay as you go pricing
+	Changes infrastructure scope from hardware to software
+
+	in Cloud computing, resources can be reallocated as needed
+
+	Sofware solutions are
+		flexible
+		change more easily and cost effectively
+		eliminate the undifferentiated heavy lifting tasks
+
+	Cloud deployment models
+		Cloud native - everything in the cloud
+		Hybrid - Partially in the cloud, with some physical applications
+		Onn-premises/traditional datacenter - a datacenter virtualized to better utilize the datacenter
+
+	Slide 12 - graphic showing the mapping from traditional IT concepts to AWS concepts
+
+	Three Cloud Service models
+		Infrastructure as a service (more control for IT)
+		Platform (?) as a service
+		Software as a Service (less control for IT)
+
+	Almost all IT can be used with an AWS cloud computing service
+
+Section 2
+	Trade captital expense for variable expense
+	benefit from massive economies of scale
+	stop guessing capacity
+	increase speed and agility
+	stop spending money running and maintaining data centers
+	go global in minutes
+
+
+Section 3
+	Web services
+		software that makes itself available over a network
+		uses a standard format for request and response of the API
+
+	AWS
+		AWS is a secure cloud platfrom with many global cloud based products
+		AWS provides on demand access to compute, storage, network, database, and other IT resources and management tools
+		You only pay for services you use
+		AWS services work together like building blocks
+
+	AWS is a secure cloud platform with interplay between many services
+	Choose service based on business goals and tech requirements
+	
+	There are 3 ways to interact with AWS
+		Command Line
+		from the website
+		from an SDK
+		...

@@ -1,0 +1,34 @@
+Filesystem
+	Provides index of where files are
+
+each partition will have its own index? (check this)
+
+windows uses FAT32
+
+
+when ls -l'ing, soft linked files will have a preceding l on their line
+	files ahve a -
+	directories have a d
+	character device drivers have c
+	block devices have a b
+	
+
+device files have permissions
+	the first pos indicates the file/directory/link/device/etc
+	the other 9 pos are permissions for 
+		owner
+		group
+		world
+
+	you can add/remove permissions with
+		chmod
+		which can be used in numeric or pnuemonic
+	
+		ie
+			chmod a+w text.txt
+		this gives writy permissions to ALL users
+			chmod g-w text.txt
+		this means group will lose write permissions
+
+
+	you cannot give other users rights to change permissions on files

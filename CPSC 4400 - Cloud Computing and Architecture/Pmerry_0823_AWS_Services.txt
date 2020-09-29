@@ -1,0 +1,151 @@
+CPSC 4400 - Intro To Cloud Computing
+
+Cloud Billing
+	Cost Drivers
+		Compute
+			Charged per instance hour or second - Linux Only
+			varies by instance type
+		Storage
+			charged per GB
+		Data Transfer
+			Outbound is aggregated and charged
+			inbound has no charge (with rare exceptions)
+			charged per GB
+
+	Paying
+		Pay only for what you use
+		pay less when you reserve
+			save up to 75%
+				
+		pay less when you use more and as AWS grows
+			AWS focuses on lowering cost of doing business
+			practice results in AWS passing along savings of economies of scale
+
+	Custom Pricing
+		meet varying needs with custom price
+		for high-vol projects
+
+
+	Services w no charge
+		Amazon VPC
+		Elastic Beanstalk
+		Auto Scaling
+		AWS cloudformation
+		AWS Identity and Security/access Management
+
+
+	Key takeaways
+		no long term contracts
+
+
+Cost Of Ownership
+	costs of running a system of running AWS Cloud
+
+	Owning own hardware has high up front cost
+	cost of setup
+	no opportunity to scale down
+
+
+	Cloud infrastructure ready immediately
+	only pay for what you use
+	has the staff needed 
+	Self service infrastructure
+
+Total Cost Of Ownership (TCO)
+	compare the costs of running an entire datacenter to using AWS
+
+
+	
+
+
+
+
+
+
+
+
+
+
+Global Infrastructure Overview
+	
+	AWS Region
+		a geographic area
+		
+	Data replication across regions is controlled by you
+	comms between regions uses AWS backbone network infrastrucuture
+
+	A region consists of 2+ availability zones/datacenters
+
+Selecting a region
+	Data Governance, legal requirements	
+	proximity to customers
+	services available within region
+	costs
+
+Availability zones
+	A fully isolated partition of AWS infrastructure
+	There are 69 worldwide
+	Designed for fault isolation
+	they are interconnected with other zones for high speed private networking
+	You choose your availability zones
+	
+	AWS recommends replicating data and resource  redundency
+
+AWS Data centers
+	AWS data centers are designed for security
+	Data centers are where data resides and data processing occurs
+	Each data center has redundant  power, networking ,and connectivity and IS housed in a separate facility
+	A data center has between 50K-80K physical servers
+
+
+Points of presence
+	AWS provides global network of 187 points of presence location
+	176 edge locations and 11 regional edge caches
+
+	Use with amazon CloudFront
+	Regional edge caches used for content with infrequent access
+
+
+	AWS infrastructure features
+		Elasticity and scalability
+			dynamic adaptation of capacity
+			scalable infrastructure, adapt to accomodate growth
+
+		Fault Tolerance
+			Continues operating properly in presence of failure
+			built in redundancy of components
+
+		High availability
+			High level of operational performance
+			minimize downtime
+
+
+AWS foundation services
+	compute (virtual, automatic scaling, load balancing)
+	networking
+	storage (object, block, archive) - provides virtualized mountable drives much like a virtual machine
+
+		Amazon S3 glacier - very cheap archival storage
+
+
+AWS Compute Services
+	EC2 = server 
+
+	scaling entails adding or removing EC2 instances
+	AWS defaults decently
+
+AWS Database Services
+	Amazon Relational Database Service
+	Amazon Aurora - MySQL/PostGress compatible but faster
+	Amazon Redshift - data warehousing offering. Massive storage
+	Amazon DynamoDB - a nosql database. Single Digit millisecond performance
+
+
+AWS Security, identity, and compliance services
+	IAM - identity and access management 
+
+
+
+
+
+	
