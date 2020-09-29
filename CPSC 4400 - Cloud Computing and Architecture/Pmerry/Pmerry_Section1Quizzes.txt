@@ -1,0 +1,204 @@
+Quiz 1 - Cloud concepts overview
+
+
+What is the pricing model that enables AWS customers topay for resources on an 
+as-needed basis? (Select the best answer) 
+	ANS: Pay as you go
+
+
+Which of these is not a benefit of cloud computing over on-premises computing?
+ (Select the best answer) 
+	Ans: Pay for racking, stacking, and powering servers
+
+Which of the following is a compute service? (Select the best answer) 
+	Ans: Amazon EC2
+
+Which of these are ways to access AWS Core Services? (Choose THREE)
+	Ans: AWS Command Line Interface (AWS CLI)
+		AWS Management Consol
+		Software Development Kits (SDKs)
+
+Which of these are cloud deployment models? (Choose THREE) 
+	Ans: On-Premises or Private Cloud
+		Hybrid
+		Public Cloud
+
+
+
+
+
+QUIZ 2 - AWS global Infrastructure
+
+
+Which of the following are geographic areas that host two or more Availability
+Zones (AZ)? (Select the best answer) 
+	Ans: AWS Regions
+	
+________________ means the infrastructure has built-in component redundancy.
+	Ans: Fault Tolerance
+
+An AWS data center in an AWS Region can be shared across multiple Availability
+Zones in that region.
+	Ans: False
+
+Which component of the AWS Global Infrastructure does Amazon CloudFront use to
+ensure low-latency delivery? (Select the best answer) 
+	Ans: AWS Edge Locations
+
+______________ means that resources dynamically adjust to increases or 
+decreases in capacity requirements. 
+	Ans: Elastic and Scalable
+
+
+
+
+
+QUIZ 3 - Compute
+
+The acronym EC2 stands for _________________. 
+	Ans: Elastic Compute Cloud
+
+Why is AWS more economical than traditional data centers for applications with
+varying compute workloads? (Select the best answer)
+	ANS: Amazon EC2 instances can be launched on demand when needed
+
+Which Amazon EC2 option is best for long-term workloads with well-understood, 
+predictable usage patterns? (Select the best answer) 
+	Ans: Reserved Instances
+
+Which of the following must be specified when launching a new Amazon EC2 
+instance? (Choose two answers) 
+	Ans: Amazon Machine Image (AMI)
+		Amazon EC2 instances type
+
+Your cloud application must use at least one Amazon EC2 instance. 
+	Ans: False
+
+
+QUIZ 4 - Storage: S3
+
+The acronym S3 stands for _________________. 
+	Ans: Simple Storage Service
+
+Amazon S3 provides object storage suitable for storing items like documents, 
+photos, etc. 
+	Ans: True
+
+Amazon S3 replicates stored objects ____________. (Select the best answer) 
+	Ans: In multiple availability zones within the same region.
+
+Which of the following can be used as a storage class in a S3 object 
+lifecycle policy? (Choose three) 
+	Ans: S3 - Standard Access
+		S3 - Infrequent Access
+		S3 - Glacier
+
+The name of a S3 bucket must be unique __________. (Select the best answer) 
+	Ans: worldwide across all AWS accounts
+
+
+
+
+QUIZ 5 - VPC
+
+The acronym VPC stands for _____________. (Select the best answer) 
+	Ans: Virtual Private Cloud
+
+You need to allow resources in a private subnet to access the Internet. Which 
+of the following must be present to enable this access? (Select the best 
+answer) 
+	ANS: NAT Gateway
+
+
+The largest address space you can configure in an Amazon VPC is represented 
+by which one of these CIDR blocks? 
+	Ans: x.x.x.x/16
+
+
+
+Public subnets have direct access to the Internet by way of an Internet Gateway
+	Ans: True
+
+Which of the following are true statements about Amazon VPCs?(Select 2 Answers) 
+	Ans: Amazon VPC enables you to build a virtual network in the AWS cloud
+		A VPC can span availability zones
+	*This question may have different choices that the above answers
+
+
+
+QUIZ 6 - Databases
+
+Amazon Relational Database Service (RDS) is a managed service.
+	Ans: True
+
+If your solution calls for a NoSQL database, which of these services would you 
+use? (Select the best answer) 
+	Ans: Amazon DynamoDB
+
+To improve the performance of read-heavy applications, which of the following 
+Amazon RDS features should you use? (Select the best answer)
+	Ans: Read Replicas
+
+Amazon RDS automatically patches the database software and backs up your 
+database, storing the backups for a user-defined retention period to enable 
+point-in-time recovery. 
+	Ans: True
+
+What should you consider when choosing a database type? (Select the best answer) 
+	Ans: All of these
+	Includes: High availability, Data access period, Query Frequency,
+			and Data Volume
+
+
+
+QUIZ 7 - Security: IAM
+
+In the shared responsibility model, AWS is responsible for providing what? 
+(Select the best answer) 
+	Ans: Security OF the cloud
+
+
+When creating an AWS Identity and Access Management (IAM) policy, what are the 
+two types of access that can be granted to a user? (Choose TWO) 
+	ANS: AWS management Consol Access
+		Programmatic (API) access
+
+How would a system administrator add an additional layer of login security to 
+the AWS Management Console? (Select the best answer) 
+	Ans: Enable Multi-factor Authenitication (MFA)
+
+What is the "principle of least privilege"? (Select the best answer) 
+	Ans: Granting only enough access to a person or service to do their job
+
+When you create a user in your AWS account, they have some access privileges, 
+by default. 
+	Ans: False
+
+
+
+
+QUIZ 8 - Well-Architected Framework
+
+Which of the following are pillars of the AWS Well-Architected Framework? 
+(Choose THREE) 
+	Ans: Operational Excellence
+		Securtiy
+		Reliability
+
+Which of the following is a well-architected principle when designing a cloud-
+based solution? 
+	Ans: Assume Everything Will fail
+
+Which of these are design principles found in the Security pillar of the Well-
+Architected Framework? (Choose THREE) 
+	Ans: Implement a strong identity foundation
+		Apply Security at all layers
+		Protect data at-rest and in-transit
+
+____________ is the percentage of time that a system is operating normally and 
+performing the operations expected of it. 
+	Ans: Availability
+
+Scalability is the ability of an application to accommodate increases in 
+capacity needs without having to change its design. 
+	Ans: True
