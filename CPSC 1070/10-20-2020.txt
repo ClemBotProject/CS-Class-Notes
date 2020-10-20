@@ -1,0 +1,2 @@
+Today we learned about C++.
+Today I learned C++ is the best language.
