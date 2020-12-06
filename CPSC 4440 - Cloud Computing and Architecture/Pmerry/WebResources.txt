@@ -1,0 +1,104 @@
+Designing Web-Scale Media
+
+	
+Storing web content with Amazon s3
+	Performance
+		more page views
+		better cust service
+
+In order to deliver content
+	think about what can be cached
+	use secure connection (https)
+	Attempt to keep dynamic elements at "zero TTL (time to live)
+
+AWS cloudfront can help with caching
+
+Web storage pattern
+	static assets - store in S3
+	Problem
+		delivering large files means low latency
+		user gen content needs to be distributed across servers
+
+	Make servers temp resources - store content on S3 to make server "disposable"
+
+	
+	Solution
+		Static assets go in S3
+		Objects in s3 can be accessed by users if public
+		S3 has built in backup (high durability)
+
+
+	Best practices
+		choose region based on proximity to users
+		Collocating with compute and other resources affects performance
+
+Caching with cloud front
+	Content delivery network (CDN)
+		content can be cached globally
+		close prox = low latency
+		better user experience
+		less stress on core infrastructure
+
+	Key features
+		TCP/IP opt for net path
+		Keep alive conns keep round trip fast
+		SSL/TLS termination close to viewers
+		Post/Put upload opt
+		Latency based routing
+		Regional Edge caches
+
+
+
+Best practice Caching
+	Caching at multiple layers of arch can reduce cost, latency. increases performance of apps as well
+	
+	
+How to enable cloudfront
+	Have an s3 buchet
+	upload files
+	create cloudfront web distro (tell where origin servers to get files are) - create cloudfront distribution
+	domain name is assigned, use domain name in web pages etc
+	send distributions to edge locations
+
+Cloudfront speeds up websites
+	... (didnt catch it)
+
+Expiration period
+	Set by dev
+		dont change often = long exp period
+
+	How long is it at the edge location
+		set an expir period by setting cache control headers
+
+
+
+Choose right DB sols
+	Choose an array of relational DB engines, NoSQL, data warehousing options, and search-optimized data stores
+
+	Offload session related data when possible 
+		Shopping cart, etc
+		
+	Consider Sql Vs NOSQL
+
+	NOsql
+		can be alt to relational dbs for some types of apps
+		can process large amts of data with high availability
+
+		Options
+			cassandra, HBase, redis, mongoDB, couchbase, Rial
+
+		Managed NoSQL
+			dynamoDB
+			Neptune
+			Elasticache with redis
+			(and more)
+
+	DynamoDB
+		super fast and scalable
+
+		predictable throughput (provisioneD)
+		fully managed - no admin needxed
+
+	
+		
+		
