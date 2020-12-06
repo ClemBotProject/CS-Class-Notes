@@ -1,0 +1,35 @@
+Scaling Data Stores
+
+RDS Scaling you can
+	scale up or down
+	scale storage with mangement from API or in AWS console
+		Easy conversion to provisioned IOPS
+	
+	Offload Read Traffic to replicas
+
+	
+Increased performance
+	Place a cache in front of Amazon RDS such as
+		Elasticache for Memchached or Redis
+		A personal cache soln, (prob in an EC2 instance)
+
+Scaling RDS writes with sharding
+	without shards, all data sits in one partition
+		ex, users by last name, az, in one DB
+
+Multiple read replicas
+	use for better read perf
+
+Scaling vertically
+	from micro to 16x large and in between
+
+Horizontal scaling w rr
+	read heavy workloads
+	scale vertically with no downtime
+
+AWS lambda
+	Event Driven Scaling 
+		
+	
+LAmbda scaling can help with scaling events
+	

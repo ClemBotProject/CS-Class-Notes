@@ -1,0 +1,73 @@
+Designing Your Evnironment
+
+how many azs should you use
+	2+
+	avoid single points of failure
+	use elastic load balancer to balance traffic
+
+vpc
+	logically isolated from other networks
+	must be accessible on standard network protocols
+
+
+	limited use cases for a single vpc
+		high perf computer envs
+		microsoft active directory for identity management
+		small single apps managed by small team
+
+Majority of aws doesnt sit in vpc
+	network traffic between aws regions traverse aws global network backbone by defualt
+	sometimes traffic between regions uses public internet
+	amazon s3 and dynamodb offer vpc enfpoints to connect without traversing public internet.
+
+Dividing vpc into subnets
+	public subnets
+		subnet traffic routed to igw
+	private subnet
+		no route to an internet gateway
+
+Use subnets to define accessibility
+	Private subnets
+		do not have routing table entry to igw and arent accessible from pub internet
+		use a jump box (NAT/Proxy/Bastion host)in a pub subnet to get to it
+
+ONE PUBLIc/Private subnet PER ZONE
+
+ALLOCATE MORE IP ADDRS FOR PRIVATE SUBNETS
+	you want to minimize addresses exposed to publix - IE ATTACK SURFACE
+
+Consider larger subnets over smaller ones (/24 and larger)
+	simplifies workload placement
+		choosing to place workload in 10 small subnets is more complicated than one large one
+		less likely to waste or run out of IP addrs
+			if subnet runs out, you cant add more
+	
+
+Controlling VPC Traffic
+	Route tables, sec groups, network ACLs, igws
+
+	route tables
+		determine where traffic goes
+		main (defualt) and custom route tables
+		All route tables include local entry - cannot be deleted
+	
+	Security Groups	
+		Stateful apps that act as firewall controlling in/outbout traffic for 1+ instances
+
+		By default - deny all inbound traffic
+	
+		uses cidr block or sg to create layers of security to define access to assets
+		can span availability zones
+
+		any instance can be in multiple security groups
+
+		By defualt SGs allow outbound traffic but deny inbound
+		Most orgs create SGs with inbound rules for each teir in the applicaiton
+
+	Network ACls
+		Virtual firewall at subnet level
+		allow all incoming outgoing traffic and use stateless rules to allow/deny traffic
+		stateless rules inspect all inbound and outbound traffic, dont track connections
+		an allow rule must be created explicitly
+
+	

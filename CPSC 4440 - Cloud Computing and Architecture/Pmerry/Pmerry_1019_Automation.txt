@@ -1,0 +1,52 @@
+Automating Infrastructure
+	
+
+What are the challenges and concerns for a manual process
+	reliability
+	reproducibility
+		dev
+		test
+		prod
+	Documentation
+
+Best practice - Automate the environment
+	
+
+Treat servers and components as temporary resources
+	automate deployment of new resources with identical confiugs
+	terminate resources not in use
+	switch to new IP automatically
+	test uploads on new resources, and replace old resources with updated ones
+
+Operate infrastrucutre like code
+	make it repeatablke
+
+
+AWS CloudFormation
+	Allows you to launch and config/connect aws resources with JSON or YAML
+
+
+	json2yaml.com
+
+How should you group resources in an automation template
+	Structure is important, assign resources to templates based on ownership and application lifecycles
+
+	At a min, separate network, security, and app resources into their own templates
+	
+
+template
+	starts with description
+	goes to optional metadata (includes settings/ configs or info that cloudform needs to retrieve)
+		can be specified at template or resource level
+	parameters
+	mappings
+		place resources in a certain area
+	conditions
+		control if resources are assigned properties or a value during stack creation or update
+	Resources
+		view template.png
+		you may have a DependsOn attribute - this controls order resources come online
+	outputs
+	
+CloudFormation allows for custom resources to plug in your own logic for stack creation
+	

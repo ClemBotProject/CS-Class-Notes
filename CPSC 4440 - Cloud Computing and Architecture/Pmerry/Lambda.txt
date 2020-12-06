@@ -1,0 +1,28 @@
+Amazon API gateway
+	Allows API creation for "front door"
+	access business logic, data, functionality
+	Handles workloads on 	
+		EC2, lambda, any web apps
+
+
+
+AWS lambda: decoupling infrastructure
+	AWS lambda is a solution for processing data w high AV and limited cost
+	AWS lambda allows you to further decouple infrastructure by replacing servers with microprocesses
+
+	
+AWS lambda starts within milliseconds of event
+	Events
+		Image upload
+		in app activity
+		A web click
+		Output from connected device
+
+
+	Aws lmbda offer 46+ levels of resource alloc
+
+	More resources = lower latency for CPU loads
+	
+	Free teir - 1M free reqs and 400K GB-secs/month of compute time
+
+

@@ -1,0 +1,86 @@
+Designing for High Availability
+	High Availabiltiy
+		ensuring app downtime is minimized as much as possible without need for human intervention
+
+		this includes isolated and combined operation of a system
+
+Avoid Single Points OF Failure
+	Implement redundancy where possible in order to prevent single failures  from bringing down the system
+	Assume everything fails and design backwards
+	
+	(ie with the RDS example in class)
+		create and host a secondary and standby database server
+		
+
+HA is driven by business requirements
+	Recovery time Objective - RTO
+		how quick must system recover
+	Recovery Point Objective - RPO
+		How much data can you afford to lose
+
+	Design backwards
+		build infrastructure with this in mind
+
+
+Fault Tolerance
+	Built In Redundancy of an apps components
+	
+Recoverability
+	The process, policies, procedures related to restoring service after a catastrophic event
+
+Scalability
+	The ability of an app to accomodate growth without changing design
+
+
+
+On premises HA vs HA on AWS
+	AWS expands availability and recoverability options by enabling
+		mutliple servers
+		isolated redundant data centers in each AZ
+		Multiple AZs in a region
+		Regions across globe
+		Fault tolerant services
+
+	On premises
+		expensive
+		suitable for mission critical operations
+
+
+
+HA with right architecture
+	EC2, VPC, redshift, elasticache, aws direct connect
+	be smart using these applications
+
+ELASTIC LOAD BALANCING IS CRITICAL TO HIGH AVAILABILIY
+
+
+Elastic IP Addresses
+	sets a pool of static IPS for dynamic cloud computing
+	can be on EC2 instances
+	Enable mask the failure of instances or software by allowing users and clients to use teh same IP with replacement resources
+
+
+Load Balancing Across Regions - Amazon Route 53
+	Refers to the fact taht dns responds to queries on port 53
+	Highly available authoritative DNS service,
+
+
+
+Amazon Route 53
+	100% service level agreement
+	Fast - worldwide anycast network
+		Fast propagation of changes
+	ELB Alias Queries
+		Latency based routing
+
+	Supports failover - turn traffic to backup site if primarty is unreachable
+
+	
+	Geolocation routing- specify locations by continenty by country, or by state
+
+
+HA - section 2
+
+	Scalability
+		handle changes in demand
+	
